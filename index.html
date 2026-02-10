@@ -1,272 +1,146 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عيد حب سعيد يا حبيبتي ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <title>إلى حبيبتي - تصميم جزيئات القلب</title>
     <style>
-        :root {
-            --primary-pink: #ff4d6d;
-            --secondary-pink: #ff7eb3;
-            --text-dark: #333;
-            --text-light: #fefefe;
-            --bg-gradient-start: #ff758c;
-            --bg-gradient-end: #ffaad4;
-        }
-
         body {
             margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            background-color: #000;
+            overflow: hidden;
             font-family: 'Cairo', sans-serif;
-            overflow: hidden; /* لإخفاء أشرطة التمرير الزائدة */
-            color: var(--text-dark);
-            position: relative;
         }
-
-        .container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 90%;
-            max-width: 500px;
-            z-index: 10;
-            position: relative;
-            transform: scale(0.9); /* تصغير الكارد قليلاً */
-            animation: fadeInScale 1s forwards; /* انيميشن عند التحميل */
+        canvas {
+            display: block;
         }
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.7); }
-            to { opacity: 1; transform: scale(0.9); }
-        }
-
-        h1 {
-            color: var(--primary-pink);
-            font-family: 'Amiri', serif;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            animation: bounceInDown 1.5s; /* انيميشن للعنوان */
-        }
-
-        p {
-            font-size: 1.1em;
-            line-height: 1.7;
-            margin-bottom: 25px;
-            animation: fadeIn 2s; /* انيميشن للنص */
-        }
-
-        .timer-display {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            animation: fadeInUp 1.5s; /* انيميشن للعداد */
-        }
-
-        .timer-unit {
-            background: var(--primary-pink);
-            color: var(--text-light);
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-size: 1.3em;
-            font-weight: bold;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        .timer-unit span {
-            font-size: 0.7em;
-            font-weight: normal;
-            opacity: 0.8;
-            margin-top: 5px;
-        }
-
-        .music-btn, .message-btn {
-            background: var(--secondary-pink);
-            color: var(--text-light);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .music-btn:hover, .message-btn:hover {
-            background: var(--primary-pink);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* القلوب المتساقطة */
-        .falling-element {
+        .content {
             position: absolute;
-            top: -5%;
-            font-size: 1.8em;
+            top: 20%;
+            width: 100%;
+            text-align: center;
+            color: #fff;
             pointer-events: none;
-            user-select: none;
-            animation: fall linear forwards;
-            opacity: 0; /* يبدأ مخفياً */
+            z-index: 10;
         }
-        @keyframes fall {
-            0% { transform: translateY(0) rotateZ(0deg); opacity: 0; }
-            10% { opacity: 1; } /* يظهر بعد 10% من الحركة */
-            100% { transform: translateY(110vh) rotateZ(720deg); opacity: 0; }
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 20px #00bfff, 0 0 30px #00bfff;
+            margin: 0;
+            letter-spacing: 2px;
         }
-
-        /* رسالة المفاجأة (مخفية في البداية) */
-        .surprise-message {
-            background: var(--primary-pink);
-            color: var(--text-light);
-            padding: 25px;
-            border-radius: 20px;
-            margin-top: 25px;
-            font-family: 'Amiri', serif;
-            font-size: 1.2em;
-            line-height: 1.8;
-            text-align: justify;
-            display: none; /* مخفية افتراضياً */
-            animation: zoomIn 0.8s; /* انيميشن عند الظهور */
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        .footer-text {
+            position: absolute;
+            bottom: 10%;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
         }
-        .surprise-message img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        /* تحسينات Animate.css */
-        .animate__animated {
-            --animate-duration: 1s;
-        }
-
-        /* تعديلات على Animate.css لتخصيص الحركة */
-        .animate__bounceInDown { animation-duration: 1.2s; }
-        .animate__fadeIn { animation-duration: 1.5s; }
-        .animate__fadeInUp { animation-duration: 1.2s; }
     </style>
 </head>
 <body>
 
-    <div class="container animate__animated animate__fadeIn">
-        <h1 class="animate__animated animate__bounceInDown">أنتِ كل عيد بالنسبة لي ❤️</h1>
-        <p class="animate__animated animate__fadeIn">إلى أجمل ما رأت عيني وقلبي، شريكة روحي وحياتي، كل يوم معك هو عيد حب. لقد مر على أجمل قصة حب...</p>
-        
-        <div class="timer-display">
-            <div class="timer-unit animate__animated animate__fadeInUp">
-                <span id="days">0</span>
-                <span>يوم</span>
-            </div>
-            <div class="timer-unit animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
-                <span id="hours">0</span>
-                <span>ساعة</span>
-            </div>
-            <div class="timer-unit animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
-                <span id="minutes">0</span>
-                <span>دقيقة</span>
-            </div>
-            <div class="timer-unit animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
-                <span id="seconds">0</span>
-                <span>ثانية</span>
-            </div>
-        </div>
-
-        <button class="music-btn" id="musicButton">تشغيل موسيقى الحب 🎶</button>
-        <button class="message-btn" id="showMessageButton">رسالة مفاجأة لكِ ✨</button>
-
-        <div class="surprise-message" id="surpriseMessage">
-            حبيبتي الغالية،<br>
-            كل كلمة حب في العالم لا تكفي لوصف مدى سعادتي بوجودك في حياتي. أنتِ النور الذي يضيء دربي، والابتسامة التي تزين يومي. أتمنى أن نبقى معاً إلى الأبد، وكل عام وأنتِ الحب كله. أحبكِ أكثر مما تتخيلين.<br><br>
-            <img src="https://i.imgur.com/your-personal-photo.jpg" alt="صورة لك ولحبيبتك" style="width:100%; height:auto;">
-            <p style="text-align: left; font-size: 0.9em; margin-top: 15px;">من حبيبك الذي يعشقك.</p>
-        </div>
+    <div class="content">
+        <h1>أحبكِ للأبد ❤️</h1>
     </div>
 
-    <audio id="backgroundMusic" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-        متصفحك لا يدعم تشغيل الصوت.
-    </audio>
+    <canvas id="heartCanvas"></canvas>
+
+    <div class="footer-text" id="timer">جاري حساب وقت حبنا...</div>
 
     <script>
-        // ----------------- العداد الزمني -----------------
-        // قم بتعديل هذا التاريخ ليناسب تاريخ بداية حبكما
-        const startDate = new Date('2024-02-14T00:00:00'); // مثال: 14 فبراير 2024
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
 
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 1200; // عدد الجزيئات المكونة للقلب
+
+        function getHeartPoint(t) {
+            // معادلة رسم القلب الرياضية
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+            return { x: x * 15, y: y * 15 };
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.t = Math.random() * Math.PI * 2;
+                const target = getHeartPoint(this.t);
+                this.targetX = target.x + canvas.width / 2;
+                this.targetY = target.y + canvas.height / 2;
+                
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                
+                this.speed = Math.random() * 0.05 + 0.02;
+                this.size = Math.random() * 2 + 1;
+                this.color = `hsla(${Math.random() * 30 + 190}, 100%, 70%, ${Math.random() * 0.8 + 0.2})`;
+            }
+
+            update() {
+                this.x += (this.targetX - this.x) * this.speed;
+                this.y += (this.targetY - this.y) * this.speed;
+
+                // إضافة حركة اهتزاز بسيطة لجعل القلب يبدو حياً (نبض)
+                const pulse = Math.sin(Date.now() * 0.005) * 5;
+                this.targetX += Math.sin(this.t + Date.now() * 0.002) * 0.2;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // تأثير ذيل الحركة (Trails)
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        // العداد الزمني (تعديل التاريخ هنا)
+        const startDate = new Date('2025-10-06T00:00:00');
         function updateTimer() {
             const now = new Date();
             const diff = now - startDate;
-
-            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('hours').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            document.getElementById('minutes').innerText = Math.floor((diff / (1000 * 60)) % 60);
-            document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60);
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('timer').innerText = `حبنا مستمر منذ ${days} يوماً...`;
         }
         setInterval(updateTimer, 1000);
-        updateTimer();
 
-        // ----------------- تأثيرات المتساقطة (قلوب وورود) -----------------
-        const fallingElements = ['❤️', '💖', '🌹', '🌸', '✨']; // عناصر متساقطة
-
-        function createFallingElement() {
-            const element = document.createElement('div');
-            element.classList.add('falling-element');
-            element.innerHTML = fallingElements[Math.floor(Math.random() * fallingElements.length)];
-            element.style.left = Math.random() * 100 + "vw";
-            element.style.animationDuration = Math.random() * 5 + 5 + "s"; // مدة السقوط بين 5 و 10 ثواني
-            element.style.animationDelay = Math.random() * 2 + "s"; // تأخير بسيط
-            element.style.fontSize = Math.random() * 1.5 + 1 + "em"; // أحجام مختلفة
-            document.body.appendChild(element);
-
-            setTimeout(() => {
-                element.remove();
-            }, parseFloat(element.style.animationDuration) * 1000); // إزالة العنصر بعد انتهاء الانيميشن
-        }
-        setInterval(createFallingElement, 400); // إنشاء عنصر جديد كل 400 مللي ثانية
-
-        // ----------------- تشغيل الموسيقى -----------------
-        const musicButton = document.getElementById('musicButton');
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        let isPlaying = false;
-
-        musicButton.addEventListener('click', () => {
-            if (isPlaying) {
-                backgroundMusic.pause();
-                musicButton.innerText = 'تشغيل موسيقى الحب 🎶';
-            } else {
-                backgroundMusic.play();
-                musicButton.innerText = 'إيقاف الموسيقى ⏸️';
-            }
-            isPlaying = !isPlaying;
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles.length = 0;
+            init();
         });
-
-        // ----------------- رسالة المفاجأة -----------------
-        const showMessageButton = document.getElementById('showMessageButton');
-        const surpriseMessage = document.getElementById('surpriseMessage');
-
-        showMessageButton.addEventListener('click', () => {
-            if (surpriseMessage.style.display === 'none' || surpriseMessage.style.display === '') {
-                surpriseMessage.style.display = 'block';
-                showMessageButton.innerText = 'إخفاء الرسالة 👆';
-            } else {
-                surpriseMessage.style.display = 'none';
-                showMessageButton.innerText = 'رسالة مفاجأة لكِ ✨';
-            }
-        });
-
-        // تشغيل الموسيقى تلقائياً إذا سمح المتصفح (غالباً لا يعمل بدون تفاعل أول)
-        window.addEventListener('load', () => {
-            // backgroundMusic.play().catch(e => console.log("المتصفح منع التشغيل التلقائي للموسيقى."));
-        });
-
     </script>
 </body>
 </html>
