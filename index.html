@@ -7,102 +7,117 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;800&family=Amiri:ital@1&display=swap" rel="stylesheet">
     <style>
         :root {
-            --deep-rose: #880e4f;
-            --soft-pink: #fce4ec;
-            --accent-pink: #ff4081;
-            --glass: rgba(255, 255, 255, 0.15);
+            /* درجات الوردي الاحترافية */
+            --main-pink: #ffafcc;
+            --dark-pink: #fb6f92;
+            --soft-pink: #ffe5ec;
+            --deep-rose: #c9184a;
+            --glass: rgba(255, 255, 255, 0.25);
         }
 
         body, html {
             margin: 0; padding: 0;
             font-family: 'Cairo', sans-serif;
-            background: #000;
-            color: #fff;
+            background-color: var(--soft-pink);
+            background: linear-gradient(135deg, #ffc2d1 0%, #ffe5ec 100%);
+            color: var(--deep-rose);
             overflow-x: hidden;
             scroll-behavior: smooth;
+            min-height: 100vh;
         }
 
-        /* خلفية الفيديو أو الصورة المتحركة */
-        .bg-fixed {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(136,14,79,0.3)), 
-                        url('https://images.unsplash.com/photo-1518133835878-5a93cc3f89e5?q=80&w=1000') center/cover;
-            z-index: -2;
-        }
-
-        /* تأثير تساقط الورود */
+        /* حاوية الورود المتساقطة - جعلناها في المقدمة */
         #rose-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            pointer-events: none; /* لكي تستطيع الضغط على الأزرار تحتها */
+            z-index: 9999; /* أعلى من كل شيء */
         }
 
         .petal {
             position: absolute;
-            background-color: #ffb7c5;
+            background-color: var(--dark-pink);
             border-radius: 150% 0 150% 0;
-            opacity: 0.7;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 5px rgba(251, 111, 146, 0.3));
             animation: fall linear infinite;
         }
 
         @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); }
-            100% { transform: translateY(110vh) rotate(720deg); }
+            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); }
+            100% { transform: translateY(110vh) rotate(720deg) translateX(50px); }
         }
 
-        /* شاشة القفل الزجاجية */
+        /* شاشة القفل */
         #lock-screen {
-            height: 100vh;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(15px);
-            transition: 1s all ease-in-out;
-            z-index: 100;
+            background: var(--main-pink);
+            z-index: 1000;
+            transition: 1s ease;
         }
 
         .glass-card {
-            background: var(--glass);
+            background: rgba(255, 255, 255, 0.4);
             padding: 40px;
             border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 2px solid #fff;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(251, 111, 146, 0.2);
+            backdrop-filter: blur(10px);
+            max-width: 320px;
+            width: 80%;
         }
 
         .input-style {
-            background: rgba(255,255,255,0.1);
-            border: 2px solid var(--soft-pink);
+            background: #fff;
+            border: 2px solid var(--dark-pink);
             border-radius: 15px;
             padding: 12px;
-            color: #fff;
+            color: var(--deep-rose);
             text-align: center;
             font-size: 20px;
             margin-top: 20px;
+            width: 80%;
             outline: none;
         }
+
+        .btn {
+            margin-top: 20px;
+            padding: 12px 40px;
+            border-radius: 50px;
+            border: none;
+            background: var(--dark-pink);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(251, 111, 146, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn:hover { transform: scale(1.05); background: var(--deep-rose); }
 
         /* المحتوى الرئيسي */
         #main-content {
             display: none;
-            padding: 20px;
+            padding: 40px 20px;
             max-width: 500px;
             margin: auto;
+            position: relative;
+            z-index: 1;
         }
 
         .section {
-            margin-bottom: 40px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: 1s all;
+            margin-bottom: 30px;
+            animation: fadeInUp 1.2s ease forwards;
         }
 
-        .section.show {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .counter-grid {
@@ -113,70 +128,65 @@
         }
 
         .time-unit {
-            background: var(--glass);
-            padding: 20px 10px;
-            border-radius: 20px;
-            border-bottom: 4px solid var(--accent-pink);
+            background: #fff;
+            padding: 15px 5px;
+            border-radius: 15px;
+            border: 1px solid var(--main-pink);
         }
 
         .time-unit span {
             display: block;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
-            color: var(--accent-pink);
-        }
-
-        .romantic-text {
-            font-family: 'Amiri', serif;
-            font-style: italic;
-            font-size: 1.4rem;
-            line-height: 1.8;
-            color: var(--soft-pink);
+            color: var(--dark-pink);
         }
 
         .photo-gallery {
             width: 100%;
-            height: 300px;
+            height: 350px;
             border-radius: 25px;
             overflow: hidden;
-            border: 3px solid #fff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 5px solid #fff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
         }
 
-        .photo-gallery img {
-            width: 100%; height: 100%; object-fit: cover;
-        }
+        .photo-gallery img { width: 100%; height: 100%; object-fit: cover; }
 
+        .romantic-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            color: var(--deep-rose);
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
 
-    <div class="bg-fixed"></div>
     <div id="rose-container"></div>
 
     <div id="lock-screen">
         <div class="glass-card">
-            <h2 style="font-family: 'Amiri', serif;">أهلاً يا أميرتي..</h2>
-            <p>أدخلي التاريخ المفضل لقلبكِ (السنة)</p>
-            <input type="number" id="passInput" class="input-style" placeholder="2024">
-            <br>
-            <button onclick="unlock()" style="margin-top: 20px; padding: 10px 40px; border-radius: 50px; border: none; background: var(--accent-pink); color: white; cursor: pointer; font-weight: bold;">دخول ❤️</button>
+            <h2 style="color: var(--deep-rose);">أهلاً يا جميلتي ❤️</h2>
+            <p>أدخلي الرقم السري</p>
+            <input type="password" id="passInput" class="input-style" placeholder="****">
+            <button onclick="unlock()" class="btn">فتح المفاجأة ✨</button>
         </div>
     </div>
 
     <div id="main-content">
-        <div class="section" id="s1">
-            <div class="glass-card">
-                <h1 style="font-size: 2rem;">كل عام وأنتِ الحب ❤️</h1>
+        <div class="section">
+            <div class="glass-card" style="max-width: 100%; width: auto;">
                 <div class="photo-gallery">
-                    <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=1000" alt="Rose">
+                    <img src="https://images.unsplash.com/photo-1518133835878-5a93cc3f89e5?q=80&w=1000" alt="Love">
                 </div>
+                <h1 style="font-size: 1.8rem; color: var(--deep-rose);">أحبكِ اليوم، غداً، وإلى الأبد</h1>
             </div>
         </div>
 
-        <div class="section" id="s2">
-            <div class="glass-card">
-                <h3>عداد حبنا المستمر:</h3>
+        <div class="section">
+            <div class="glass-card" style="max-width: 100%; width: auto;">
+                <h3 style="margin: 0;">الوقت الذي عشناه معاً:</h3>
                 <div class="counter-grid">
                     <div class="time-unit"><span id="days">0</span> يوم</div>
                     <div class="time-unit"><span id="hours">0</span> ساعة</div>
@@ -185,18 +195,18 @@
             </div>
         </div>
 
-        <div class="section" id="s3">
-            <div class="glass-card">
+        <div class="section">
+            <div class="glass-card" style="max-width: 100%; width: auto;">
                 <p class="romantic-text">
-                    "أنتِ لستِ فقط حبيبتي، أنتِ عالمي الصغير الذي أهرب إليه من ضجيج الحياة.. شكراً لأنكِ هنا."
+                    "أنتِ الوردة التي لا تذبل في قلبي، وكل نبضة تنطق باسمكِ."
                 </p>
-                <div style="font-size: 40px;">💍</div>
+                <div style="font-size: 40px; animation: pulse 1.5s infinite;">💖</div>
             </div>
         </div>
     </div>
 
     <script>
-        // 1. نظام تساقط الورود (واقعي)
+        // 1. تساقط الورود في الواجهة الأمامية
         function createPetal() {
             const container = document.getElementById('rose-container');
             const petal = document.createElement('div');
@@ -207,38 +217,33 @@
             petal.style.height = size;
             petal.style.left = Math.random() * 100 + 'vw';
             petal.style.animationDuration = Math.random() * 3 + 4 + 's';
-            petal.style.backgroundColor = ['#ffb7c5', '#ff4d6d', '#ff8fa3'][Math.floor(Math.random()*3)];
+            // تنويع ألوان الورود بين درجات الوردي
+            const colors = ['#ffafcc', '#fb6f92', '#ffc2d1', '#ff8fa3'];
+            petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
             
             container.appendChild(petal);
             setTimeout(() => { petal.remove(); }, 7000);
         }
-        setInterval(createPetal, 300);
+        setInterval(createPetal, 200);
 
-        // 2. التحقق من كلمة المرور
+        // 2. الفتح بكلمة السر
         function unlock() {
             const pass = document.getElementById('passInput').value;
-            if(pass === "2024") { // يمكنك تغيير السنة هنا
-                document.getElementById('lock-screen').style.opacity = '0';
+            if(pass === "1234") { // غير الرقم السري هنا
+                const lock = document.getElementById('lock-screen');
+                lock.style.opacity = '0';
+                lock.style.transform = 'scale(1.2)';
                 setTimeout(() => {
-                    document.getElementById('lock-screen').style.display = 'none';
+                    lock.style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
-                    revealSections();
                 }, 1000);
             } else {
-                alert("جربي سنة بداية حبنا يا روحي.. 😉");
+                alert("الرقم السري خاطئ يا حبيبتي.. حاول مرة أخرى ❤️");
             }
         }
 
-        // 3. ظهور الأقسام عند التمرير (تأثير انسيابي)
-        function revealSections() {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach((s, index) => {
-                setTimeout(() => { s.classList.add('show'); }, index * 500);
-            });
-        }
-
-        // 4. العداد الزمني (من تاريخ 1 يناير 2024 كمثال)
-        const startDate = new Date("2024-01-01T00:00:00").getTime();
+        // 3. العداد الزمني (من تاريخ محدد)
+        const startDate = new Date("2024-01-01T00:00:00").getTime(); // غير التاريخ هنا
         setInterval(() => {
             const now = new Date().getTime();
             const diff = now - startDate;
