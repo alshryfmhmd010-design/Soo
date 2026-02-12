@@ -158,14 +158,19 @@
 
         // معرض الصور
         function startSlider() {
-            const imgs = document.querySelectorAll('me1.png');
-            let current = 0;
-            setInterval(() => {
-                imgs[current].classList.remove('active');
-                current = (current + 1) % imgs.length;
-                imgs[current].classList.add('active');
-            }, 3000);
-        }
+    const imgs = document.querySelectorAll('#photo-slider img');
+    let current = 0;
+    
+    // تأكد أن هناك أكثر من صورة لكي يبدأ التحريك
+    if (imgs.length > 1) {
+        setInterval(() => {
+            imgs[current].classList.remove('active'); // إخفاء الصورة الحالية
+            current = (current + 1) % imgs.length;    // الانتقال للصورة التالية
+            imgs[current].classList.add('active');    // إظهار الصورة الجديدة
+        }, 3000); // 3000 تعني تغيير الصورة كل 3 ثوانٍ
+    }
+}
+
 
         // فتح الرسالة
         function openLetter() {
