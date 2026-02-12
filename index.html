@@ -3,180 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى أغلى ما أملك ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:ital@1&display=swap" rel="stylesheet">
+    <title>مفاجأة عيد الحب 2026</title>
     <style>
         :root {
-            --soft-pink: #ffe5ec;
-            --main-pink: #fb6f92;
-            --text-color: #c9184a;
-            --glass: rgba(255, 255, 255, 0.9);
+            --primary-red: #d32f2f;
+            --soft-pink: #fce4ec;
+            --deep-rose: #8c0022;
+            --text-gray: #555;
         }
 
-        body, html {
-            margin: 0; padding: 0;
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(180deg, #ffc2d1 0%, var(--soft-pink) 100%);
-            color: var(--text-color);
-            overflow-x: hidden;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fce4ec;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
         }
 
-        /* تساقط الورود */
-        #rose-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
-        .petal { position: absolute; top: -50px; font-size: 25px; animation: fallDown linear forwards; }
-        @keyframes fallDown {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(720deg); opacity: 0.2; }
-        }
-
-        /* شاشة القفل */
-        #lock-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--main-pink); display: flex; justify-content: center;
-            align-items: center; z-index: 10000; transition: 1s;
-        }
-        .lock-card { background: white; padding: 40px; border-radius: 35px; text-align: center; width: 85%; max-width: 320px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-
-        /* المحتوى الرئيسي */
-        .container { display: none; padding: 15px; max-width: 500px; margin: auto; position: relative; }
-
-        /* الصورة الكبيرة في الأعلى */
-        .header-img {
+        #app-container {
             width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 25px;
-            margin-bottom: 20px;
-            border: 4px solid white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 400px;
+            height: 90vh;
+            background-color: #fffafb;
+            position: relative;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
         }
 
-        .card {
-            background: var(--glass); border-radius: 25px; padding: 20px;
-            margin-bottom: 25px; border: 2px solid white; text-align: center;
-            box-shadow: 0 8px 20px rgba(201, 24, 74, 0.05);
-        }
-
-        /* ألبوم الصور */
-        .photo-album { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
-        .album-item {
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            height: 100%;
+            display: none; /* مخفي افتراضياً */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* التصاميم الخاصة بكل صفحة */
+        
+        /* الصفحة 1: المظروف */
+        .envelope {
+            width: 200px;
+            height: 150px;
+            background: #ffcdd2;
+            position: relative;
+            cursor: pointer;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .envelope::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-top: 80px solid #ef9a9a;
+        }
+        .heart-btn {
+            font-size: 40px;
+            color: var(--primary-red);
+            cursor: pointer;
+            margin-top: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* الصفحة 2: السؤال الكبير */
+        .title { color: var(--deep-rose); font-size: 28px; margin-bottom: 20px; }
+        .description { color: var(--text-gray); font-size: 16px; line-height: 1.6; }
+
+        /* الصفحة 3: الأسباب */
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .reason-box {
+            background: #fff0f3;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ffccd5;
+            font-size: 14px;
+        }
+
+        /* الأزرار */
+        .btn-container { width: 100%; margin-top: 30px; }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 30px;
+            background-color: var(--primary-red);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
             transition: 0.3s;
         }
-        .album-item:hover { transform: scale(1.02); }
+        .btn:hover { background-color: var(--deep-rose); transform: scale(1.05); }
 
-        /* قسم الرسائل */
-        .message-box {
-            text-align: right;
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            margin-top: 10px;
-            border-right: 5px solid var(--main-pink);
-            font-family: 'Amiri', serif;
-            font-size: 1.1rem;
+        .nav-btns {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+        .nav-link { color: var(--deep-rose); cursor: pointer; text-decoration: underline; font-size: 14px; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
-        .counter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .time-box { background: white; padding: 10px; border-radius: 15px; }
-        .time-box span { display: block; font-size: 22px; font-weight: bold; color: var(--main-pink); }
-
-        .btn { background: var(--text-color); color: white; padding: 12px 40px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 15px; }
-        input { padding: 12px; border-radius: 15px; border: 2px solid var(--main-pink); width: 80%; text-align: center; margin-bottom: 10px; }
+        .final-heart { font-size: 80px; color: var(--primary-red); }
     </style>
 </head>
 <body>
 
-    <div id="rose-container"></div>
+<div id="app-container">
+    <div class="slide active" id="slide1">
+        <h2 style="color: var(--deep-rose);">إلى أغلى إنسانة</h2>
+        <div class="envelope" onclick="goToSlide(2)"></div>
+        <div class="heart-btn" onclick="goToSlide(2)">❤️</div>
+        <p>انقري على القلب لرؤية المفاجأة</p>
+    </div>
 
-    <div id="lock-screen">
-        <div class="lock-card">
-            <h2 style="font-family: 'Amiri', serif;">أهلاً يا أميرتي ❤️</h2>
-            <p>أدخلي الرمز السري</p>
-            <input type="password" id="passCode" placeholder="****">
-            <button class="btn" onclick="unlock()">دخول ✨</button>
+    <div class="slide" id="slide2">
+        <h1 class="title">السؤال الكبير</h1>
+        <p class="description">بعد كل اللحظات الجميلة، وبعد ما فكرت بقلبي... عندي سؤال واحد بس:</p>
+        <h2 style="color: var(--primary-red); font-size: 32px;">هل تقبلين تكوني الفالنتين بتاعي؟</h2>
+        <div class="nav-btns">
+            <span class="nav-link" onclick="goToSlide(3)">التالي ⮕</span>
         </div>
     </div>
 
-    <div class="container" id="main-content">
+    <div class="slide" id="slide3">
+        <h2 class="title">5 أسباب تخليكِ اختياري المثالي</h2>
+        <div class="reasons-grid">
+            <div class="reason-box">ابتسامتك أحلى حاجة في الكون</div>
+            <div class="reason-box">بتخلي كل يوم له طعم تاني</div>
+            <div class="reason-box">قلبي بيدق بسرعة لما بشوفك</div>
+            <div class="reason-box">إنتي الشخص المفضل لي</div>
+            <div class="reason-box">مش متخيل حد غيرك جنبي</div>
+        </div>
+        <div class="nav-btns">
+            <span class="nav-link" onclick="goToSlide(2)">السابق</span>
+            <span class="nav-link" onclick="goToSlide(4)">التالي ⮕</span>
+        </div>
+    </div>
+
+    <div class="slide" id="slide4">
+        <h2 class="title">اختاري إجابتك:</h2>
+        <div class="btn-container">
+            <button class="btn" onclick="goToSlide(5)">أكيد، كنت مستنية السؤال ده!</button>
+            <button class="btn" onclick="goToSlide(5)">نعم! طبعاً وبالتأكيد!</button>
+        </div>
+        <div class="nav-btns">
+            <span class="nav-link" onclick="goToSlide(3)">السابق</span>
+        </div>
+    </div>
+
+    <div class="slide" id="slide5">
+        <h1 class="title">تم التأكيد رسمياً!</h1>
+        <div class="final-heart">❤️</div>
+        <p class="description">شكراً إنك قلتي نعم. استعدي ليوم جميل ومليان ذكريات مش هتتنسي.</p>
+        <h2 style="color: var(--deep-rose);">A + J</h2>
+        <p style="font-size: 12px; margin-top: 20px;">14 فبراير 2026</p>
+    </div>
+</div>
+
+<script>
+    function goToSlide(slideNumber) {
+        // إخفاء كل الشرائح
+        const slides = document.querySelectorAll('.slide');
+        slides.forEach(slide => slide.classList.remove('active'));
         
-        <img src="https://via.placeholder.com/600x400?text=صورة+الغلاف+الرئيسية" class="header-img" alt="صورة الغلاف">
+        // إظهار الشريحة المطلوبة
+        document.getElementById('slide' + slideNumber).classList.add('active');
+    }
+</script>
 
-        <div class="card">
-            <h3 style="margin-top: 0;">منذ أن بدأت قصتنا:</h3>
-            <div class="counter-grid">
-                <div class="time-box"><span id="days">0</span> يوم</div>
-                <div class="time-box"><span id="hours">0</span> ساعة</div>
-                <div class="time-box"><span id="mins">0</span> دقيقة</div>
-                <div class="time-box"><span id="secs">0</span> ثانية</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2 style="font-family: 'Amiri', serif;">✨ صوركِ الجميلة ✨</h2>
-            <div class="photo-album">
-                <img src="https://via.placeholder.com/500x500?text=الصورة+الأولى" class="album-item">
-                <img src="https://via.placeholder.com/500x500?text=الصورة+الثانية" class="album-item">
-                <img src="https://via.placeholder.com/500x500?text=الصورة+الثالثة" class="album-item">
-            </div>
-        </div>
-
-        <div class="card">
-            <h2 style="font-family: 'Amiri', serif;">💌 رسائلي لكِ 💌</h2>
-            
-            <div class="message-box">
-                "أنتِ لستِ فقط حبيبتي، أنتِ المأمن والوطن وكل شيء جميل."
-            </div>
-
-            <div class="message-box">
-                "كل صورة هنا تذكرني بلحظة لم تغب عن بالي أبداً."
-            </div>
-
-            <div class="message-box">
-                "سأبقى أحبكِ اليوم، وغداً، وإلى الأبد."
-            </div>
-        </div>
-
-        <div style="text-align: center; padding: 20px; font-size: 30px;">💖</div>
-
-    </div>
-
-    <script>
-        function createPetal() {
-            const container = document.getElementById('rose-container');
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            const emojis = ['🌸', '🌹', '💖', '💕'];
-            petal.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            petal.style.left = Math.random() * 100 + 'vw';
-            const duration = Math.random() * 3 + 5;
-            petal.style.animationDuration = duration + 's';
-            container.appendChild(petal);
-            setTimeout(() => petal.remove(), duration * 1000);
-        }
-        setInterval(createPetal, 300);
-
-        function unlock() {
-            if(document.getElementById('passCode').value === "1234") {
-                document.getElementById('lock-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('lock-screen').style.display = 'none';
-                    document.getElementById('main-content').style.display = 'block';
-                }, 1000);
-            } else { alert("الرمز خاطئ ❤️"); }
-        }
-
-        const startDate = new Date("2024-01-01T00:00:00").getTime();
-        setInterval(() => {
-            const now = new Date().getTime();
-            const diff = now - startDate;
-            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000);
-        }, 1000);
-    </script>
 </body>
 </html>
