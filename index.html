@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لأجمل وردة في حياتي ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:ital@1&display=swap" rel="stylesheet">
+    <title>إلى أغلى ما أملك ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-pink: #ffe5ec;
+            --soft-pink: #ffe5ec;
             --main-pink: #fb6f92;
-            --dark-rose: #c9184a;
+            --text-color: #c9184a;
         }
 
-        body, html {
-            margin: 0; padding: 0;
+        body {
+            margin: 0;
+            padding: 0;
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(180deg, #ffc2d1 0%, #ffe5ec 100%);
+            background: linear-gradient(180deg, #ffc2d1 0%, var(--soft-pink) 100%);
             min-height: 100vh;
+            color: var(--text-color);
             overflow-x: hidden;
-            color: var(--dark-rose);
         }
 
-        /* حاوية بتلات الورد الواقعية */
-        #petal-container {
+        /* حاوية الورد المتساقط */
+        #rose-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
@@ -31,85 +32,39 @@
 
         .petal {
             position: absolute;
-            background-image: url('https://i.imgur.com/vHq0A6M.png'); /* صورة بتلة ورد واقعية شفافة */
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.9;
-            pointer-events: none;
+            font-size: 25px;
+            user-select: none;
+            animation: fall linear forwards;
+            filter: drop-shadow(0 0 5px rgba(251, 111, 146, 0.3));
         }
 
-        /* شاشة القفل الزجاجية */
-        #lock-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 182, 193, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            transition: 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg) translateX(50px); opacity: 0.3; }
         }
 
-        .glass-box {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 30px;
-            border: 2px solid white;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        input {
-            padding: 12px;
-            border-radius: 15px;
-            border: 2px solid var(--main-pink);
-            margin-top: 15px;
-            text-align: center;
-            font-size: 18px;
-            outline: none;
-        }
-
-        .btn {
-            background: var(--dark-rose);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            margin-top: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        /* المحتوى الرئيسي */
-        #main-app {
-            display: none;
+        /* التنسيقات العامة للبطاقات */
+        .container {
             padding: 20px;
-            max-width: 500px;
+            max-width: 450px;
             margin: auto;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
             border-radius: 25px;
             padding: 20px;
-            margin-bottom: 25px;
-            border: 1px solid white;
+            margin-bottom: 20px;
+            border: 2px solid white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
         }
 
-        .photo-frame {
-            width: 100%;
-            height: 300px;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
         .photo-frame img {
-            width: 100%; height: 100%; object-fit: cover;
+            width: 100%;
+            border-radius: 20px;
+            margin-bottom: 15px;
         }
 
         .counter-grid {
@@ -120,107 +75,76 @@
 
         .time-box span {
             display: block;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             color: var(--main-pink);
-        }
-
-        /* حركة تساقط واقعية */
-        @keyframes fall {
-            0% { top: -10%; transform: translateX(0) rotateX(0) rotateY(0); }
-            100% { top: 110%; transform: translateX(100px) rotateX(360deg) rotateY(360deg); }
         }
     </style>
 </head>
 <body>
 
-    <div id="petal-container"></div>
+    <div id="rose-container"></div>
 
-    <div id="lock-screen">
-        <div class="glass-box">
-            <h2 style="font-family: 'Amiri', serif;">مرحباً يا نبض قلبي ❤️</h2>
-            <p>أدخلي كلمة السر الخاصة بنا</p>
-            <input type="password" id="passCode" placeholder="الرقم السري">
-            <br>
-            <button class="btn" onclick="openGift()">فتح المفاجأة ✨</button>
-        </div>
-    </div>
-
-    <div id="main-app">
+    <div class="container">
         <div class="card">
             <div class="photo-frame">
-                <img src="https://images.unsplash.com/photo-1518133835878-5a93cc3f89e5?q=80&w=1000" alt="لحظة خاصة">
+                <img src="https://images.unsplash.com/photo-1518133835878-5a93cc3f89e5?q=80&w=1000" alt="Special Moment">
             </div>
-            <h2 style="font-family: 'Amiri', serif;">أنتِ أجمل وردة في بستاني</h2>
+            <h2>أنتِ أجمل وردة في بستاني ❤️</h2>
         </div>
 
         <div class="card">
             <h3>منذ أن بدأنا حكايتنا:</h3>
             <div class="counter-grid">
-                <div class="time-box"><span id="days">0</span> يوم</div>
-                <div class="time-box"><span id="hours">0</span> ساعة</div>
-                <div class="time-box"><span id="mins">0</span> دقيقة</div>
+                <div class="time-box">
+                    <span id="days">0</span> يوم
+                </div>
+                <div class="time-box">
+                    <span id="hours">0</span> ساعة
+                </div>
+                <div class="time-box">
+                    <span id="mins">0</span> دقيقة
+                </div>
             </div>
         </div>
 
         <div class="card">
-            <p style="font-size: 1.2rem; line-height: 1.8;">
-                "مهما تساقطت الورود، ستبقين أنتِ الوردة الوحيدة التي لا تذبل في قلبي."
-            </p>
-            <div style="font-size: 40px;">💖</div>
+            <p style="font-size: 1.2rem;">"مهما تساقطت الورود، ستبقين أنتِ الوردة الوحيدة التي لا تذبل في قلبي."</p>
         </div>
     </div>
 
     <script>
-        // 1. نظام بتلات الورد الواقعية
-        const container = document.getElementById('petal-container');
+        // دالة إنشاء الورد المتساقط
         function createPetal() {
+            const container = document.getElementById('rose-container');
             const petal = document.createElement('div');
-            petal.classList.add('petal');
+            petal.className = 'petal';
             
-            // إعدادات عشوائية للواقعية
-            const size = Math.random() * 20 + 20 + 'px';
-            petal.style.width = size;
-            petal.style.height = size;
+            // مصفوفة تحتوي على أشكال مختلفة للورد والبتلات
+            const petalTypes = ['🌸', '🌹', '💖', '✨'];
+            petal.innerText = petalTypes[Math.floor(Math.random() * petalTypes.length)];
+            
             petal.style.left = Math.random() * 100 + 'vw';
-            
-            // سرعة تساقط متفاوتة
-            const duration = Math.random() * 5 + 5 + 's';
-            petal.style.animation = `fall ${duration} linear infinite`;
-            
-            // زاوية بداية عشوائية
-            petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+            const duration = Math.random() * 3 + 4;
+            petal.style.animationDuration = duration + 's';
+            petal.style.fontSize = Math.random() * 15 + 15 + 'px';
             
             container.appendChild(petal);
 
-            // إزالة البتلة بعد انتهاء الوقت لتوفير الأداء
-            setTimeout(() => { petal.remove(); }, parseFloat(duration) * 1000);
+            setTimeout(() => {
+                petal.remove();
+            }, duration * 1000);
         }
 
-        // إنشاء بتلات جديدة باستمرار
-        setInterval(createPetal, 400);
+        setInterval(createPetal, 300);
 
-        // 2. التحقق من الرقم السري (الافتراضي 1234)
-        function openGift() {
-            const pass = document.getElementById('passCode').value;
-            if(pass === "1234") { 
-                const lock = document.getElementById('lock-screen');
-                lock.style.opacity = '0';
-                lock.style.transform = 'translateY(-100%)';
-                setTimeout(() => {
-                    lock.style.display = 'none';
-                    document.getElementById('main-app').style.display = 'block';
-                }, 1000);
-            } else {
-                alert("جربي الرقم السري الصحيح يا روحي ❤️");
-            }
-        }
-
-        // 3. العداد الزمني (يمكنك تغيير التاريخ ليكون تاريخكما الخاص)
-        const start = new Date("2024-01-01T00:00:00").getTime();
+        // حساب العداد الزمني (تاريخ البداية)
+        const startDate = new Date("2024-01-01T00:00:00").getTime();
+        
         setInterval(() => {
             const now = new Date().getTime();
-            const diff = now - start;
+            const diff = now - startDate;
+            
             document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
             document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
