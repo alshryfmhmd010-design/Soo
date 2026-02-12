@@ -3,194 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Love Story ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <title>إلى أميرتي ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;800&family=Amiri:ital@1&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-pink: #ff4d6d;
-            --dark-pink: #800e13;
-            --bg-gradient: linear-gradient(180deg, #590d22 0%, #a4133c 50%, #ff4d6d 100%);
+            --deep-rose: #880e4f;
+            --soft-pink: #fce4ec;
+            --accent-pink: #ff4081;
+            --glass: rgba(255, 255, 255, 0.15);
         }
 
-        body {
-            margin: 0;
-            padding: 0;
+        body, html {
+            margin: 0; padding: 0;
             font-family: 'Cairo', sans-serif;
-            background: var(--bg-gradient);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #000;
+            color: #fff;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* شاشة القفل (كلمة المرور) */
-        #lock-screen {
+        /* خلفية الفيديو أو الصورة المتحركة */
+        .bg-fixed {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-gradient);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(136,14,79,0.3)), 
+                        url('https://images.unsplash.com/photo-1518133835878-5a93cc3f89e5?q=80&w=1000') center/cover;
+            z-index: -2;
+        }
+
+        /* تأثير تساقط الورود */
+        #rose-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .petal {
+            position: absolute;
+            background-color: #ffb7c5;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(720deg); }
+        }
+
+        /* شاشة القفل الزجاجية */
+        #lock-screen {
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-            transition: 0.5s;
+            backdrop-filter: blur(15px);
+            transition: 1s all ease-in-out;
+            z-index: 100;
         }
 
-        .heart-lock {
-            font-size: 80px;
-            animation: pulse 1.5s infinite;
-            margin-bottom: 20px;
-        }
-
-        input[type="password"] {
-            padding: 12px;
-            border-radius: 25px;
-            border: none;
+        .glass-card {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
             text-align: center;
-            outline: none;
-            width: 200px;
-            font-size: 18px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
 
-        .unlock-btn {
-            margin-top: 15px;
-            padding: 10px 30px;
-            border-radius: 20px;
-            border: none;
-            background: var(--primary-pink);
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
+        .input-style {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid var(--soft-pink);
+            border-radius: 15px;
+            padding: 12px;
+            color: #fff;
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+            outline: none;
         }
 
         /* المحتوى الرئيسي */
         #main-content {
             display: none;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
             padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 500px;
+            margin: auto;
         }
 
-        /* العداد الزمني */
-        .countdown-container {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 15px;
+        .section {
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s all;
         }
 
-        .time-box {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 10px;
-            min-width: 60px;
+        .section.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .time-box span {
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .time-unit {
+            background: var(--glass);
+            padding: 20px 10px;
+            border-radius: 20px;
+            border-bottom: 4px solid var(--accent-pink);
+        }
+
+        .time-unit span {
             display: block;
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--accent-pink);
         }
 
-        /* معرض الصور البسيط */
-        .photo-frame {
+        .romantic-text {
+            font-family: 'Amiri', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: var(--soft-pink);
+        }
+
+        .photo-gallery {
             width: 100%;
-            height: 250px;
-            background: #eee;
-            border-radius: 15px;
-            margin: 15px 0;
-            background-image: url('https://via.placeholder.com/400x250?text=Your+Photo+Here');
-            background-size: cover;
-            background-position: center;
+            height: 300px;
+            border-radius: 25px;
+            overflow: hidden;
+            border: 3px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .photo-gallery img {
+            width: 100%; height: 100%; object-fit: cover;
         }
 
-        .falling-hearts {
-            position: fixed;
-            top: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
     </style>
 </head>
 <body>
 
+    <div class="bg-fixed"></div>
+    <div id="rose-container"></div>
+
     <div id="lock-screen">
-        <div class="heart-lock">💖</div>
-        <h3>أدخلي كلمة المرور لرؤية المفاجأة</h3>
-        <input type="password" id="passInput" placeholder="كلمة السر...">
-        <button class="unlock-btn" onclick="checkPass()">Unlock ❤️</button>
-        <p id="error-msg" style="color: yellow; display: none; margin-top: 10px;">كلمة المرور خاطئة يا روحي!</p>
+        <div class="glass-card">
+            <h2 style="font-family: 'Amiri', serif;">أهلاً يا أميرتي..</h2>
+            <p>أدخلي التاريخ المفضل لقلبكِ (السنة)</p>
+            <input type="number" id="passInput" class="input-style" placeholder="2024">
+            <br>
+            <button onclick="unlock()" style="margin-top: 20px; padding: 10px 40px; border-radius: 50px; border: none; background: var(--accent-pink); color: white; cursor: pointer; font-weight: bold;">دخول ❤️</button>
+        </div>
     </div>
 
     <div id="main-content">
-        <div class="card">
-            <h2>كل عام وأنتِ بقلبي ❤️</h2>
-            <p>هنا أغنية وصور لينا وعداد الوقت اللي فات وإحنا سوا</p>
-            <div class="photo-frame"></div> </div>
-
-        <div class="card">
-            <h3>منذ أن بدأنا حكايتنا:</h3>
-            <div class="countdown-container">
-                <div class="time-box"><span id="days">0</span>يوم</div>
-                <div class="time-box"><span id="hours">0</span>ساعة</div>
-                <div class="time-box"><span id="mins">0</span>دقيقة</div>
+        <div class="section" id="s1">
+            <div class="glass-card">
+                <h1 style="font-size: 2rem;">كل عام وأنتِ الحب ❤️</h1>
+                <div class="photo-gallery">
+                    <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=1000" alt="Rose">
+                </div>
             </div>
         </div>
 
-        <div class="card">
-            <p>مهما كتبت مش هقدر أوصف حبي ليكِ..</p>
-            <p style="font-size: 22px;">أحبك للأبد ❤️</p>
+        <div class="section" id="s2">
+            <div class="glass-card">
+                <h3>عداد حبنا المستمر:</h3>
+                <div class="counter-grid">
+                    <div class="time-unit"><span id="days">0</span> يوم</div>
+                    <div class="time-unit"><span id="hours">0</span> ساعة</div>
+                    <div class="time-unit"><span id="mins">0</span> دقيقة</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="s3">
+            <div class="glass-card">
+                <p class="romantic-text">
+                    "أنتِ لستِ فقط حبيبتي، أنتِ عالمي الصغير الذي أهرب إليه من ضجيج الحياة.. شكراً لأنكِ هنا."
+                </p>
+                <div style="font-size: 40px;">💍</div>
+            </div>
         </div>
     </div>
 
     <script>
-        // كلمة المرور (يمكنك تغييرها هنا)
-        const CORRECT_PASS = "1234"; 
+        // 1. نظام تساقط الورود (واقعي)
+        function createPetal() {
+            const container = document.getElementById('rose-container');
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            
+            const size = Math.random() * 15 + 10 + 'px';
+            petal.style.width = size;
+            petal.style.height = size;
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 3 + 4 + 's';
+            petal.style.backgroundColor = ['#ffb7c5', '#ff4d6d', '#ff8fa3'][Math.floor(Math.random()*3)];
+            
+            container.appendChild(petal);
+            setTimeout(() => { petal.remove(); }, 7000);
+        }
+        setInterval(createPetal, 300);
 
-        function checkPass() {
-            const input = document.getElementById('passInput').value;
-            if (input === CORRECT_PASS) {
+        // 2. التحقق من كلمة المرور
+        function unlock() {
+            const pass = document.getElementById('passInput').value;
+            if(pass === "2024") { // يمكنك تغيير السنة هنا
                 document.getElementById('lock-screen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('lock-screen').style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
-                }, 500);
+                    revealSections();
+                }, 1000);
             } else {
-                document.getElementById('error-msg').style.display = 'block';
+                alert("جربي سنة بداية حبنا يا روحي.. 😉");
             }
         }
 
-        // حساب الوقت (العداد الزمني)
-        const startDate = new Date("2024-01-01T00:00:00").getTime(); // ضع تاريخ بدايتكم هنا
+        // 3. ظهور الأقسام عند التمرير (تأثير انسيابي)
+        function revealSections() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((s, index) => {
+                setTimeout(() => { s.classList.add('show'); }, index * 500);
+            });
+        }
 
-        setInterval(function() {
+        // 4. العداد الزمني (من تاريخ 1 يناير 2024 كمثال)
+        const startDate = new Date("2024-01-01T00:00:00").getTime();
+        setInterval(() => {
             const now = new Date().getTime();
             const diff = now - startDate;
-
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
-            document.getElementById("days").innerText = d;
-            document.getElementById("hours").innerText = h;
-            document.getElementById("mins").innerText = m;
+            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         }, 1000);
     </script>
 </body>
