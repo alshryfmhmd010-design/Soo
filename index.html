@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى أغلى ما أملك ❤️</title>
+    <title>إلى أميرتي ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:ital@1&display=swap" rel="stylesheet">
     <style>
         :root {
             --soft-pink: #ffe5ec;
             --main-pink: #fb6f92;
+            --dark-pink: #ff8fa3;
             --text-color: #c9184a;
-            --glass: rgba(255, 255, 255, 0.8);
+            --glass: rgba(255, 255, 255, 0.85);
         }
 
         body, html {
@@ -22,54 +23,65 @@
             overflow-x: hidden;
         }
 
-        /* تساقط الورود */
+        /* تأثير الورود المتساقطة */
         #rose-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
-        .petal { position: absolute; font-size: 25px; animation: fall linear forwards; }
+        .petal { position: absolute; font-size: 25px; user-select: none; animation: fall linear forwards; }
         @keyframes fall {
             0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(720deg); opacity: 0.3; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0.2; }
         }
 
         /* شاشة القفل */
         #lock-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--main-pink); display: flex; justify-content: center;
-            align-items: center; z-index: 10000; transition: 1s;
+            align-items: center; z-index: 10000; transition: 1s ease-in-out;
         }
-        .lock-card { background: white; padding: 40px; border-radius: 35px; text-align: center; width: 85%; max-width: 320px; }
+        .lock-card { background: white; padding: 40px; border-radius: 35px; text-align: center; width: 85%; max-width: 320px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
 
         /* المحتوى الرئيسي */
-        .container { display: none; padding: 20px; max-width: 480px; margin: auto; position: relative; z-index: 1; }
+        .container { display: none; padding: 20px; max-width: 500px; margin: auto; position: relative; z-index: 1; }
         
         .card {
-            background: var(--glass); border-radius: 30px; padding: 20px;
-            margin-bottom: 25px; border: 2px solid white; text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background: var(--glass); border-radius: 25px; padding: 20px;
+            margin-bottom: 20px; border: 2px solid white; text-align: center;
+            box-shadow: 0 10px 25px rgba(201, 24, 74, 0.1);
         }
 
-        /* معرض الصور */
-        .slider { width: 100%; height: 250px; border-radius: 20px; overflow: hidden; position: relative; }
-        .slider img { width: 100%; height: 100%; object-fit: cover; display: none; }
-        .slider img.active { display: block; animation: fade 1s; }
-        @keyframes fade { from { opacity: 0.5; } to { opacity: 1; } }
-
-        /* المغلف والرسالة */
-        .envelope-wrapper { cursor: pointer; padding: 20px; transition: 0.3s; }
-        .envelope { font-size: 50px; transition: 0.5s; }
-        .letter { 
-            display: none; background: #fff; padding: 15px; border-radius: 15px; 
-            margin-top: 15px; border: 1px dashed var(--main-pink);
-            animation: slideUp 0.5s ease-out;
+        /* القسم المخصص: صورك */
+        .section-title {
+            font-family: 'Amiri', serif; font-size: 1.8rem; margin-bottom: 15px;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .slider-container {
+            width: 100%; height: 300px; border-radius: 20px;
+            overflow: hidden; position: relative; border: 3px solid white;
+        }
+
+        .slider-img {
+            width: 100%; height: 100%; object-fit: cover;
+            position: absolute; opacity: 0; transition: opacity 1s ease-in-out;
+        }
+
+        .slider-img.active { opacity: 1; }
 
         /* العداد */
-        .counter-grid { display: flex; justify-content: space-around; gap: 5px; }
-        .time-box { background: white; padding: 10px; border-radius: 12px; flex: 1; }
-        .time-box span { display: block; font-size: 20px; font-weight: bold; color: var(--main-pink); }
+        .counter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .time-box { background: white; padding: 15px; border-radius: 15px; border: 1px solid var(--soft-pink); }
+        .time-box span { display: block; font-size: 24px; font-weight: 800; color: var(--main-pink); }
 
-        .btn { background: var(--text-color); color: white; padding: 12px 30px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
-        input { padding: 12px; border-radius: 15px; border: 2px solid var(--main-pink); width: 80%; text-align: center; margin-bottom: 10px; }
+        /* الرسالة السرية */
+        .envelope-box { cursor: pointer; transition: 0.3s; padding: 10px; }
+        .letter { 
+            display: none; background: #fff; padding: 20px; border-radius: 15px; 
+            margin-top: 15px; border: 2px dashed var(--main-pink);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .btn { background: var(--text-color); color: white; padding: 12px 40px; border: none; border-radius: 50px; margin-top: 15px; cursor: pointer; font-weight: bold; }
+        input { padding: 12px; border-radius: 15px; border: 2px solid var(--main-pink); text-align: center; width: 80%; outline: none; }
     </style>
 </head>
 <body>
@@ -79,24 +91,27 @@
     <div id="lock-screen">
         <div class="lock-card">
             <h2 style="font-family: 'Amiri', serif;">أهلاً يا أميرتي ❤️</h2>
-            <input type="password" id="passCode" placeholder="كلمة السر">
-            <button class="btn" onclick="unlock()">فتح المفاجأة ✨</button>
+            <p>أدخلي الرمز السري</p>
+            <input type="password" id="passCode" placeholder="****">
+            <button class="btn" onclick="unlock()">دخول ✨</button>
         </div>
     </div>
 
     <div class="container" id="main-content">
         
         <div class="card">
-            <div class="slider" id="photo-slider">
-                <img src="me.png" class="active">
-                <img src="me1.png">
-                <img src="https://via.placeholder.com/400x250?text=الصورة+الثالثة">
+            <div class="section-title">✨ صوركِ ✨</div>
+            <div class="slider-container" id="slider">
+                <img src="https://via.placeholder.com/500x300/ffb3c1/ffffff?text=Your+Photo+1" class="slider-img active">
+                <img src="https://via.placeholder.com/500x300/ff8fa3/ffffff?text=Your+Photo+2" class="slider-img">
+                <img src="https://via.placeholder.com/500x300/fb6f92/ffffff?text=Your+Photo+3" class="slider-img">
+                <img src="https://via.placeholder.com/500x300/c9184a/ffffff?text=Your+Photo+4" class="slider-img">
             </div>
-            <h2 style="font-family: 'Amiri', serif; font-size: 1.2rem;">ذكرياتنا الجميلة ❤️</h2>
+            <p style="font-size: 0.9rem; margin-top: 10px; color: #888;">ستتغير الصور تلقائياً كل 3 ثوانٍ</p>
         </div>
 
         <div class="card">
-            <h3 style="margin-top: 0;">منذ أن نورتِ حياتي:</h3>
+            <h3 style="margin-top: 0;">الوقت الذي قضيناه معاً:</h3>
             <div class="counter-grid">
                 <div class="time-box"><span id="days">0</span> يوم</div>
                 <div class="time-box"><span id="hours">0</span> ساعة</div>
@@ -105,33 +120,29 @@
             </div>
         </div>
 
-        <div class="card" onclick="openLetter()">
-            <div class="envelope-wrapper">
-                <div id="envelope-icon" class="envelope">✉️</div>
-                <p id="tap-text">اضغطي لفتح رسالتكِ</p>
-                <div id="letter-content" class="letter">
-                    <p style="font-family: 'Amiri', serif; font-size: 1.2rem;">
-                        هنا تكتب رسالتكِ الطويلة.. <br>
-                        أريد أن أخبركِ أنكِ أعظم انتصاراتي، <br>
-                        وأن قلبي لا ينبض إلا بحبكِ. <br>
-                        أحبكِ جداً ❤️
+        <div class="card">
+            <div class="envelope-box" onclick="toggleLetter()">
+                <div id="env-icon" style="font-size: 50px;">✉️</div>
+                <b id="env-text">اضغطي هنا لرؤية رسالتي</b>
+                <div id="letter" class="letter">
+                    <p style="font-family: 'Amiri', serif; font-size: 1.3rem; line-height: 1.6;">
+                        إلى أميرتي الغالية.. <br>
+                        أردت أن أجمع لكِ بعضاً من ذكرياتنا وكلماتي في هذا المكان البسيط. <br>
+                        شكراً لأنكِ في حياتي، أحبكِ دائماً وأبداً. ❤️
                     </p>
                 </div>
             </div>
         </div>
 
-        <div class="card" style="border: none; background: none;">
-            <div style="font-size: 40px; animation: heartbeat 1.2s infinite;">💖</div>
-        </div>
     </div>
 
     <script>
-        // تساقط الورود
+        // 1. تساقط الورود
         function createPetal() {
             const container = document.getElementById('rose-container');
             const petal = document.createElement('div');
             petal.className = 'petal';
-            const types = ['🌸', '🌹', '💗', '✨'];
+            const types = ['🌸', '🌹', '💗', '✨', '💕'];
             petal.innerText = types[Math.floor(Math.random() * types.length)];
             petal.style.left = Math.random() * 100 + 'vw';
             const duration = Math.random() * 3 + 5;
@@ -139,57 +150,48 @@
             container.appendChild(petal);
             setTimeout(() => petal.remove(), duration * 1000);
         }
-        setInterval(createPetal, 350);
+        setInterval(createPetal, 300);
 
-        // فتح الموقع
+        // 2. فتح الموقع
         function unlock() {
-            const pass = document.getElementById('passCode').value;
-            if(pass === "1234") { 
+            if(document.getElementById('passCode').value === "1234") {
                 document.getElementById('lock-screen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('lock-screen').style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
-                    startSlider();
+                    startAutoSlider(); // تشغيل المعرض
                 }, 1000);
-            } else {
-                alert("الرمز خاطئ يا أميرتي ❤️");
-            }
+            } else { alert("الرمز خاطئ ❤️"); }
         }
 
-        // معرض الصور
-        function startSlider() {
-    const imgs = document.querySelectorAll('#photo-slider img');
-    let current = 0;
-    
-    // تأكد أن هناك أكثر من صورة لكي يبدأ التحريك
-    if (imgs.length > 1) {
-        setInterval(() => {
-            imgs[current].classList.remove('active'); // إخفاء الصورة الحالية
-            current = (current + 1) % imgs.length;    // الانتقال للصورة التالية
-            imgs[current].classList.add('active');    // إظهار الصورة الجديدة
-        }, 3000); // 3000 تعني تغيير الصورة كل 3 ثوانٍ
-    }
-}
+        // 3. التحكم في معرض "صورك"
+        function startAutoSlider() {
+            const images = document.querySelectorAll('.slider-img');
+            let index = 0;
+            setInterval(() => {
+                images[index].classList.remove('active');
+                index = (index + 1) % images.length;
+                images[index].classList.add('active');
+            }, 3000); // تغيير كل 3 ثوانٍ
+        }
 
-
-        // فتح الرسالة
-        function openLetter() {
-            const letter = document.getElementById('letter-content');
-            const icon = document.getElementById('envelope-icon');
-            const text = document.getElementById('tap-text');
-            
-            if (letter.style.display === 'block') {
+        // 4. فتح الرسالة
+        function toggleLetter() {
+            const letter = document.getElementById('letter');
+            const icon = document.getElementById('env-icon');
+            const text = document.getElementById('env-text');
+            if(letter.style.display === 'block') {
                 letter.style.display = 'none';
                 icon.innerText = '✉️';
-                text.innerText = 'اضغطي لفتح رسالتكِ';
+                text.innerText = 'اضغطي هنا لرؤية رسالتي';
             } else {
                 letter.style.display = 'block';
                 icon.innerText = '📂';
-                text.innerText = 'رسالتكِ الخاصة';
+                text.innerText = 'رسالتي لكِ';
             }
         }
 
-        // العداد
+        // 5. العداد
         const startDate = new Date("2024-01-01T00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -200,13 +202,5 @@
             document.getElementById("secs").innerText = Math.floor((diff % (1000 * 60)) / 1000);
         }, 1000);
     </script>
-
-    <style>
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-    </style>
 </body>
 </html>
