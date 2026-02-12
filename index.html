@@ -3,190 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عيد حب سعيد يا حبيبتي - موقعك الخاص</title>
+    <title>Our Love Story ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --dark-pink: #800e13;
+            --bg-gradient: linear-gradient(180deg, #590d22 0%, #a4133c 50%, #ff4d6d 100%);
+        }
+
         body {
             margin: 0;
             padding: 0;
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-gradient);
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* استخدام min-height بدلاً من height لتجنب مشاكل المحتوى الطويل */
-            background: url('https://i.imgur.com/Jb3P2V8.png') no-repeat center center fixed; /* خلفية ورود وردية */
-            background-size: cover;
-            font-family: 'Cairo', sans-serif; /* استخدام الخط العربي */
-            overflow-x: hidden; /* لمنع ظهور شريط التمرير الأفقي */
-            color: #4a0035; /* لون نص داكن ليتناسب مع الوردي الفاتح */
-            position: relative; /* لتموضع العناصر الأخرى بشكل صحيح */
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 220, 230, 0.4); /* طبقة شفافة وردية فاتحة فوق الخلفية */
-            z-index: 0;
+        /* شاشة القفل (كلمة المرور) */
+        #lock-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-gradient);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.5s;
         }
 
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.85); /* خلفية بيضاء شبه شفافة للبطاقة الرئيسية */
-            padding: 50px;
-            border-radius: 25px;
-            backdrop-filter: blur(15px); /* تأثير ضبابي جميل */
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2); /* ظل أعمق */
-            z-index: 1; /* ليكون فوق الخلفية والطبقة الشفافة */
-            max-width: 700px;
-            margin: 20px;
-            animation: fadeIn 2s ease-out; /* تأثير ظهور ناعم */
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 {
-            font-size: 3.8rem; /* حجم أكبر للعنوان */
-            color: #880e4f; /* لون وردي داكن مميز */
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        h1::after { /* خط زخرفي تحت العنوان */
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background-color: #e91e63;
-            margin: 10px auto 0;
-            border-radius: 5px;
-        }
-
-        p {
-            font-size: 1.8rem; /* حجم أكبر للنص */
-            color: #c2185b; /* لون وردي متوسط */
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .heart-icon {
-            color: #e91e63; /* قلب وردي نابض */
-            font-size: 60px;
+        .heart-lock {
+            font-size: 80px;
+            animation: pulse 1.5s infinite;
             margin-bottom: 20px;
-            animation: beat 1.2s infinite ease-in-out;
-            display: inline-block;
         }
 
-        @keyframes beat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-
-        .animated-button {
-            padding: 15px 35px;
+        input[type="password"] {
+            padding: 12px;
+            border-radius: 25px;
             border: none;
-            border-radius: 30px;
-            background: linear-gradient(to right, #e91e63, #c2185b); /* تدرج وردي للزر */
+            text-align: center;
+            outline: none;
+            width: 200px;
+            font-size: 18px;
+        }
+
+        .unlock-btn {
+            margin-top: 15px;
+            padding: 10px 30px;
+            border-radius: 20px;
+            border: none;
+            background: var(--primary-pink);
             color: white;
-            font-size: 1.6rem;
-            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .animated-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.6);
-            background: linear-gradient(to right, #c2185b, #e91e63); /* عكس التدرج عند التمرير */
-        }
-
-        #hiddenMessage {
-            display: none;
-            margin-top: 30px;
             font-weight: bold;
-            font-size: 2rem;
-            color: #880e4f; /* لون رسالة سرية أغمق */
-            animation: slideIn 1s forwards; /* تأثير ظهور رسالة سرية */
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* المحتوى الرئيسي */
+        #main-content {
+            display: none;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            padding: 20px 0;
         }
 
-        /* قلوب متساقطة في الخلفية - أكثر كثافة وحركة */
-        .falling-hearts {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* العداد الزمني */
+        .countdown-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            min-width: 60px;
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* معرض الصور البسيط */
+        .photo-frame {
             width: 100%;
-            height: 100%;
-            pointer-events: none; /* لتسمح بالنقر على العناصر تحتها */
-            z-index: 0;
+            height: 250px;
+            background: #eee;
+            border-radius: 15px;
+            margin: 15px 0;
+            background-image: url('https://via.placeholder.com/400x250?text=Your+Photo+Here');
+            background-size: cover;
+            background-position: center;
         }
 
-        .falling-heart {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 25px; /* حجم أكبر للقلوب المتساقطة */
-            animation: fall linear infinite;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* ظل خفيف للقلوب */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
-        @keyframes fall {
-            0% { transform: translateY(-10vh) translateX(0) rotateZ(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            100% { transform: translateY(110vh) translateX(var(--x-end)) rotateZ(var(--rotate-end)); opacity: 0; }
+        .falling-hearts {
+            position: fixed;
+            top: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
 
-    <div class="overlay"></div> <div class="falling-hearts" id="heartsContainer"></div>
+    <div id="lock-screen">
+        <div class="heart-lock">💖</div>
+        <h3>أدخلي كلمة المرور لرؤية المفاجأة</h3>
+        <input type="password" id="passInput" placeholder="كلمة السر...">
+        <button class="unlock-btn" onclick="checkPass()">Unlock ❤️</button>
+        <p id="error-msg" style="color: yellow; display: none; margin-top: 10px;">كلمة المرور خاطئة يا روحي!</p>
+    </div>
 
-    <div class="container">
-        <div class="heart-icon">❤️</div>
-        <h1>إلى روح قلبي وعمري...</h1>
-        <p>كل يوم يمر بجانبك هو عيد حب جديد.<br> أنتِ النجمة التي تضيء سمائي، والوردة التي تُعطر حياتي.<br>أحبك أكثر مما تتخيلين!</p>
-        <button class="animated-button" onclick="showMessage()">رسالة حب خاصة لكِ ❤️</button>
-        <p id="hiddenMessage">أنتِ أجمل هدية منحها لي القدر، ولن أتوقف عن حبك أبدًا!</p>
+    <div id="main-content">
+        <div class="card">
+            <h2>كل عام وأنتِ بقلبي ❤️</h2>
+            <p>هنا أغنية وصور لينا وعداد الوقت اللي فات وإحنا سوا</p>
+            <div class="photo-frame"></div> </div>
+
+        <div class="card">
+            <h3>منذ أن بدأنا حكايتنا:</h3>
+            <div class="countdown-container">
+                <div class="time-box"><span id="days">0</span>يوم</div>
+                <div class="time-box"><span id="hours">0</span>ساعة</div>
+                <div class="time-box"><span id="mins">0</span>دقيقة</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <p>مهما كتبت مش هقدر أوصف حبي ليكِ..</p>
+            <p style="font-size: 22px;">أحبك للأبد ❤️</p>
+        </div>
     </div>
 
     <script>
-        function showMessage() {
-            const hiddenMsg = document.getElementById('hiddenMessage');
-            if (hiddenMsg.style.display === 'none' || hiddenMsg.style.display === '') {
-                hiddenMsg.style.display = 'block';
+        // كلمة المرور (يمكنك تغييرها هنا)
+        const CORRECT_PASS = "1234"; 
+
+        function checkPass() {
+            const input = document.getElementById('passInput').value;
+            if (input === CORRECT_PASS) {
+                document.getElementById('lock-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('lock-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                }, 500);
             } else {
-                hiddenMsg.style.display = 'none';
+                document.getElementById('error-msg').style.display = 'block';
             }
         }
 
-        // توليد قلوب متساقطة بشكل أكثر عشوائية وجمالية
-        const heartsContainer = document.getElementById('heartsContainer');
-        const heartShapes = ['❤️', '💖', '💗', '💕']; // أشكال قلوب متنوعة
+        // حساب الوقت (العداد الزمني)
+        const startDate = new Date("2024-01-01T00:00:00").getTime(); // ضع تاريخ بدايتكم هنا
 
-        for (let i = 0; i < 50; i++) { // زيادة عدد القلوب
-            const heart = document.createElement('div');
-            heart.classList.add('falling-heart');
-            heart.innerHTML = heartShapes[Math.floor(Math.random() * heartShapes.length)];
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 4 + 5) + 's'; // مدة سقوط أطول
-            heart.style.animationDelay = (Math.random() * 5) + 's'; // تأخير عشوائي
-            heart.style.opacity = Math.random() * 0.7 + 0.3; // شفافية متفاوتة
-            heart.style.fontSize = (Math.random() * 20 + 15) + 'px'; // أحجام قلوب متفاوتة
-            // متغيرات CSS لإنشاء مسارات حركة عشوائية
-            heart.style.setProperty('--x-end', (Math.random() * 40 - 20) + 'vw'); // حركة أفقية عشوائية
-            heart.style.setProperty('--rotate-end', (Math.random() * 720 - 360) + 'deg'); // دوران عشوائي
-            heartsContainer.appendChild(heart);
-        }
+        setInterval(function() {
+            const now = new Date().getTime();
+            const diff = now - startDate;
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("days").innerText = d;
+            document.getElementById("hours").innerText = h;
+            document.getElementById("mins").innerText = m;
+        }, 1000);
     </script>
 </body>
 </html>
