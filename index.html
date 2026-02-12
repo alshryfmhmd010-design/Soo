@@ -9,7 +9,6 @@
         :root {
             --soft-pink: #ffe5ec;
             --main-pink: #fb6f92;
-            --dark-pink: #ff8fa3;
             --text-color: #c9184a;
             --glass: rgba(255, 255, 255, 0.85);
         }
@@ -23,76 +22,70 @@
             overflow-x: hidden;
         }
 
-        /* تأثير الورود المتساقطة */
-        #rose-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
-        .petal { position: absolute; font-size: 25px; user-select: none; animation: fall linear forwards; }
-        @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(720deg); opacity: 0.2; }
+        /* حاوية الورود المتصاعدة */
+        #rose-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+        .petal { 
+            position: absolute; 
+            bottom: 50px; /* تبدأ من عند ستيتش */
+            font-size: 20px; 
+            animation: flyUp linear forwards; 
         }
+
+        @keyframes flyUp {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg) scale(0.5); opacity: 0; }
+        }
+
+        /* شخصيات ستيتش */
+        .stitch {
+            position: fixed;
+            bottom: -10px;
+            width: 120px; /* يمكنك تكبير أو تصغير الحجم من هنا */
+            z-index: 1000;
+            pointer-events: none;
+        }
+        .stitch-left { left: -10px; transform: scaleX(-1); } /* عكس الصورة لليمين */
+        .stitch-right { right: -10px; }
 
         /* شاشة القفل */
         #lock-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--main-pink); display: flex; justify-content: center;
-            align-items: center; z-index: 10000; transition: 1s ease-in-out;
+            align-items: center; z-index: 10000; transition: 1s;
         }
-        .lock-card { background: white; padding: 40px; border-radius: 35px; text-align: center; width: 85%; max-width: 320px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .lock-card { background: white; padding: 40px; border-radius: 35px; text-align: center; width: 85%; max-width: 320px; }
 
-        /* المحتوى الرئيسي */
-        .container { display: none; padding: 20px; max-width: 500px; margin: auto; position: relative; z-index: 1; }
-        
+        /* المحتوى */
+        .container { display: none; padding: 20px; max-width: 500px; margin: auto; position: relative; }
         .card {
             background: var(--glass); border-radius: 25px; padding: 20px;
             margin-bottom: 20px; border: 2px solid white; text-align: center;
-            box-shadow: 0 10px 25px rgba(201, 24, 74, 0.1);
         }
 
-        /* القسم المخصص: صورك */
-        .section-title {
-            font-family: 'Amiri', serif; font-size: 1.8rem; margin-bottom: 15px;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
-
-        .slider-container {
-            width: 100%; height: 300px; border-radius: 20px;
-            overflow: hidden; position: relative; border: 3px solid white;
-        }
-
-        .slider-img {
-            width: 100%; height: 100%; object-fit: cover;
-            position: absolute; opacity: 0; transition: opacity 1s ease-in-out;
-        }
-
+        /* المعرض */
+        .slider-container { width: 100%; height: 300px; border-radius: 20px; overflow: hidden; position: relative; }
+        .slider-img { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: 1s; }
         .slider-img.active { opacity: 1; }
 
-        /* العداد */
         .counter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .time-box { background: white; padding: 15px; border-radius: 15px; border: 1px solid var(--soft-pink); }
-        .time-box span { display: block; font-size: 24px; font-weight: 800; color: var(--main-pink); }
+        .time-box { background: white; padding: 10px; border-radius: 15px; }
+        .time-box span { display: block; font-size: 22px; font-weight: bold; color: var(--main-pink); }
 
-        /* الرسالة السرية */
-        .envelope-box { cursor: pointer; transition: 0.3s; padding: 10px; }
-        .letter { 
-            display: none; background: #fff; padding: 20px; border-radius: 15px; 
-            margin-top: 15px; border: 2px dashed var(--main-pink);
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        .btn { background: var(--text-color); color: white; padding: 12px 40px; border: none; border-radius: 50px; margin-top: 15px; cursor: pointer; font-weight: bold; }
-        input { padding: 12px; border-radius: 15px; border: 2px solid var(--main-pink); text-align: center; width: 80%; outline: none; }
+        .btn { background: var(--text-color); color: white; padding: 12px 40px; border: none; border-radius: 50px; cursor: pointer; }
+        input { padding: 12px; border-radius: 15px; border: 2px solid var(--main-pink); width: 80%; text-align: center; }
     </style>
 </head>
 <body>
 
     <div id="rose-container"></div>
 
+    <img src="https://i.pinimg.com/originals/3d/8d/6d/3d8d6d289066601f0165996417537330.gif" class="stitch stitch-left" alt="Stitch">
+    <img src="https://i.pinimg.com/originals/3d/8d/6d/3d8d6d289066601f0165996417537330.gif" class="stitch stitch-right" alt="Stitch">
+
     <div id="lock-screen">
         <div class="lock-card">
-            <h2 style="font-family: 'Amiri', serif;">أهلاً يا أميرتي ❤️</h2>
-            <p>أدخلي الرمز السري</p>
-            <input type="password" id="passCode" placeholder="****">
+            <h2>أهلاً يا أميرتي ❤️</h2>
+            <input type="password" id="passCode" placeholder="الرمز السري">
             <button class="btn" onclick="unlock()">دخول ✨</button>
         </div>
     </div>
@@ -100,18 +93,16 @@
     <div class="container" id="main-content">
         
         <div class="card">
-            <div class="section-title">✨ صوركِ ✨</div>
+            <h2 style="font-family: 'Amiri', serif;">✨ صـوركِ ✨</h2>
             <div class="slider-container" id="slider">
-                <img src="https://via.placeholder.com/500x300/ffb3c1/ffffff?text=Your+Photo+1" class="slider-img active">
-                <img src="https://via.placeholder.com/500x300/ff8fa3/ffffff?text=Your+Photo+2" class="slider-img">
-                <img src="https://via.placeholder.com/500x300/fb6f92/ffffff?text=Your+Photo+3" class="slider-img">
-                <img src="https://via.placeholder.com/500x300/c9184a/ffffff?text=Your+Photo+4" class="slider-img">
+                <img src="https://via.placeholder.com/500x300?text=Photo+1" class="slider-img active">
+                <img src="https://via.placeholder.com/500x300?text=Photo+2" class="slider-img">
+                <img src="https://via.placeholder.com/500x300?text=Photo+3" class="slider-img">
             </div>
-            <p style="font-size: 0.9rem; margin-top: 10px; color: #888;">ستتغير الصور تلقائياً كل 3 ثوانٍ</p>
         </div>
 
         <div class="card">
-            <h3 style="margin-top: 0;">الوقت الذي قضيناه معاً:</h3>
+            <h3>الوقت الذي قضيناه معاً:</h3>
             <div class="counter-grid">
                 <div class="time-box"><span id="days">0</span> يوم</div>
                 <div class="time-box"><span id="hours">0</span> ساعة</div>
@@ -121,77 +112,54 @@
         </div>
 
         <div class="card">
-            <div class="envelope-box" onclick="toggleLetter()">
-                <div id="env-icon" style="font-size: 50px;">✉️</div>
-                <b id="env-text">اضغطي هنا لرؤية رسالتي</b>
-                <div id="letter" class="letter">
-                    <p style="font-family: 'Amiri', serif; font-size: 1.3rem; line-height: 1.6;">
-                        إلى أميرتي الغالية.. <br>
-                        أردت أن أجمع لكِ بعضاً من ذكرياتنا وكلماتي في هذا المكان البسيط. <br>
-                        شكراً لأنكِ في حياتي، أحبكِ دائماً وأبداً. ❤️
-                    </p>
-                </div>
-            </div>
+            <p style="font-family: 'Amiri', serif; font-size: 1.3rem;">
+                "ستيتش يخبركِ أنكِ عائلته، والعائلة لا تُترك أبداً." ❤️
+            </p>
         </div>
-
     </div>
 
     <script>
-        // 1. تساقط الورود
+        // إطلاق الورود من عند ستيتش
         function createPetal() {
             const container = document.getElementById('rose-container');
             const petal = document.createElement('div');
             petal.className = 'petal';
-            const types = ['🌸', '🌹', '💗', '✨', '💕'];
-            petal.innerText = types[Math.floor(Math.random() * types.length)];
-            petal.style.left = Math.random() * 100 + 'vw';
-            const duration = Math.random() * 3 + 5;
+            const emojis = ['🌸', '🌹', '💖', '💕'];
+            petal.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // اختيار الخروج من اليمين أو اليسار (مكان ستيتش)
+            const side = Math.random() > 0.5 ? 'left' : 'right';
+            if(side === 'left') {
+                petal.style.left = (Math.random() * 50) + 'px';
+            } else {
+                petal.style.right = (Math.random() * 50) + 'px';
+            }
+
+            const duration = Math.random() * 3 + 4;
             petal.style.animationDuration = duration + 's';
             container.appendChild(petal);
             setTimeout(() => petal.remove(), duration * 1000);
         }
         setInterval(createPetal, 300);
 
-        // 2. فتح الموقع
         function unlock() {
             if(document.getElementById('passCode').value === "1234") {
-                document.getElementById('lock-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('lock-screen').style.display = 'none';
-                    document.getElementById('main-content').style.display = 'block';
-                    startAutoSlider(); // تشغيل المعرض
-                }, 1000);
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                startSlider();
             } else { alert("الرمز خاطئ ❤️"); }
         }
 
-        // 3. التحكم في معرض "صورك"
-        function startAutoSlider() {
-            const images = document.querySelectorAll('.slider-img');
-            let index = 0;
+        function startSlider() {
+            const imgs = document.querySelectorAll('.slider-img');
+            let curr = 0;
             setInterval(() => {
-                images[index].classList.remove('active');
-                index = (index + 1) % images.length;
-                images[index].classList.add('active');
-            }, 3000); // تغيير كل 3 ثوانٍ
+                imgs[curr].classList.remove('active');
+                curr = (curr + 1) % imgs.length;
+                imgs[curr].classList.add('active');
+            }, 3000);
         }
 
-        // 4. فتح الرسالة
-        function toggleLetter() {
-            const letter = document.getElementById('letter');
-            const icon = document.getElementById('env-icon');
-            const text = document.getElementById('env-text');
-            if(letter.style.display === 'block') {
-                letter.style.display = 'none';
-                icon.innerText = '✉️';
-                text.innerText = 'اضغطي هنا لرؤية رسالتي';
-            } else {
-                letter.style.display = 'block';
-                icon.innerText = '📂';
-                text.innerText = 'رسالتي لكِ';
-            }
-        }
-
-        // 5. العداد
         const startDate = new Date("2024-01-01T00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
