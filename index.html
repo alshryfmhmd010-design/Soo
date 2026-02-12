@@ -3,92 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى أميرتي سهى ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <title>عيد حب سعيد يا سهى ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:ital,wght@0,700;1,400&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ruby-red: #bc0022;
-            --rose-pink: #ff8fa3;
-            --soft-white: #fff5f7;
+            --velvet-red: #a4161a;
+            --heart-red: #e01e37;
+            --rose-gold: #ffb3c1;
+            --soft-cream: #fff5f5;
         }
 
         body, html {
             margin: 0; padding: 0;
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #ff8fa3 0%, #bc0022 100%);
-            color: #333;
+            background-color: #000; /* خلفية سوداء لإبراز الألوان */
+            background-image: radial-gradient(circle at center, #4b0000 0%, #000 100%);
+            color: var(--soft-cream);
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* نظام تساقط الورود */
+        /* تساقط القلوب اللامعة */
         #rose-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
-        .petal { position: absolute; top: -50px; animation: fall linear forwards; }
+        .heart { position: absolute; top: -50px; animation: fall linear forwards; filter: drop-shadow(0 0 10px var(--heart-red)); }
         @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
-        /* شاشة القفل */
+        /* شاشة القفل الفاخرة */
         #lock-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--ruby-red); display: flex; justify-content: center;
-            align-items: center; z-index: 10000; transition: 1s;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            display: flex; justify-content: center; align-items: center; z-index: 10000; transition: 1.5s;
         }
-        .lock-card { background: white; padding: 30px; border-radius: 30px; text-align: center; width: 80%; max-width: 320px; }
+        .lock-card { 
+            background: rgba(164, 22, 26, 0.2); backdrop-filter: blur(15px);
+            padding: 40px; border-radius: 50% 50% 0 0; border: 2px solid var(--rose-gold);
+            text-align: center; width: 85%; max-width: 350px; box-shadow: 0 0 30px var(--velvet-red);
+        }
 
         /* المحتوى الرئيسي */
-        .container { display: none; padding: 15px; max-width: 500px; margin: auto; }
+        .container { display: none; padding-bottom: 50px; }
 
-        /* البطاقات */
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border: 2px solid var(--rose-pink);
+        /* العنوان المتوهج */
+        .valentine-header {
+            text-align: center; padding: 60px 20px;
+            font-family: 'Aref Ruqaa', serif;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #fff, 0 0 20px var(--heart-red); }
+            to { text-shadow: 0 0 20px #fff, 0 0 30px var(--rose-gold); }
         }
 
-        /* تعديل عرض الصور (الألبوم) */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* صورتان في كل صف */
-            gap: 12px;
-            margin-top: 15px;
+        /* عرض الصور تلو الأخرى */
+        .photo-story {
+            display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 20px;
+        }
+        .photo-frame {
+            width: 100%; max-width: 400px; position: relative;
+            opacity: 0; transform: translateY(50px); transition: 1s;
+        }
+        .photo-frame.visible { opacity: 1; transform: translateY(0); }
+
+        .photo-frame img {
+            width: 100%; border-radius: 20px;
+            border: 4px solid var(--rose-gold);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
-        .photo-grid img {
-            width: 100%;
-            height: 180px; /* طول موحد للصور */
-            object-fit: cover; /* لقص الصورة بذكاء دون تشويهها */
-            border-radius: 15px;
-            border: 3px solid var(--rose-pink);
-            transition: 0.3s;
+        .photo-caption {
+            background: rgba(164, 22, 26, 0.8); color: #fff;
+            padding: 10px 20px; border-radius: 0 0 20px 20px;
+            margin-top: -5px; font-family: 'Amiri', serif; font-size: 1.2rem;
         }
 
-        .photo-grid img:hover { transform: scale(1.05); border-color: var(--ruby-red); }
+        /* العداد الرومانسـي */
+        .valentine-counter {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--rose-gold);
+            margin: 20px; border-radius: 30px; padding: 25px; text-align: center;
+        }
+        .counter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .time-box span { display: block; font-size: 1.5rem; color: var(--rose-gold); font-weight: bold; }
+        .time-box small { font-size: 0.7rem; color: #ccc; }
 
-        /* العداد */
-        .counter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .time-box { background: var(--soft-white); padding: 15px; border-radius: 20px; text-align: center; border-bottom: 4px solid var(--ruby-red); }
-        .time-box span { display: block; font-size: 24px; font-weight: bold; color: var(--ruby-red); }
-
-        /* اسم سهى */
-        .title-name { font-family: 'Amiri', serif; color: var(--ruby-red); font-size: 2.2rem; margin: 10px 0; text-align: center; }
-
-        .message {
-            background: var(--soft-white);
-            padding: 15px;
-            border-radius: 15px;
-            border-right: 5px solid var(--ruby-red);
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            text-align: right;
+        /* رسائل الحب */
+        .love-letter {
+            margin: 20px; padding: 25px; background: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            color: var(--velvet-red); border-radius: 5px; transform: rotate(-1deg);
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3); font-family: 'Amiri', serif; font-size: 1.3rem;
         }
 
-        .btn { background: var(--ruby-red); color: white; padding: 12px 35px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
-        input { padding: 12px; border-radius: 15px; border: 2px solid var(--rose-pink); width: 90%; text-align: center; margin-bottom: 15px; outline: none; }
+        .btn { background: var(--heart-red); color: white; padding: 15px 30px; border: none; border-radius: 50px; cursor: pointer; font-size: 1.1rem; width: 100%; }
+        input { background: rgba(255,255,255,0.1); border: 1px solid var(--rose-gold); padding: 15px; border-radius: 50px; width: 80%; color: #fff; text-align: center; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -97,79 +105,104 @@
 
     <div id="lock-screen">
         <div class="lock-card">
-            <h2 style="color: var(--ruby-red);">أهلاً يا سوو ❤️</h2>
-            <p>أدخلي رمز الحب الخاص بنا</p>
+            <h2 style="font-family: 'Aref Ruqaa', serif; color: var(--rose-gold);">عيد حب سعيد يا سـوو ❤️</h2>
+            <p>أدخلي الرمز السري لمشاهدة مفاجأتكِ</p>
             <input type="password" id="passCode" placeholder="****">
-            <button class="btn" onclick="unlock()">دخول ✨</button>
+            <button class="btn" onclick="unlock()">افتحي قلبي ✨</button>
         </div>
     </div>
 
     <div class="container" id="main-content">
         
-        <div class="card">
-            <div class="title-name">سـهى (سـوو) ❤️</div>
-            <p style="text-align: center; margin: 0;">أنتِ أجمل صدفة في حياتي</p>
+        <div class="valentine-header">
+            <h1 style="font-size: 2.5rem; margin-bottom: 0;">أحبكِ يا سهى</h1>
+            <p style="font-size: 1.2rem; font-family: 'Amiri', serif;">كل عام وأنتِ بطلة قصتي</p>
         </div>
 
-        <div class="card">
-            <h3 style="text-align: center; color: var(--ruby-red);">منذ أن نورتِ حياتي:</h3>
+        <div class="valentine-counter">
+            <h3 style="margin-bottom: 15px; font-family: 'Amiri', serif;">أجمل الأوقات قضيناها معاً:</h3>
             <div class="counter-grid">
-                <div class="time-box"><span id="days">0</span> يوم</div>
-                <div class="time-box"><span id="hours">0</span> ساعة</div>
-                <div class="time-box"><span id="mins">0</span> دقيقة</div>
-                <div class="time-box"><span id="secs">0</span> ثانية</div>
+                <div class="time-box"><span id="days">0</span><small>يوم</small></div>
+                <div class="time-box"><span id="hours">0</span><small>ساعة</small></div>
+                <div class="time-box"><span id="mins">0</span><small>دقيقة</small></div>
+                <div class="time-box"><span id="secs">0</span><small>ثانية</small></div>
             </div>
         </div>
 
-        <div class="card">
-            <h3 style="text-align: center; color: var(--ruby-red);">مملكة سوو ✨</h3>
-            <div class="photo-grid">
-                <img src="1.png" class="album-item">
-                <img src="2.png" class="album-item">
-                <img src="3.png" class="album-item">
-                <img src="4.png" class="album-item">
-                <img src="5.png" class="album-item">
-                <img src="6.png" class="album-item">
-                <img src="7.png" class="album-item">
-                <img src="8.png" class="album-item">
-                <img src="9.png" class="album-item">
-                <img src="10.png" class="album-item">
+        <div class="photo-story">
+            <div class="photo-frame">
+                <img src="https://via.placeholder.com/500x600/800000/ffffff?text=Soha+Photo+1" alt="سهى">
+                <div class="photo-caption">ضحكتكِ هي عيدي.. ❤️</div>
+            </div>
+
+            <div class="photo-frame">
+                <img src="https://via.placeholder.com/500x600/a4161a/ffffff?text=Soha+Photo+2" alt="سوو">
+                <div class="photo-caption">بجانبكِ فقط أشعر بالأمان.. ✨</div>
+            </div>
+
+            <div class="photo-frame">
+                <img src="https://via.placeholder.com/500x600/e01e37/ffffff?text=Soha+Photo+3" alt="حبيبتي">
+                <div class="photo-caption">أنتِ الوردة التي لا تذبل.. 🌹</div>
             </div>
         </div>
 
-        <div class="card">
-            <h3 style="text-align: center; color: var(--ruby-red);">💌 رسائل لكِ</h3>
-            <div class="message">"يا سهى، جمالكِ يغلب كل الورد الذي يتساقط في هذه الصفحة."</div>
-            <div class="message">"سأبقى أحب دلالكِ يا 'سوو' للأبد."</div>
+        <div class="love-letter">
+            <h2 style="margin-top: 0; text-align: center;">إلى ملكتي سهى 💌</h2>
+            <p>
+                في هذا الفلنتاين، أردت أن أخبركِ أنكِ لستِ مجرد شخص في حياتي، بل أنتِ الحياة بأكملها. 
+                أحبكِ بكل تفاصيلك، وبكل حالاتكِ. سأظل بجانبكِ دائماً يا سوو.
+            </p>
+            <p style="text-align: left; font-weight: bold;">- حبيبك للأبد ❤️</p>
         </div>
 
+        <div style="text-align: center; padding: 40px; font-size: 40px;">♾️❤️</div>
     </div>
 
     <script>
-        function createPetal() {
+        // إطلاق القلوب
+        function createHeart() {
             const container = document.getElementById('rose-container');
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            const items = ['🌸', '🌹', '❤️', '💖'];
-            petal.innerText = items[Math.floor(Math.random() * items.length)];
-            petal.style.left = Math.random() * 100 + 'vw';
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            const items = ['❤️', '💖', '✨', '🌹', '💕'];
+            heart.innerText = items[Math.floor(Math.random() * items.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
             const duration = Math.random() * 3 + 4;
-            petal.style.animationDuration = duration + 's';
-            container.appendChild(petal);
-            setTimeout(() => petal.remove(), duration * 1000);
+            heart.style.animationDuration = duration + 's';
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), duration * 1000);
         }
-        setInterval(createPetal, 300);
+        setInterval(createHeart, 300);
 
+        // فتح الموقع وتفعيل تأثير التمرير
         function unlock() {
             if(document.getElementById('passCode').value === "1234") {
                 document.getElementById('lock-screen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('lock-screen').style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
+                    handleScrollEffect(); // تفعيل تأثير ظهور الصور
                 }, 1000);
-            } else { alert("الرمز خاطئ يا سوو ❤️"); }
+            } else { alert("الرمز خاطئ يا حبيبتي ❤️"); }
         }
 
+        // تأثير ظهور الصور عند التمرير
+        function handleScrollEffect() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.photo-frame').forEach(frame => {
+                observer.observe(frame);
+            });
+        }
+
+        // العداد
         const startDate = new Date("2024-01-01T00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
