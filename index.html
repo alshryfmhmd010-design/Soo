@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إلى أغلى ما أملك ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:ital@1&display=swap" rel="stylesheet">
     <style>
         :root {
             --soft-pink: #ffe5ec;
             --main-pink: #fb6f92;
             --text-color: #c9184a;
+            --glass: rgba(255, 255, 255, 0.4);
         }
 
         body {
@@ -22,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* حاوية الورد المتساقط */
+        /* حاوية الورد المتساقط في الواجهة الأمامية */
         #rose-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -43,11 +44,36 @@
             100% { transform: translateY(110vh) rotate(720deg) translateX(50px); opacity: 0.3; }
         }
 
-        /* التنسيقات العامة للبطاقات */
+        /* شاشة القفل */
+        #lock-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--main-pink);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: 1s ease;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 2px solid white;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        /* المحتوى الرئيسي */
         .container {
+            display: none;
             padding: 20px;
             max-width: 450px;
             margin: auto;
+            position: relative;
+            z-index: 1;
         }
 
         .card {
@@ -61,9 +87,12 @@
             text-align: center;
         }
 
-        .photo-frame img {
+        /* تنسيق صورتك الخاصة */
+        .personal-photo {
             width: 100%;
             border-radius: 20px;
+            border: 5px solid white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             margin-bottom: 15px;
         }
 
@@ -75,9 +104,29 @@
 
         .time-box span {
             display: block;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
             color: var(--main-pink);
+        }
+
+        input {
+            padding: 12px;
+            border-radius: 15px;
+            border: 2px solid var(--main-pink);
+            margin-top: 15px;
+            text-align: center;
+            outline: none;
+        }
+
+        .btn {
+            background: var(--text-color);
+            color: white;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 25px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -85,66 +134,75 @@
 
     <div id="rose-container"></div>
 
-    <div class="container">
+    <div id="lock-screen">
+        <div class="glass-card">
+            <h2 style="font-family: 'Amiri', serif;">أهلاً يا أميرتي ❤️</h2>
+            <p>أدخلي الرقم السري</p>
+            <input type="password" id="passCode" placeholder="****">
+            <br>
+            <button class="btn" onclick="unlock()">دخول ✨</button>
+        </div>
+    </div>
+
+    <div class="container" id="main-content">
         <div class="card">
-            <div class="photo-frame">
-                <img src="https://images.unsplash.com/photo-1518133835878-5a93cc3f89e5?q=80&w=1000" alt="Special Moment">
-            </div>
-            <h2>أنتِ أجمل وردة في بستاني ❤️</h2>
+            <img src="https://i.ibb.co/VmqpM7V/your-photo.png" class="personal-photo" alt="نحن معاً">
+            <h2 style="font-family: 'Amiri', serif;">أنتِ أجمل صدفة في حياتي ❤️</h2>
         </div>
 
         <div class="card">
             <h3>منذ أن بدأنا حكايتنا:</h3>
             <div class="counter-grid">
-                <div class="time-box">
-                    <span id="days">0</span> يوم
-                </div>
-                <div class="time-box">
-                    <span id="hours">0</span> ساعة
-                </div>
-                <div class="time-box">
-                    <span id="mins">0</span> دقيقة
-                </div>
+                <div class="time-box"><span id="days">0</span> يوم</div>
+                <div class="time-box"><span id="hours">0</span> ساعة</div>
+                <div class="time-box"><span id="mins">0</span> دقيقة</div>
             </div>
         </div>
 
         <div class="card">
-            <p style="font-size: 1.2rem;">"مهما تساقطت الورود، ستبقين أنتِ الوردة الوحيدة التي لا تذبل في قلبي."</p>
+            <p style="font-size: 1.3rem; font-family: 'Amiri', serif;">
+                "مهما تساقطت الورود، ستبقين أنتِ الوردة الوحيدة التي لا تذبل في قلبي."
+            </p>
+            <div style="font-size: 40px;">💍</div>
         </div>
     </div>
 
     <script>
-        // دالة إنشاء الورد المتساقط
+        // 1. نظام الورد المتساقط (واقعي ومضمون الظهور)
         function createPetal() {
             const container = document.getElementById('rose-container');
             const petal = document.createElement('div');
             petal.className = 'petal';
-            
-            // مصفوفة تحتوي على أشكال مختلفة للورد والبتلات
-            const petalTypes = ['🌸', '🌸', '🌸', '🌸'];
-            petal.innerText = petalTypes[Math.floor(Math.random() * petalTypes.length)];
-            
+            const types = ['🌸', '🌹', '💖', '✨'];
+            petal.innerText = types[Math.floor(Math.random() * types.length)];
             petal.style.left = Math.random() * 100 + 'vw';
-            const duration = Math.random() * 3 + 4;
+            const duration = Math.random() * 3 + 5;
             petal.style.animationDuration = duration + 's';
-            petal.style.fontSize = Math.random() * 15 + 15 + 'px';
-            
+            petal.style.fontSize = Math.random() * 10 + 20 + 'px';
             container.appendChild(petal);
-
-            setTimeout(() => {
-                petal.remove();
-            }, duration * 1000);
+            setTimeout(() => petal.remove(), duration * 1000);
         }
-
         setInterval(createPetal, 300);
 
-        // حساب العداد الزمني (تاريخ البداية)
+        // 2. الفتح بكلمة السر (1234)
+        function unlock() {
+            const pass = document.getElementById('passCode').value;
+            if(pass === "1234") {
+                document.getElementById('lock-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('lock-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                }, 1000);
+            } else {
+                alert("الرقم السري خاطئ يا روحي ❤️");
+            }
+        }
+
+        // 3. العداد الزمني (تاريخ بداية حكايتكم)
         const startDate = new Date("2024-01-01T00:00:00").getTime();
-        
         setInterval(() => {
             const now = new Date().getTime();
             const diff = now - startDate;
-            
             document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
             document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             document.getElementById("mins").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
