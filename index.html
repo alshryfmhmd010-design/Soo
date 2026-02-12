@@ -3,198 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إهداء خاص | الاحترافية والجمال</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Reem+Kufi:wght@500&display=swap" rel="stylesheet">
+    <title>عيد حب سعيد يا حبيبتي</title>
     <style>
-        :root {
-            --glow-color: #00d2ff; /* لون النيون الأزرق المتقدم */
-            --accent-color: #ff2d75; /* لون النيون الوردي */
-            --bg-dark: #050505;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            background: var(--bg-dark);
-            color: white;
-            font-family: 'Cairo', sans-serif;
-            overflow: hidden;
-            height: 100vh;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        canvas {
-            position: absolute;
-            top: 0; left: 0;
-            z-index: 1;
-        }
-
-        /* الطبقة العلوية للتصميم */
-        .overlay {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px); /* تأثير الزجاج الضبابي */
-            padding: 40px;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            max-width: 450px;
-            width: 90%;
-            border-top: 2px solid var(--glow-color);
-        }
-
-        h1 {
-            font-family: 'Reem Kufi', sans-serif;
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, var(--glow-color), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 20px rgba(0,210,255,0.3);
-        }
-
-        p {
-            font-weight: 300;
-            line-height: 1.8;
-            color: #ccc;
-            margin-bottom: 25px;
-        }
-
-        /* تنسيق العداد المتقدم */
-        .timer-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .timer-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
-            border-radius: 15px;
-            border-bottom: 2px solid var(--glow-color);
-        }
-
-        .timer-val {
-            display: block;
-            font-size: 1.3rem;
-            font-weight: 700;
+            height: 100vh;
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
             color: #fff;
         }
 
-        .timer-label {
-            font-size: 0.7rem;
-            color: var(--glow-color);
-            text-transform: uppercase;
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            z-index: 1;
         }
 
-        /* زر المفاجأة المضيء */
-        .btn-neon {
-            margin-top: 30px;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 50px;
-            background: transparent;
-            color: var(--glow-color);
-            border: 1px solid var(--glow-color);
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.4s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        h1 { font-size: 3rem; margin-bottom: 10px; }
+        p { font-size: 1.5rem; }
+
+        .heart {
+            color: #e74c3c;
+            font-size: 50px;
+            animation: beat 1s infinite;
         }
 
-        .btn-neon:hover {
-            background: var(--glow-color);
-            color: black;
-            box-shadow: 0 0 30px var(--glow-color);
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* قلوب متساقطة في الخلفية */
+        .falling-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .falling-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh); }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="heartParticles"></canvas>
+    <div class="falling-hearts" id="heartsContainer"></div>
 
-    <div class="overlay">
-        <h1>إليكِ وحدكِ ❤️</h1>
-        <p>في كل ثانية تمر، يزداد يقيني بأنكِ كنتِ أجمل قدر في حياتي. أنتِ النبض الذي يحرك كوني.</p>
-        
-        <div class="timer-grid">
-            <div class="timer-item"><span class="timer-val" id="d">0</span><span class="timer-label">يوم</span></div>
-            <div class="timer-item"><span class="timer-val" id="h">0</span><span class="timer-label">ساعة</span></div>
-            <div class="timer-item"><span class="timer-val" id="m">0</span><span class="timer-label">دقيقة</span></div>
-            <div class="timer-item"><span class="timer-val" id="s">0</span><span class="timer-label">ثانية</span></div>
-        </div>
-
-        <button class="btn-neon" onclick="alert('أحبكِ أكثر من كل هذه النجوم! ✨')">اضغطي هنا</button>
+    <div class="container">
+        <div class="heart">❤️</div>
+        <h1>كل عام وأنتِ حبيبتي</h1>
+        <p>إلى الإنسانة التي جعلت حياتي أجمل، <br> أحبك اليوم وكل يوم.</p>
+        <button onclick="showMessage()" style="padding: 10px 20px; border: none; border-radius: 5px; background: #e74c3c; color: white; cursor: pointer;">اضغطي هنا ❤️</button>
+        <p id="hiddenMessage" style="display:none; margin-top: 20px; font-weight: bold;">أنتِ أجمل صدفة في حياتي!</p>
     </div>
 
     <script>
-        const canvas = document.getElementById('heartParticles');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        // معادلة القلب الرياضية
-        function getHeartPoint(t) {
-            let x = 16 * Math.pow(Math.sin(t), 3);
-            let y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
-            return { x: x * 15, y: -y * 15 };
+        // إظهار رسالة عند الضغط على الزر
+        function showMessage() {
+            document.getElementById('hiddenMessage').style.display = 'block';
         }
 
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.t = Math.random() * Math.PI * 2;
-                const point = getHeartPoint(this.t);
-                this.destX = point.x + canvas.width / 2;
-                this.destY = point.y + canvas.height / 2;
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2;
-                this.speed = Math.random() * 0.04 + 0.01;
-            }
-            update() {
-                this.x += (this.destX - this.x) * this.speed;
-                this.y += (this.destY - this.y) * this.speed;
-            }
-            draw() {
-                ctx.fillStyle = '#00d2ff';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+        // توليد قلوب متساقطة
+        const container = document.getElementById('heartsContainer');
+        for (let i = 0; i < 30; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.opacity = Math.random();
+            container.appendChild(heart);
         }
-
-        for(let i=0; i<800; i++) particles.push(new Particle());
-
-        function animate() {
-            ctx.fillStyle = 'rgba(5, 5, 5, 0.2)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // العداد الزمني
-        const start = new Date('2025-01-01T00:00:00'); // ضع تاريخك هنا
-        function updateTimer() {
-            const now = new Date();
-            const diff = now - start;
-            document.getElementById('d').innerText = Math.floor(diff / 86400000);
-            document.getElementById('h').innerText = Math.floor((diff / 3600000) % 24);
-            document.getElementById('m').innerText = Math.floor((diff / 60000) % 60);
-            document.getElementById('s').innerText = Math.floor((diff / 1000) % 60);
-        }
-        setInterval(updateTimer, 1000);
     </script>
 </body>
 </html>
