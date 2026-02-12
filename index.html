@@ -26,7 +26,7 @@
         #rose-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
         .petal { 
             position: absolute; 
-            bottom: 50px; /* تبدأ من عند ستيتش */
+            bottom: 80px; 
             font-size: 20px; 
             animation: flyUp linear forwards; 
         }
@@ -37,15 +37,25 @@
         }
 
         /* شخصيات ستيتش */
-        .stitch {
+        .stitch-wrapper {
             position: fixed;
-            bottom: -10px;
-            width: 120px; /* يمكنك تكبير أو تصغير الحجم من هنا */
+            bottom: 10px;
+            width: 100px;
+            height: 100px;
             z-index: 1000;
-            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .stitch-left { left: -10px; transform: scaleX(-1); } /* عكس الصورة لليمين */
-        .stitch-right { right: -10px; }
+        .stitch-left { left: 10px; }
+        .stitch-right { right: 10px; }
+
+        .stitch-img {
+            width: 100%;
+            height: auto;
+            /* في حال لم تظهر الصورة، سيظهر هذا اللون كبديل */
+            min-height: 50px;
+        }
 
         /* شاشة القفل */
         #lock-screen {
@@ -63,29 +73,39 @@
         }
 
         /* المعرض */
-        .slider-container { width: 100%; height: 300px; border-radius: 20px; overflow: hidden; position: relative; }
+        .slider-container { width: 100%; height: 300px; border-radius: 20px; overflow: hidden; position: relative; border: 2px solid #fff; }
         .slider-img { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: 1s; }
         .slider-img.active { opacity: 1; }
 
         .counter-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .time-box { background: white; padding: 10px; border-radius: 15px; }
+        .time-box { background: white; padding: 10px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .time-box span { display: block; font-size: 22px; font-weight: bold; color: var(--main-pink); }
 
-        .btn { background: var(--text-color); color: white; padding: 12px 40px; border: none; border-radius: 50px; cursor: pointer; }
-        input { padding: 12px; border-radius: 15px; border: 2px solid var(--main-pink); width: 80%; text-align: center; }
+        .btn { background: var(--text-color); color: white; padding: 12px 40px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        input { padding: 12px; border-radius: 15px; border: 2px solid var(--main-pink); width: 80%; text-align: center; font-size: 16px; }
     </style>
 </head>
 <body>
 
     <div id="rose-container"></div>
 
-    <img src="https://i.pinimg.com/originals/3d/8d/6d/3d8d6d289066601f0165996417537330.gif" class="stitch stitch-left" alt="Stitch">
-    <img src="https://i.pinimg.com/originals/3d/8d/6d/3d8d6d289066601f0165996417537330.gif" class="stitch stitch-right" alt="Stitch">
+    <div class="stitch-wrapper stitch-left">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueG56Znd6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/Yrq648qW7L5v11L8pS/giphy.gif" 
+             class="stitch-img" 
+             onerror="this.parentElement.innerHTML='💙'">
+    </div>
+    <div class="stitch-wrapper stitch-right">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueG56Znd6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/Yrq648qW7L5v11L8pS/giphy.gif" 
+             class="stitch-img" 
+             style="transform: scaleX(-1);"
+             onerror="this.parentElement.innerHTML='💙'">
+    </div>
 
     <div id="lock-screen">
         <div class="lock-card">
-            <h2>أهلاً يا أميرتي ❤️</h2>
-            <input type="password" id="passCode" placeholder="الرمز السري">
+            <h2 style="font-family: 'Amiri', serif;">أهلاً يا أميرتي ❤️</h2>
+            <p>أدخلي الرمز السري</p>
+            <input type="password" id="passCode" placeholder="****">
             <button class="btn" onclick="unlock()">دخول ✨</button>
         </div>
     </div>
@@ -119,20 +139,19 @@
     </div>
 
     <script>
-        // إطلاق الورود من عند ستيتش
+        // إطلاق الورود من مكان وجود ستيتش
         function createPetal() {
             const container = document.getElementById('rose-container');
             const petal = document.createElement('div');
             petal.className = 'petal';
-            const emojis = ['🌸', '🌹', '💖', '💕'];
+            const emojis = ['🌸', '🌹', '💖', '💕', '🌷'];
             petal.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             
-            // اختيار الخروج من اليمين أو اليسار (مكان ستيتش)
             const side = Math.random() > 0.5 ? 'left' : 'right';
             if(side === 'left') {
-                petal.style.left = (Math.random() * 50) + 'px';
+                petal.style.left = (Math.random() * 80 + 20) + 'px';
             } else {
-                petal.style.right = (Math.random() * 50) + 'px';
+                petal.style.right = (Math.random() * 80 + 20) + 'px';
             }
 
             const duration = Math.random() * 3 + 4;
@@ -140,26 +159,32 @@
             container.appendChild(petal);
             setTimeout(() => petal.remove(), duration * 1000);
         }
-        setInterval(createPetal, 300);
+        setInterval(createPetal, 400);
 
         function unlock() {
             if(document.getElementById('passCode').value === "1234") {
-                document.getElementById('lock-screen').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-                startSlider();
-            } else { alert("الرمز خاطئ ❤️"); }
+                document.getElementById('lock-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('lock-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    startSlider();
+                }, 1000);
+            } else { alert("الرمز خاطئ يا حبيبتي ❤️"); }
         }
 
         function startSlider() {
             const imgs = document.querySelectorAll('.slider-img');
             let curr = 0;
-            setInterval(() => {
-                imgs[curr].classList.remove('active');
-                curr = (curr + 1) % imgs.length;
-                imgs[curr].classList.add('active');
-            }, 3000);
+            if(imgs.length > 1) {
+                setInterval(() => {
+                    imgs[curr].classList.remove('active');
+                    curr = (curr + 1) % imgs.length;
+                    imgs[curr].classList.add('active');
+                }, 3000);
+            }
         }
 
+        // تاريخ البداية
         const startDate = new Date("2024-01-01T00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
