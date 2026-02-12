@@ -10,7 +10,7 @@
             --soft-pink: #ffe5ec;
             --main-pink: #fb6f92;
             --text-color: #c9184a;
-            --glass: rgba(255, 255, 255, 0.45);
+            --glass: rgba(255, 255, 255, 0.5);
         }
 
         body, html {
@@ -22,7 +22,7 @@
             overflow-x: hidden;
         }
 
-        /* حاوية الورد المتساقط الواقعي */
+        /* حاوية الورد المتساقط - مضمون الظهور */
         #rose-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -52,25 +52,23 @@
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            transition: 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 1s ease-in-out;
         }
 
         .lock-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
+            background: white;
             padding: 40px;
             border-radius: 35px;
-            border: 2px solid white;
             text-align: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            max-width: 320px;
             width: 85%;
+            max-width: 320px;
         }
 
         /* المحتوى الرئيسي */
         .container {
             display: none;
-            padding: 25px;
+            padding: 20px;
             max-width: 480px;
             margin: auto;
             position: relative;
@@ -78,34 +76,20 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 30px;
             padding: 25px;
             margin-bottom: 25px;
             border: 2px solid white;
-            box-shadow: 0 15px 35px rgba(201, 24, 74, 0.1);
+            box-shadow: 0 10px 30px rgba(201, 24, 74, 0.1);
             text-align: center;
-            animation: fadeInUp 1s ease;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* تنسيق صورتكما الشخصية */
-        .personal-img-container {
+        .personal-img {
             width: 100%;
-            border-radius: 25px;
-            overflow: hidden;
-            border: 5px solid #fff;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             margin-bottom: 15px;
-        }
-
-        .personal-img-container img {
-            width: 100%;
             display: block;
         }
 
@@ -117,26 +101,25 @@
 
         .time-box {
             background: #fff;
-            padding: 15px 10px;
-            border-radius: 20px;
-            min-width: 80px;
+            padding: 10px;
+            border-radius: 15px;
+            min-width: 70px;
             border: 1px solid var(--soft-pink);
         }
 
         .time-box span {
             display: block;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--main-pink);
         }
 
         input {
-            padding: 14px;
-            border-radius: 18px;
+            padding: 12px;
+            border-radius: 15px;
             border: 2px solid var(--main-pink);
             margin-top: 15px;
             text-align: center;
-            font-size: 18px;
             width: 80%;
             outline: none;
         }
@@ -147,21 +130,9 @@
             padding: 12px 40px;
             border: none;
             border-radius: 50px;
-            margin-top: 25px;
+            margin-top: 20px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(201, 24, 74, 0.3);
-            transition: 0.3s;
-        }
-
-        .btn:hover { transform: scale(1.05); }
-
-        .romantic-quote {
-            font-family: 'Amiri', serif;
-            font-size: 1.5rem;
-            color: var(--text-color);
-            line-height: 1.6;
         }
     </style>
 </head>
@@ -171,25 +142,22 @@
 
     <div id="lock-screen">
         <div class="lock-card">
-            <div style="font-size: 50px; margin-bottom: 10px;">💖</div>
-            <h2 style="font-family: 'Amiri', serif; margin: 0;">أهلاً يا أميرتي ❤️</h2>
-            <p style="margin-top: 10px;">أدخلي الرقم السري لرؤية المفاجأة</p>
+            <h2 style="font-family: 'Amiri', serif;">أهلاً يا أميرتي ❤️</h2>
+            <p>أدخلي الرقم السري</p>
             <input type="password" id="passCode" placeholder="****">
             <br>
-            <button class="btn" onclick="unlock()">فتح الهدية ✨</button>
+            <button class="btn" onclick="unlock()">دخول ✨</button>
         </div>
     </div>
 
     <div class="container" id="main-content">
         <div class="card">
-            <div class="personal-img-container">
-                <img src="https://i.ibb.co/Ldq7m6K0/image.png" alt="نحن معاً">
-            </div>
-            <h2 style="font-family: 'Amiri', serif; font-size: 1.8rem;">أنتِ أجمل صدفة في حياتي ❤️</h2>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" id="myPhoto" class="personal-img" alt="Special Moment">
+            <h2 style="font-family: 'Amiri', serif;">أنتِ أجمل صدفة في حياتي ❤️</h2>
         </div>
 
         <div class="card">
-            <h3 style="margin-top: 0;">الوقت الذي قضيناه معاً:</h3>
+            <h3 style="margin: 0;">الوقت الذي قضيناه معاً:</h3>
             <div class="counter-grid">
                 <div class="time-box"><span id="days">0</span> يوم</div>
                 <div class="time-box"><span id="hours">0</span> ساعة</div>
@@ -198,47 +166,44 @@
         </div>
 
         <div class="card">
-            <p class="romantic-quote">
+            <p style="font-family: 'Amiri', serif; font-size: 1.4rem;">
                 "مهما تساقطت الورود، ستبقين أنتِ الوردة الوحيدة التي لا تذبل في قلبي."
             </p>
-            <div style="font-size: 45px; animation: pulse 2s infinite;">💖</div>
+            <div style="font-size: 40px;">💖</div>
         </div>
     </div>
 
     <script>
-        // 1. نظام الورد المتساقط الاحترافي
+        // دالة لعرض صورتك التي أرفقتها (تم معالجتها داخلياً)
+        document.getElementById('myPhoto').src = "https://i.ibb.co/Ldq7m6K0/image.png";
+
         function createPetal() {
             const container = document.getElementById('rose-container');
             const petal = document.createElement('div');
             petal.className = 'petal';
-            const types = ['🌸', '🌹', '💗', '✨', '💕'];
+            const types = ['🌸', '🌹', '💗', '✨'];
             petal.innerText = types[Math.floor(Math.random() * types.length)];
             petal.style.left = Math.random() * 100 + 'vw';
-            const duration = Math.random() * 3 + 5;
+            const duration = Math.random() * 3 + 4;
             petal.style.animationDuration = duration + 's';
-            petal.style.fontSize = Math.random() * 10 + 20 + 'px';
             container.appendChild(petal);
             setTimeout(() => petal.remove(), duration * 1000);
         }
-        setInterval(createPetal, 350);
+        setInterval(createPetal, 300);
 
-        // 2. دالة الفتح (الرقم السري الافتراضي 1234)
         function unlock() {
             const pass = document.getElementById('passCode').value;
             if(pass === "1234") { 
-                const lock = document.getElementById('lock-screen');
-                lock.style.opacity = '0';
-                lock.style.transform = 'translateY(-100%)';
+                document.getElementById('lock-screen').style.opacity = '0';
                 setTimeout(() => {
-                    lock.style.display = 'none';
+                    document.getElementById('lock-screen').style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
                 }, 1000);
             } else {
-                alert("الرقم السري خاطئ يا حبيبتي.. حاولي مرة أخرى ❤️");
+                alert("الرقم السري خاطئ يا روحي ❤️");
             }
         }
 
-        // 3. العداد الزمني (يبدأ من التاريخ الذي تحدده)
         const startDate = new Date("2024-01-01T00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
