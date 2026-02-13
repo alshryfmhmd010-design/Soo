@@ -117,7 +117,6 @@
     </div>
 
     <div class="main-content" id="main-content">
-        
         <section class="hero-section">
             <div class="beating-heart">❤️</div>
             <h1 style="font-family: 'Reem Kufi'; font-size: 2.8rem; color: var(--soft-pink); margin-bottom: 20px;">محمد & سهى</h1>
@@ -125,9 +124,7 @@
                 <p style="font-size: 1.2rem; margin-bottom: 5px;">نبضات قلبي باسمكِ وصلت إلى:</p>
                 <span id="heartbeats">0</span>
                 <span style="font-size: 1.5rem; color: var(--soft-pink); font-family: 'Reem Kufi';">مرّة</span>
-                
                 <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 30px 0;">
-                
                 <p>عمر حكايتنا حتى الآن:</p>
                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
                     <div><span id="days" style="font-size: 1.5rem; font-weight: bold; color: var(--deep-rose);">0</span><br><small>يوم</small></div>
@@ -161,26 +158,19 @@
 
         <section class="final-messages">
             <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); margin-bottom: 50px;">رسائل من القلب إليكِ 💌</h2>
-            <div class="msg-card">
-                "إلى الجميلة سهى.. استمعي لنبضات قلبي، فهي لا تخبركِ إلا باسمكِ منذ تلك الليلة في يونيو 2020."
-            </div>
-            <div class="msg-card">
-                "أنتِ القصيدة التي لا تنتهي، والنبضة التي أحيا بها."
-            </div>
-            <div class="msg-card">
-                "أحبكِ جداً يا سوو.. للأبد."
-            </div>
-            
+            <div class="msg-card">"إلى الجميلة سهى.. استمعي لنبضات قلبي، فهي لا تخبركِ إلا باسمكِ منذ تلك الليلة."</div>
+            <div class="msg-card">"أنتِ القصيدة التي لا تنتهي، والنبضة التي أحيا بها."</div>
+            <div class="msg-card">"أحبكِ جداً يا سوو.. للأبد."</div>
             <div style="margin-top: 80px;">
                 <div class="beating-heart" style="font-size: 80px;">❤️</div>
                 <h3 style="font-family: 'Reem Kufi'; color: var(--soft-pink);">دائماً وأبداً.. محمد وسهى</h3>
             </div>
         </section>
 
-        <div class="music-player" style="position:fixed; bottom:20px; right:20px; background:rgba(0,0,0,0.5); padding:10px 20px; border-radius:30px; backdrop-filter:blur(10px); border:1px solid var(--deep-rose); z-index: 10002;">
+        <div class="music-player" style="position:fixed; bottom:20px; right:20px; background:rgba(0,0,0,0.6); padding:10px 20px; border-radius:30px; backdrop-filter:blur(10px); border:1px solid var(--deep-rose); z-index: 10002;">
             <button onclick="toggleMusic()" id="mBtn" style="background:none; border:none; color:white; cursor:pointer; font-weight:bold;">⏸ استمعي لنبضي</button>
-            <audio id="bgMusic" loop>
-                <source src="https://www.soundjay.com/human/heartbeat-01.mp3" type="audio/mpeg">
+            <audio id="bgMusic" loop preload="auto">
+                <source src="https://assets.mixkit.co/active_storage/sfx/2324/2324-preview.mp3" type="audio/mpeg">
             </audio>
         </div>
     </div>
@@ -219,20 +209,27 @@
             }
         }
 
+        const music = document.getElementById('bgMusic');
+
         function unlock() {
             if(document.getElementById('passCode').value === "1234") {
+                // محاولة تشغيل الصوت فور الضغط لتجاوز حظر المتصفح
+                music.play().catch(e => console.log("Audio play pending user interaction"));
+                
                 document.getElementById('lock-screen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('lock-screen').style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
                     createStars();
                     initScroll();
-                    // تشغيل النبض تلقائياً عند الدخول
-                    const music = document.getElementById('bgMusic');
-                    music.play();
                     setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
                 }, 1000);
             } else { alert("الرمز خاطئ يا حبيبة محمد ❤️"); }
+        }
+
+        function toggleMusic() {
+            if(music.paused) { music.play(); document.getElementById('mBtn').innerText = '⏸ استمعي لنبضي'; }
+            else { music.pause(); document.getElementById('mBtn').innerText = '▶️ تشغيل النبض'; }
         }
 
         function initScroll() {
@@ -240,12 +237,6 @@
                 entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
             }, {threshold: 0.1});
             document.querySelectorAll('.story-item, .msg-card').forEach(el => obs.observe(el));
-        }
-
-        const music = document.getElementById('bgMusic');
-        function toggleMusic() {
-            if(music.paused) { music.play(); document.getElementById('mBtn').innerText = '⏸ استمعي لنبضي'; }
-            else { music.pause(); document.getElementById('mBtn').innerText = '▶️ تشغيل النبض'; }
         }
 
         const start = new Date("2020-06-01T00:00:00").getTime();
@@ -256,8 +247,6 @@
             document.getElementById("hours").innerText = Math.floor((diff % 86400000) / 3600000);
             document.getElementById("mins").innerText = Math.floor((diff % 3600000) / 60000);
             document.getElementById("secs").innerText = Math.floor((diff % 60000) / 1000);
-            
-            // حساب النبضات (75 نبضة في الدقيقة)
             const beats = Math.floor((diff / 60000) * 75);
             document.getElementById("heartbeats").innerText = beats.toLocaleString();
         }, 1000);
