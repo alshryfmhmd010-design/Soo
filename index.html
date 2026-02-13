@@ -27,7 +27,7 @@
         }
         .petal { position: absolute; background-size: contain; background-repeat: no-repeat; pointer-events: none; }
         
-        /* صور البتلات الستة */
+        /* صور البتلات */
         .petal-style-1 { background-image: url('A.png'); }
         .petal-style-2 { background-image: url('B.png'); }
         .petal-style-3 { background-image: url('C.png'); }
@@ -45,10 +45,25 @@
 
         .main-content { display: none; opacity: 0; transition: 2s; }
 
+        /* القلب النابض الكبير */
+        .big-beating-heart {
+            font-size: 80px;
+            color: var(--bright-red);
+            text-shadow: 0 0 30px var(--bright-red);
+            animation: mainHeartBeat 1.2s infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes mainHeartBeat {
+            0% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.2); filter: brightness(1.3); }
+            100% { transform: scale(1); filter: brightness(1); }
+        }
+
         .hero-section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .dashboard { background: var(--glass-pink); border-radius: 30px; padding: 40px; border: 1px solid var(--bright-red); width: 90%; max-width: 550px; box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
 
-        /* قسم النجوم والقمر */
+        /* قسم سماء ليلة اللقاء */
         .star-observatory {
             padding: 100px 20px; background: #050a14; position: relative; overflow: hidden;
             text-align: center; border-top: 2px solid var(--deep-red); border-bottom: 2px solid var(--deep-red);
@@ -60,7 +75,7 @@
         }
         .moon::after { content: ''; position: absolute; width: 80px; height: 80px; background: #050a14; border-radius: 50%; left: 30px; top: -5px; }
 
-        /* معرض الصور */
+        /* معرض الصور والدب */
         .story-item {
             width: 85%; max-width: 450px; margin: 100px auto; opacity: 0; 
             transform: translateY(30px); transition: 1.2s; position: relative;
@@ -68,7 +83,6 @@
         .story-item.active { opacity: 1; transform: translateY(0); }
         .story-item img { width: 100%; border-radius: 20px; border: 5px solid var(--bright-red); box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
 
-        /* الصورة الشخصية */
         .custom-kiss-img {
             position: absolute; bottom: -40px; right: -30px;
             width: 80px; height: 80px; z-index: 10;
@@ -97,8 +111,6 @@
 
         .btn-unlock { background: var(--bright-red); color: white; padding: 15px 50px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 0 15px var(--bright-red); }
         input { background: rgba(255,255,255,0.05); border: 1px solid var(--soft-pink); padding: 15px; border-radius: 30px; color: white; text-align: center; margin-bottom: 25px; outline: none; }
-        .beating-heart { font-size: 65px; animation: heartBeat 0.8s infinite; color: var(--bright-red); }
-        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
     </style>
 </head>
 <body>
@@ -107,7 +119,7 @@
 
     <div id="lock-screen">
         <div class="lock-card">
-            <div class="beating-heart">❤️</div>
+            <div class="big-beating-heart">❤️</div>
             <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink);">سهى & محمد</h2>
             <p>أدخلي الرمز السري</p>
             <input type="password" id="passCode" placeholder="رمز الحب">
@@ -118,7 +130,7 @@
 
     <div class="main-content" id="main-content">
         <section class="hero-section">
-            <div class="beating-heart">💖</div>
+            <div class="big-beating-heart">❤️</div>
             <h1 style="font-family: 'Reem Kufi'; font-size: 3rem; color: var(--soft-pink);">محمد & سهى</h1>
             <div class="dashboard">
                 <span id="heartbeats" style="font-size: 3rem; font-weight: bold; color: var(--soft-pink);">0</span>
@@ -156,6 +168,11 @@
         <section class="final-messages">
             <div class="msg-card">"أنتِ النبضة التي أحيا بها، والقصيدة التي لا تنتهي."</div>
             <div class="msg-card">"أحبكِ جداً يا سوو.. للأبد."</div>
+            
+            <div style="margin-top: 80px;">
+                <div class="big-beating-heart" style="font-size: 100px;">❤️</div>
+                <h3 style="font-family: 'Reem Kufi'; color: var(--soft-pink); font-size: 1.8rem;">دائماً وأبداً.. محمد وسهى</h3>
+            </div>
         </section>
 
         <div class="music-player" style="position:fixed; bottom:25px; left:25px; background:rgba(255, 0, 0, 0.2); padding:12px 25px; border-radius:35px; backdrop-filter:blur(10px); z-index: 10002; border: 1px solid var(--bright-red);">
@@ -203,15 +220,9 @@
         function unlock() {
             const code = document.getElementById('passCode').value;
             const photoSection = document.getElementById('photo-section');
-            
             if (code === "1234" || code === "0000") {
-                // إذا كان الرمز 0000 نخفي قسم الصور
-                if (code === "0000") {
-                    photoSection.style.display = 'none';
-                } else {
-                    photoSection.style.display = 'block';
-                }
-
+                if (code === "0000") photoSection.style.display = 'none';
+                else photoSection.style.display = 'block';
                 music.play();
                 document.getElementById('lock-screen').style.opacity = '0';
                 setTimeout(() => {
@@ -221,9 +232,7 @@
                     initScroll();
                     setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
                 }, 1000);
-            } else { 
-                alert("الرمز خاطئ ❤️"); 
-            }
+            } else { alert("الرمز خاطئ ❤️"); }
         }
 
         function toggleMusic() {
