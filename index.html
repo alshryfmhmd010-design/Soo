@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soha & Mohamed | Special Night ❤️</title>
+    <title>Soha & Mohamed | Eternity ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,7 +11,7 @@
             --deep-rose: #c9184a;
             --soft-pink: #ffb3c1;
             --wine: #590d22;
-            --glass: rgba(255, 255, 255, 0.1);
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         body, html {
@@ -36,7 +36,7 @@
             border: 1px solid var(--soft-pink); text-align: center; backdrop-filter: blur(10px);
         }
 
-        /* القسم الرئيسي */
+        /* الواجهة الرئيسية */
         .main-content { display: none; opacity: 0; transition: 2s; }
 
         .hero-section {
@@ -45,10 +45,22 @@
             background: linear-gradient(to bottom, #1a0105, #4d0a19);
         }
 
+        /* قسم العداد والنبضات */
+        .dashboard {
+            background: var(--glass); border-radius: 30px; padding: 40px;
+            border: 1px solid var(--deep-rose); width: 90%; max-width: 550px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        #heartbeats {
+            display: block; font-size: 3.5rem; font-weight: bold; 
+            color: var(--soft-pink); text-shadow: 0 0 20px var(--deep-rose);
+            margin: 10px 0;
+        }
+
         /* قسم خريطة النجوم والقمر */
         .star-observatory {
             padding: 100px 20px; background: #050a14; position: relative; overflow: hidden;
-            text-align: center; border-top: 2px solid var(--deep-rose); border-bottom: 2px solid var(--deep-rose);
+            text-align: center; border-top: 2px solid var(--deep-rose);
         }
         .moon {
             width: 100px; height: 100px; background: #fdfae5; border-radius: 50%;
@@ -58,39 +70,46 @@
             content: ''; position: absolute; width: 80px; height: 80px; 
             background: #050a14; border-radius: 50%; left: 30px; top: -5px;
         }
-        #constellation { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
         /* معرض الصور */
-        .story-container { padding: 50px 0; background: #2b030b; }
+        .story-container { padding: 50px 0; background: #1a0105; }
         .story-item {
             width: 85%; max-width: 450px; margin: 60px auto; opacity: 0; 
-            transform: scale(0.9); transition: 1.2s; text-align: center;
+            transform: translateY(30px); transition: 1.2s; text-align: center;
         }
-        .story-item.active { opacity: 1; transform: scale(1); }
+        .story-item.active { opacity: 1; transform: translateY(0); }
         .story-item img {
             width: 100%; border-radius: 20px; border: 4px solid var(--deep-rose);
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
-        .story-caption { margin-top: 15px; font-family: 'Amiri'; color: var(--soft-pink); font-size: 1.2rem; }
 
-        /* تنسيقات العداد */
-        .dashboard {
-            background: var(--glass); border-radius: 30px; padding: 30px;
-            border: 1px solid var(--deep-rose); width: 90%; max-width: 500px;
+        /* قسم الرسائل الختامي */
+        .final-messages {
+            padding: 100px 20px; background: linear-gradient(to bottom, #1a0105, #4d0a19);
+            text-align: center;
         }
-        .btn-unlock { background: var(--deep-rose); color: white; padding: 15px 45px; border: none; border-radius: 50px; cursor: pointer; }
-        input { background: rgba(255,255,255,0.1); border: 1px solid var(--soft-pink); padding: 15px; border-radius: 30px; color: white; text-align: center; margin-bottom: 20px; }
+        .msg-card {
+            background: var(--glass); max-width: 600px; margin: 20px auto;
+            padding: 30px; border-radius: 20px; border-right: 5px solid var(--deep-rose);
+            font-family: 'Amiri', serif; font-size: 1.4rem; line-height: 1.8;
+            opacity: 0; transform: scale(0.9); transition: 1s;
+        }
+        .msg-card.active { opacity: 1; transform: scale(1); }
+
+        .btn-unlock { background: var(--deep-rose); color: white; padding: 15px 45px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        input { background: rgba(255,255,255,0.1); border: 1px solid var(--soft-pink); padding: 15px; border-radius: 30px; color: white; text-align: center; margin-bottom: 20px; outline: none; }
         
-        .beating-heart { font-size: 50px; animation: heartBeat 1.4s infinite; color: var(--deep-rose); }
-        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .beating-heart { font-size: 60px; animation: heartBeat 1.4s infinite; color: var(--deep-rose); margin-bottom: 10px; }
+        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
     </style>
 </head>
 <body>
 
     <div id="lock-screen">
         <div class="lock-card">
+            <div class="beating-heart">🌸</div>
             <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink);">سهى & محمد</h2>
-            <p>أدخلي الرمز السري لعالمنا</p>
+            <p>أدخلي الرمز السري لعالمنا المظلم والجميل</p>
             <input type="password" id="passCode" placeholder="رمز الحب">
             <br>
             <button class="btn-unlock" onclick="unlock()">دخول 🌹</button>
@@ -101,31 +120,35 @@
         
         <section class="hero-section">
             <div class="beating-heart">❤️</div>
-            <h1 style="font-family: 'Reem Kufi'; font-size: 2.5rem; color: var(--soft-pink);">محمد & سهى</h1>
+            <h1 style="font-family: 'Reem Kufi'; font-size: 2.8rem; color: var(--soft-pink); margin-bottom: 20px;">محمد & سهى</h1>
             <div class="dashboard">
-                <p>مر على حبنا:</p>
+                <p style="font-size: 1.2rem; margin-bottom: 5px;">نبضات قلبي باسمكِ وصلت إلى:</p>
+                <span id="heartbeats">0</span>
+                <span style="font-size: 1.5rem; color: var(--soft-pink); font-family: 'Reem Kufi';">مرّة</span>
+                
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 30px 0;">
+                
+                <p>عمر حكايتنا حتى الآن:</p>
                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
-                    <div><span id="days" style="font-weight: bold; color: var(--deep-rose);">0</span><br><small>يوم</small></div>
-                    <div><span id="hours" style="font-weight: bold; color: var(--deep-rose);">0</span><br><small>ساعة</small></div>
-                    <div><span id="mins" style="font-weight: bold; color: var(--deep-rose);">0</span><br><small>دقيقة</small></div>
-                    <div><span id="secs" style="font-weight: bold; color: var(--deep-rose);">0</span><br><small>ثانية</small></div>
+                    <div><span id="days" style="font-size: 1.5rem; font-weight: bold; color: var(--deep-rose);">0</span><br><small>يوم</small></div>
+                    <div><span id="hours" style="font-size: 1.5rem; font-weight: bold; color: var(--deep-rose);">0</span><br><small>ساعة</small></div>
+                    <div><span id="mins" style="font-size: 1.5rem; font-weight: bold; color: var(--deep-rose);">0</span><br><small>دقيقة</small></div>
+                    <div><span id="secs" style="font-size: 1.5rem; font-weight: bold; color: var(--deep-rose);">0</span><br><small>ثانية</small></div>
                 </div>
-                <p style="font-size: 0.9rem; margin-top: 20px; opacity: 0.7;">عدد نبضات قلبي باسمك: <span id="heartbeats">0</span></p>
             </div>
         </section>
 
         <section class="star-observatory">
-            <div id="constellation"></div>
+            <div id="constellation" style="position: absolute; top:0; left:0; width:100%; height:100%;"></div>
             <div class="moon"></div>
-            <h2 style="font-family: 'Reem Kufi'; color: #fdfae5;">سماء ليلتنا الأولى</h2>
-            <p style="font-family: 'Amiri'; font-style: italic; color: #888;">يونيو 2020 - حيث توقفت النجوم لتشهد بدايتنا</p>
-            <p style="max-width: 600px; margin: 20px auto; line-height: 1.8;">في هذه الليلة، لم يكن القمر مكتملاً فحسب، بل كانت النجوم ترسم طريقاً جديداً لحياتي معكِ يا سهى.</p>
+            <h2 style="font-family: 'Reem Kufi'; color: #fdfae5;">سماء ليلة اللقاء</h2>
+            <p style="font-family: 'Amiri'; font-style: italic; color: #888;">يونيو 2020 - الشاهد الأول على نبضنا</p>
         </section>
 
         <div class="story-container">
-            <h2 style="text-align: center; font-family: 'Reem Kufi'; color: var(--soft-pink);">أجمل لحظاتنا 📸</h2>
-            <div class="story-item"><img src="1.png"><div class="story-caption">أول خطوة في حكايتنا ❤️</div></div>
-            <div class="story-item"><img src="2.png"><div class="story-caption">ضحكتكِ التي أضاءت كوني</div></div>
+            <h2 style="text-align: center; font-family: 'Reem Kufi'; color: var(--soft-pink); margin-bottom: 40px;">أجمل لحظاتنا 📸</h2>
+            <div class="story-item"><img src="1.png"><div style="color:var(--soft-pink); margin-top:10px;">البداية التي غيرت قدري ❤️</div></div>
+            <div class="story-item"><img src="2.png"></div>
             <div class="story-item"><img src="3.png"></div>
             <div class="story-item"><img src="4.png"></div>
             <div class="story-item"><img src="5.png"></div>
@@ -133,11 +156,29 @@
             <div class="story-item"><img src="7.png"></div>
             <div class="story-item"><img src="8.png"></div>
             <div class="story-item"><img src="9.png"></div>
-            <div class="story-item"><img src="10.png"><div class="story-caption">معاً للأبد يا ملكتي 💍</div></div>
+            <div class="story-item"><img src="10.png"><div style="color:var(--soft-pink); margin-top:10px;">حبيبتي وملكتي للأبد 💍</div></div>
         </div>
 
-        <div class="music-player" style="position:fixed; bottom:20px; left:20px; background:rgba(0,0,0,0.5); padding:10px; border-radius:20px; backdrop-filter:blur(5px);">
-            <button onclick="toggleMusic()" id="mBtn" style="background:none; border:none; color:white; cursor:pointer;">▶️ تشغيل الموسيقى</button>
+        <section class="final-messages">
+            <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); margin-bottom: 50px;">رسائل من القلب إليكِ 💌</h2>
+            <div class="msg-card">
+                "إلى الجميلة سهى.. شكراً لأنكِ كنتِ النور في أكثر أيامي ظلمة، والوردة التي نبتت في قلبي منذ يونيو 2020."
+            </div>
+            <div class="msg-card">
+                "أعدكِ أن أظل أحبكِ بعدد دقات قلبي التي لا تتوقف، وبعدد النجوم التي شهدت على حبنا."
+            </div>
+            <div class="msg-card">
+                "أنتِ لستِ مجرد شريكة، أنتِ كل كوني. أحبكِ جداً يا سوو."
+            </div>
+            
+            <div style="margin-top: 80px;">
+                <div class="beating-heart" style="font-size: 80px;">❤️</div>
+                <h3 style="font-family: 'Reem Kufi'; color: var(--soft-pink);">دائماً وأبداً.. محمد وسهى</h3>
+            </div>
+        </section>
+
+        <div class="music-player" style="position:fixed; bottom:20px; right:20px; background:rgba(255,255,255,0.1); padding:10px 20px; border-radius:30px; backdrop-filter:blur(10px); border:1px solid var(--deep-rose);">
+            <button onclick="toggleMusic()" id="mBtn" style="background:none; border:none; color:white; cursor:pointer; font-weight:bold;">▶️ تشغيل نبضنا</button>
             <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
         </div>
     </div>
@@ -145,23 +186,24 @@
     <script>
         // ملاحقة الورود
         document.addEventListener('mousemove', function(e) {
-            const trail = document.createElement('div');
-            trail.className = 'trail-flower';
-            trail.innerText = '🌹';
-            trail.style.left = e.pageX + 'px';
-            trail.style.top = e.pageY + 'px';
-            document.body.appendChild(trail);
-            setTimeout(() => {
-                trail.style.opacity = '0';
-                trail.style.transform = 'translateY(20px) scale(0)';
-                setTimeout(() => trail.remove(), 600);
-            }, 100);
+            if(document.getElementById('main-content').style.display === 'block') {
+                const trail = document.createElement('div');
+                trail.className = 'trail-flower';
+                trail.innerText = '🌹';
+                trail.style.left = e.pageX + 'px';
+                trail.style.top = e.pageY + 'px';
+                document.body.appendChild(trail);
+                setTimeout(() => {
+                    trail.style.opacity = '0';
+                    trail.style.transform = 'translateY(20px) scale(0)';
+                    setTimeout(() => trail.remove(), 600);
+                }, 100);
+            }
         });
 
-        // إنشاء نجوم القسم الخاص
-        function createObservatoryStars() {
+        function createStars() {
             const container = document.getElementById('constellation');
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 150; i++) {
                 const star = document.createElement('div');
                 star.style.position = 'absolute';
                 star.style.background = 'white';
@@ -181,11 +223,9 @@
                 setTimeout(() => {
                     document.getElementById('lock-screen').style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
-                    setTimeout(() => { 
-                        document.getElementById('main-content').style.opacity = '1'; 
-                        createObservatoryStars();
-                        initScroll(); 
-                    }, 50);
+                    createStars();
+                    initScroll();
+                    setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
                 }, 1000);
             } else { alert("الرمز خاطئ يا حبيبة محمد ❤️"); }
         }
@@ -194,7 +234,7 @@
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
             }, {threshold: 0.1});
-            document.querySelectorAll('.story-item').forEach(el => obs.observe(el));
+            document.querySelectorAll('.story-item, .msg-card').forEach(el => obs.observe(el));
         }
 
         const music = document.getElementById('bgMusic');
@@ -211,7 +251,10 @@
             document.getElementById("hours").innerText = Math.floor((diff % 86400000) / 3600000);
             document.getElementById("mins").innerText = Math.floor((diff % 3600000) / 60000);
             document.getElementById("secs").innerText = Math.floor((diff % 60000) / 1000);
-            document.getElementById("heartbeats").innerText = Math.floor((diff / 60000) * 80).toLocaleString();
+            
+            // حساب النبضات (75 نبضة في الدقيقة)
+            const beats = Math.floor((diff / 60000) * 75);
+            document.getElementById("heartbeats").innerText = beats.toLocaleString();
         }, 1000);
     </script>
 </body>
