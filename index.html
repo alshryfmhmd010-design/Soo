@@ -121,11 +121,11 @@
     <div id="lock-screen">
         <div class="lock-card">
             <div class="big-beating-heart">❤️</div>
-            <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); font-size: 2rem;">مرحباً بكِ في عالمنا</h2>
+            <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); font-size: 2rem;">مرحباً بكِ في قلبي</h2>
             <p style="font-size: 1.1rem; margin-bottom: 25px;">أدخلي رمز الحب السري للدخول</p>
             <input type="password" id="passCode" placeholder="رمز الدخول">
             <br>
-            <button class="btn-unlock" onclick="unlock()">فتح الذكريات 🌹</button>
+            <button class="btn-unlock" onclick="unlock()">فتح قلبي 🫀</button>
         </div>
     </div>
 
@@ -159,16 +159,16 @@
         </section>
 
         <div id="photo-section" class="story-container">
-            <div class="story-item"><img src="1.png"><div class="photo-caption">"أول صورة جمعت بين قلبينا"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="2.png"><div class="photo-caption">"ضحكتكِ التي أضاءت عالمي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="3.png"><div class="photo-caption">"ذكريات لا تنسى بجانبكِ"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="4.png"><div class="photo-caption">"في كل يوم أحبكِ أكثر"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="5.png"><div class="photo-caption">"أنتِ وطني وأماني"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="6.png"><div class="photo-caption">"حكايتنا هي الأجمل"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="7.png"><div class="photo-caption">"دمتِ لي حباً لا ينتهي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="8.png"><div class="photo-caption">"نصف قلبي وروحي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="9.png"><div class="photo-caption">"معكِ الحياة لها طعم آخر"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="10.png"><div class="photo-caption">"أحبكِ جداً يا سُهى"</div><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="1.png"><div class="photo-caption">"روحي"</div><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="2.png"><div class="photo-caption">"حباتي"</div><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="3.png"><div class="photo-caption">"قليبيي"</div><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="4.png"><div class="photo-caption">"بنيتي"</div><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="5.png"><div class="photo-caption">"صغيرونتي"</div><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="6.png"><div class="photo-caption">"غلاي"</div><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="7.png"><div class="photo-caption">"سموحتي"</div><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="8.png"><div class="photo-caption">"حبيبيي"</div><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="9.png"><div class="photo-caption">"البوسات وانتي ف حضني احلى شي"</div><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="10.png"><div class="photo-caption">"انتي لياا بروحي ومش حد يشاركني فيك"</div><div class="custom-kiss-img"></div></div>
         </div>
 
         <section class="footer-section">
@@ -187,7 +187,7 @@
         const music = document.getElementById('bgMusic');
         function unlock() {
             const code = document.getElementById('passCode').value;
-            if (code === "1234" || code === "0000") {
+            if (code === "الصغيرون" || code === "0000") {
                 if (code === "0000") document.getElementById('photo-section').style.display = 'none';
                 music.play().catch(() => {});
                 document.getElementById('lock-screen').style.opacity = '0';
@@ -198,7 +198,7 @@
                     createStars(); initScroll();
                     setTimeout(() => document.getElementById('main-content').style.opacity = '1', 50);
                 }, 1000);
-            } else alert("الرمز خاطئ يا حبيبتي ❤️");
+            } else alert("الرمز خطا عيوني ❤️");
         }
 
         function openMessages() { document.getElementById('msg-modal').style.display = 'flex'; }
