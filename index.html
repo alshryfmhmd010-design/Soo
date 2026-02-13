@@ -69,8 +69,19 @@
         .story-item img { width: 100%; border-radius: 25px; border: 5px solid var(--bright-red); box-shadow: 0 0 30px rgba(255, 0, 0, 0.4); }
         .photo-caption { margin-top: 15px; font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--soft-pink); font-style: italic; }
 
-        /* الدب المُّقبل */
-        .custom-kiss-img { position: absolute; bottom: -30px; right: -20px; width: 80px; height: 80px; z-index: 10; background-image: url('X.png'); background-size: contain; background-repeat: no-repeat; animation: bearKiss 2s infinite ease-in-out; }
+        /* التعديل: الدب المُّقبل مرتفع ليظهر داخل حدود الصورة */
+        .custom-kiss-img { 
+            position: absolute; 
+            bottom: 10px; /* تم التعديل من -30px لرفع الدب */
+            right: 10px; 
+            width: 85px; 
+            height: 85px; 
+            z-index: 10; 
+            background-image: url('X.png'); 
+            background-size: contain; 
+            background-repeat: no-repeat; 
+            animation: bearKiss 2s infinite ease-in-out; 
+        }
         @keyframes bearKiss { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15) rotate(-5deg); } }
         .custom-kiss-img::after { content: '💋'; position: absolute; top: -10px; left: 0; font-size: 25px; animation: kissFloat 1.5s infinite; opacity: 0; }
         @keyframes kissFloat { 0% { transform: translateY(0) scale(0.5); opacity: 1; } 100% { transform: translateY(-80px) scale(1.5); opacity: 0; } }
@@ -109,7 +120,7 @@
             
             <div class="msg-segment"><strong>يا أجمل قدر في حياتي ❤️</strong><br>قعدت نفكر شني نكتبلك… وكل الكلام اللي في الدنيا حسّيته شويه عليك، انتي مش بس بنت نحبها… انتي البنت اللي اخترتها من بين كل الناس.</div>
             <div class="msg-segment">ضحكتك عندي أغلى من كل شي، وصوتك يطمني أكثر من أي كلام. لما نزعل نلقاك حضن وأمان، ولما نفرح أول وحدة نبي نشاركها فرحتي هي انتي.</div>
-            <div class="msg-segment">نحبك حب كبير هلبااات، حب صادق يبان في غيرتي عليك، في خوفي عليك، وفي دعائي لك في كل صلاة. ربي عالم قداش نتمناك تكوني ديما معاي.</div>
+            <div class="msg-segment">نحبك حب كبير هلبااات، حب صادق يبان في غيرتي عليك، في خوفي عليك، في دعائي لك في كل صلاة. ربي عالم قداش نتمناك تكوني ديما معاي.</div>
             <div class="msg-segment">نبي نكون حضنك وقت تعبك، وضهرك وقت ضعفك، وأول واحد تضحكيله، وآخر صوت تسمعيه قبل ما ترقدي. انتي مش مرحلة في حياتي… انتي حياتي نفسها.</div>
             <div class="msg-segment" style="text-align: center; border: none;">
                 كل عام وانتي حبي، وكل عام وأنا نحمد ربي إنه رزقني بيك.<br>
@@ -136,7 +147,7 @@
             <h1 style="font-family: 'Reem Kufi'; font-size: 3.5rem; color: var(--soft-pink); margin: 0;">محمد & سهى</h1>
             
             <div class="dashboard-box">
-                <p style="margin-bottom: 5px; color: var(--soft-pink);">عدد نبضات قلبي من يوم ريتك وهوا اول يوم دق فيه قلبي:</p>
+                <p style="margin-bottom: 5px; color: var(--soft-pink);">عدد نبضات قلبي من يوم شفتك وهوا اول يوم دق فيه قلبي:</p>
                 <span id="heartbeats" style="font-size: 3.2rem; font-weight: bold;">0</span>
             </div>
 
@@ -243,3 +254,4 @@
     </script>
 </body>
 </html>
+
