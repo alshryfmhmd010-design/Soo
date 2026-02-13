@@ -20,23 +20,23 @@
             overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        /* حاوية الورد المتساقط */
+        /* حاوية الصور المتساقطة */
         #petal-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9999; overflow: hidden;
         }
         .petal { position: absolute; background-size: contain; background-repeat: no-repeat; pointer-events: none; }
         
-        /* صور البتلات */
+        /* تعريف الصور التسعة في الـ CSS */
         .petal-style-1 { background-image: url('A.png'); }
         .petal-style-2 { background-image: url('B.png'); }
         .petal-style-3 { background-image: url('C.png'); }
         .petal-style-4 { background-image: url('D.png'); }
         .petal-style-5 { background-image: url('E.png'); }
         .petal-style-6 { background-image: url('F.png'); }
-        .petal-style-4 { background-image: url('X.png'); }
-        .petal-style-5 { background-image: url('Y.png'); }
-        .petal-style-6 { background-image: url('Z.png'); }
+        .petal-style-7 { background-image: url('X.png'); }
+        .petal-style-8 { background-image: url('Y.png'); }
+        .petal-style-9 { background-image: url('Z.png'); }
 
         /* شاشة القفل */
         #lock-screen {
@@ -58,15 +58,14 @@
         }
 
         @keyframes mainHeartBeat {
-            0% { transform: scale(1); filter: brightness(1); }
+            0%, 100% { transform: scale(1); filter: brightness(1); }
             50% { transform: scale(1.2); filter: brightness(1.3); }
-            100% { transform: scale(1); filter: brightness(1); }
         }
 
         .hero-section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .dashboard { background: var(--glass-pink); border-radius: 30px; padding: 40px; border: 1px solid var(--bright-red); width: 90%; max-width: 550px; box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
 
-        /* قسم سماء ليلة اللقاء */
+        /* سماء ليلة اللقاء */
         .star-observatory {
             padding: 100px 20px; background: #050a14; position: relative; overflow: hidden;
             text-align: center; border-top: 2px solid var(--deep-red); border-bottom: 2px solid var(--deep-red);
@@ -79,6 +78,7 @@
         .moon::after { content: ''; position: absolute; width: 80px; height: 80px; background: #050a14; border-radius: 50%; left: 30px; top: -5px; }
 
         /* معرض الصور والدب */
+        .story-container { padding: 50px 0; }
         .story-item {
             width: 85%; max-width: 450px; margin: 100px auto; opacity: 0; 
             transform: translateY(30px); transition: 1.2s; position: relative;
@@ -86,6 +86,7 @@
         .story-item.active { opacity: 1; transform: translateY(0); }
         .story-item img { width: 100%; border-radius: 20px; border: 5px solid var(--bright-red); box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
 
+        /* الدب المُّقبل (الصورة X.png) */
         .custom-kiss-img {
             position: absolute; bottom: -40px; right: -30px;
             width: 80px; height: 80px; z-index: 10;
@@ -171,7 +172,6 @@
         <section class="final-messages">
             <div class="msg-card">"أنتِ النبضة التي أحيا بها، والقصيدة التي لا تنتهي."</div>
             <div class="msg-card">"أحبكِ جداً يا سوو.. للأبد."</div>
-            
             <div style="margin-top: 80px;">
                 <div class="big-beating-heart" style="font-size: 100px;">❤️</div>
                 <h3 style="font-family: 'Reem Kufi'; color: var(--soft-pink); font-size: 1.8rem;">دائماً وأبداً.. محمد وسهى</h3>
@@ -188,19 +188,25 @@
         const petalContainer = document.getElementById('petal-container');
         function createPetal() {
             const petal = document.createElement('div');
-            const styleNum = Math.floor(Math.random() * 6) + 1;
+            
+            // تم التعديل ليختار عشوائياً بين 9 أنواع (A, B, C, D, E, F, X, Y, Z)
+            const styleNum = Math.floor(Math.random() * 9) + 1;
             petal.className = `petal petal-style-${styleNum}`;
+            
             const size = Math.random() * 25 + 15 + 'px';
-            petal.style.width = size; petal.style.height = size; petal.style.left = Math.random() * 100 + '%'; petal.style.top = '-50px';
+            petal.style.width = size; petal.style.height = size; 
+            petal.style.left = Math.random() * 100 + '%'; petal.style.top = '-50px';
             petal.style.opacity = Math.random() * 0.5 + 0.5;
+            
             petal.animate([
                 { transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 0 },
                 { opacity: 1, offset: 0.1 },
                 { transform: `translate3d(${Math.random() * 200 - 100}px, 105vh, 0) rotate(${Math.random() * 800}deg)`, opacity: 0 }
             ], { duration: Math.random() * 5000 + 8000, iterations: Infinity, delay: Math.random() * 5000, easing: 'ease-in-out' });
+            
             petalContainer.appendChild(petal);
         }
-        for(let i=0; i<40; i++) { createPetal(); }
+        for(let i=0; i<45; i++) { createPetal(); }
 
         function createStars() {
             const container = document.getElementById('constellation');
