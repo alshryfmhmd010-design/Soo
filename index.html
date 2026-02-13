@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soha & Mohamed | Eternal Love ❤️</title>
+    <title>Mohamed ❤️ Soha | Eternal Love</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Amiri:ital,wght@0,700;1,400&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-pink: #ff4d6d;
-            --soft-pink: #ffb3c1;
-            --neon-glow: 0 0 20px rgba(255, 77, 109, 0.6);
-            --glass: rgba(255, 255, 255, 0.05);
+            --deep-red: #800e13;
+            --neon-glow: 0 0 25px rgba(255, 77, 109, 0.5);
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
         body, html {
@@ -22,36 +22,19 @@
             scroll-behavior: smooth;
         }
 
-        /* أضواء الخلفية المتحركة */
+        /* أضواء الخلفية */
         .glow-bg {
-            position: fixed; width: 100vw; height: 100vh;
-            top: 0; left: 0; z-index: -1;
+            position: fixed; width: 100vw; height: 100vh; z-index: -1;
             background: radial-gradient(circle at 50% 50%, #1a0002 0%, #050505 100%);
-        }
-        .light-blob {
-            position: absolute; width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(255,77,109,0.15) 0%, transparent 70%);
-            border-radius: 50%; filter: blur(80px);
-            animation: moveLight 15s infinite alternate ease-in-out;
-        }
-
-        @keyframes moveLight {
-            0% { transform: translate(-20%, -20%); }
-            100% { transform: translate(80%, 70%); }
         }
 
         /* شاشة القفل */
         #lock-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; display: flex; justify-content: center; align-items: center; z-index: 10000; transition: 1.5s;
-        }
-        .lock-card {
-            background: var(--glass); backdrop-filter: blur(20px);
-            padding: 50px 30px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.1);
-            text-align: center; box-shadow: var(--neon-glow);
+            background: #000; display: flex; justify-content: center; align-items: center; z-index: 10000; transition: 1.2s cubic-bezier(0.7, 0, 0.3, 1);
         }
 
-        /* المحتوى الرئيسي */
+        /* الواجهة الرئيسية */
         .main-content { display: none; opacity: 0; transition: 2s; }
 
         .hero-section {
@@ -59,7 +42,7 @@
             justify-content: center; align-items: center; text-align: center;
         }
         .hero-title {
-            font-family: 'Reem Kufi', sans-serif; font-size: clamp(3rem, 12vw, 5.5rem);
+            font-family: 'Reem Kufi', sans-serif; font-size: clamp(2.5rem, 10vw, 5rem);
             background: linear-gradient(to bottom, #fff, var(--primary-pink));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 0 15px rgba(255,77,109,0.5));
@@ -70,73 +53,82 @@
             background: var(--glass); backdrop-filter: blur(15px);
             margin: 30px auto; border-radius: 30px; padding: 25px;
             border: 1px solid rgba(255,255,255,0.1);
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
-            max-width: 500px; width: 90%;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+            max-width: 450px; width: 90%;
         }
-        .time-unit span { display: block; font-size: 1.8rem; font-weight: bold; color: var(--primary-pink); text-shadow: var(--neon-glow); }
-        .time-unit small { font-size: 0.7rem; color: #aaa; }
+        .time-unit span { display: block; font-size: 1.6rem; font-weight: bold; color: var(--primary-pink); }
 
-        /* تأثيرات الصور - نيون وحركة */
-        .story-container { padding: 40px 15px; }
+        /* تأثير ظهور الصور الواحدة تلو الأخرى */
         .story-item {
-            width: 100%; max-width: 400px; margin: 50px auto;
-            opacity: 0; transform: translateY(80px); transition: 1.2s ease-out;
-            position: relative;
+            width: 85%; max-width: 420px; margin: 80px auto;
+            opacity: 0; transform: translateY(100px) scale(0.9);
+            transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
         }
-        .story-item.reveal { opacity: 1; transform: translateY(0); }
+        .story-item.active { opacity: 1; transform: translateY(0) scale(1); }
+        
         .story-item img {
-            width: 100%; border-radius: 35px;
-            border: 2px solid rgba(255, 77, 109, 0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%; border-radius: 40px;
+            border: 2px solid rgba(255, 77, 109, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transition: 0.5s;
         }
         .story-item:hover img {
-            box-shadow: 0 0 40px var(--primary-pink);
-            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 0 35px var(--primary-pink);
             border-color: var(--primary-pink);
         }
-        .story-text {
-            margin-top: 20px; text-align: center; font-family: 'Amiri', serif;
-            font-size: 1.4rem; color: var(--soft-pink);
+
+        /* قسم الرسائل المميز */
+        .messages-container { padding: 60px 20px; }
+        .message-box {
+            background: linear-gradient(135deg, rgba(255,77,109,0.1), rgba(0,0,0,0.4));
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px 25px;
+            margin: 30px auto;
+            max-width: 500px;
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            position: relative;
+            overflow: hidden;
+            opacity: 0; transform: translateX(-50px);
+            transition: 1s ease-out;
+        }
+        .message-box.active { opacity: 1; transform: translateX(0); }
+        .message-box::before {
+            content: '“'; position: absolute; top: -10px; right: 20px;
+            font-size: 80px; color: var(--primary-pink); opacity: 0.3; font-family: serif;
+        }
+        .message-text {
+            font-family: 'Amiri', serif; font-size: 1.3rem; line-height: 1.8;
+            color: #eee; text-align: center;
         }
 
-        /* القلوب النابضة */
+        /* القلب النابض */
         .beating-heart {
-            font-size: 70px; display: inline-block;
-            animation: heartPulse 1.4s infinite;
-            filter: drop-shadow(0 0 20px var(--primary-pink));
+            font-size: 60px; animation: pulse 1.5s infinite;
+            filter: drop-shadow(0 0 15px var(--primary-pink));
         }
-        @keyframes heartPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .final-section {
-            padding: 100px 20px; text-align: center;
-            background: linear-gradient(transparent, rgba(255,77,109,0.05));
-        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
         .btn-unlock {
-            background: var(--primary-pink); color: white; padding: 15px 45px;
+            background: var(--primary-pink); color: white; padding: 15px 40px;
             border: none; border-radius: 50px; cursor: pointer; font-weight: bold;
         }
         input {
-            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
             padding: 15px; border-radius: 30px; color: #fff; text-align: center; margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div class="glow-bg"><div class="light-blob"></div></div>
+    <div class="glow-bg"></div>
 
     <div id="lock-screen">
-        <div class="lock-card">
-            <h2 style="font-family: 'Reem Kufi'; letter-spacing: 3px;">SOHA & MOHAMED</h2>
-            <p style="color: #888; margin-bottom: 25px;">ادخل الرمز السري لعالمنا</p>
-            <input type="password" id="passCode" placeholder="رمز الحب">
+        <div style="text-align: center;">
+            <h2 style="font-family: 'Reem Kufi'; color: #fff;">SOHA & MOHAMED</h2>
+            <input type="password" id="passCode" placeholder="أدخل رمز الحب الخاص بنا">
             <br>
-            <button class="btn-unlock" onclick="unlock()">فتح الذكريات ✨</button>
+            <button class="btn-unlock" onclick="unlock()">دخول 🌹</button>
         </div>
     </div>
 
@@ -144,35 +136,50 @@
         
         <section class="hero-section">
             <h1 class="hero-title">سهى ❤️ محمد</h1>
-            <div class="beating-heart" style="font-size: 45px;">❤️</div>
-            <p style="font-family: 'Amiri'; font-size: 1.6rem; margin-top: 15px;">حكاية حب بدأت ولن تنتهي</p>
+            <div class="beating-heart">❤️</div>
+            <p style="font-family: 'Amiri'; font-size: 1.5rem; margin-top: 20px; opacity: 0.8;">معكِ يا سوو، الحكاية لا تنتهي..</p>
         </section>
 
         <div class="glass-counter">
-            <div class="time-unit"><span id="days">0</span><small>أيام</small></div>
-            <div class="time-unit"><span id="hours">0</span><small>ساعات</small></div>
-            <div class="time-unit"><span id="mins">0</span><small>دقائق</small></div>
-            <div class="time-unit"><span id="secs">0</span><small>ثواني</small></div>
+            <div class="time-unit"><span id="days">0</span><small>يوم</small></div>
+            <div class="time-unit"><span id="hours">0</span><small>ساعة</small></div>
+            <div class="time-unit"><span id="mins">0</span><small>دقيقة</small></div>
+            <div class="time-unit"><span id="secs">0</span><small>ثانية</small></div>
         </div>
 
         <div class="story-container">
-            <div class="story-item"><img src="1.png"><div class="story-text">أول نظرة.. أول نبضة ❤️</div></div>
-            <div class="story-item"><img src="2.png"><div class="story-text">في عيونك لقيت وطني ✨</div></div>
-            <div class="story-item"><img src="3.png"><div class="story-text">سوو.. يا أغلى من الروح 🌹</div></div>
-            <div class="story-item"><img src="4.png"><div class="story-text">ضحكتك هي اللي تحلي أيامي 💖</div></div>
-            <div class="story-item"><img src="5.png"><div class="story-text">كل يوم معكِ هو عيد لقلبي 💕</div></div>
-            <div class="story-item"><img src="6.png"><div class="story-text">يا ملاكي.. أحبكِ للأبد ♾️</div></div>
-            <div class="story-item"><img src="7.png"><div class="story-text">أجمل صدفة في عمري 🌷</div></div>
-            <div class="story-item"><img src="8.png"><div class="story-text">بجانبكِ أنسى كل همومي 🥂</div></div>
-            <div class="story-item"><img src="9.png"><div class="story-text">رفيقتي.. حبيبتي.. وشريكتي 💎</div></div>
-            <div class="story-item"><img src="10.png"><div class="story-text">إلى الأبد.. محمد وسهى ❤️</div></div>
+            <div class="story-item"><img src="1.png"><div style="text-align:center; padding:15px; font-family:'Amiri'">بداية نبضنا يا سوو.. 2020 ❤️</div></div>
+            <div class="story-item"><img src="2.png"><div style="text-align:center; padding:15px; font-family:'Amiri'">في ملامحكِ أرى كل الجمال ✨</div></div>
+            <div class="story-item"><img src="3.png"><div style="text-align:center; padding:15px; font-family:'Amiri'">سندي وملجئي الوحيد 🌹</div></div>
+            <div class="story-item"><img src="4.png"><div style="text-align:center; padding:15px; font-family:'Amiri'">ضحكتكِ هي لحني المفضل 💖</div></div>
+            <div class="story-item"><img src="5.png"><div style="text-align:center; padding:15px; font-family:'Amiri'">يا ملكة قلبي محمد دائماً معكِ 💕</div></div>
+            <div class="story-item"><img src="6.png"><div style="text-align:center; padding:15px; font-family:'Amiri'">وعدي لكِ أن نبقى معاً للأبد ♾️</div></div>
+            <div class="story-item"><img src="7.png"><div style="text-align:center; padding:15px; font-family:'Amiri'">أنتِ الصدفة التي جعلتني أسعد رجل 🌷</div></div>
+            <div class="story-item"><img src="8.png"><div style="text-align:center; padding:15px; font-family:'Amiri'">بجانبكِ كل الدروب ورد 🥂</div></div>
+            <div class="story-item"><img src="9.png"><div style="text-align:center; padding:15px; font-family:'Amiri'">أحبكِ فوق الحب حبّاً 💎</div></div>
+            <div class="story-item"><img src="10.png"><div style="text-align:center; padding:15px; font-family:'Amiri'">محمد وسهى.. قصة عشق خالدة ❤️</div></div>
         </div>
 
-        <div class="final-section">
-            <div class="beating-heart">❤️</div>
-            <h2 style="font-family: 'Reem Kufi'; font-size: 2.5rem; color: var(--primary-pink);">محمد ❤️ سهى</h2>
-            <p style="font-family: 'Amiri'; font-size: 1.3rem; opacity: 0.7;">أنتِ وعدي الأبدي يا سوو</p>
-            <div style="margin-top: 50px; font-size: 0.8rem; letter-spacing: 2px;">Created with love by Mohamed</div>
+        <div class="messages-container">
+            <h2 style="text-align: center; font-family: 'Reem Kufi'; color: var(--primary-pink);">رسائل من القلب</h2>
+            
+            <div class="message-box">
+                <div class="message-text">"سهى.. منذ أن دخلتِ حياتي في يونيو 2020، تغير كل شيء. أصبحتِ أنتِ النبض، وأصبحتِ أنتِ الحياة."</div>
+            </div>
+
+            <div class="message-box">
+                <div class="message-text">"يا سوو، كلما نظرت إليكِ، شكرت القدر ألف مرة لأنكِ لي. أنتِ أعظم انتصارات محمد."</div>
+            </div>
+
+            <div class="message-box">
+                <div class="message-text">"شكراً لأنكِ كنتِ دائماً هنا، بقلبكِ الصافي وحبكِ الكبير. أحبكِ اليوم وغداً وإلى الأبد."</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 80px 0;">
+            <div class="beating-heart" style="font-size: 100px;">❤️</div>
+            <h2 style="font-family: 'Reem Kufi'; margin-top: 20px;">محمد ❤️ سهى</h2>
+            <p style="opacity: 0.5;">سوو.. أنتِ ملكي للأبد</p>
         </div>
 
     </div>
@@ -185,22 +192,28 @@
                     document.getElementById('lock-screen').style.display = 'none';
                     const main = document.getElementById('main-content');
                     main.style.display = 'block';
-                    setTimeout(() => main.style.opacity = '1', 50);
-                    initReveal();
+                    setTimeout(() => {
+                        main.style.opacity = '1';
+                        initScrollAnimation();
+                    }, 50);
                 }, 1000);
             } else { alert("الرمز خاطئ يا ملكتي ❤️"); }
         }
 
-        function initReveal() {
+        // تحريك العناصر عند التمرير
+        function initScrollAnimation() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('reveal');
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
                 });
             }, { threshold: 0.15 });
-            document.querySelectorAll('.story-item').forEach(el => observer.observe(el));
+
+            document.querySelectorAll('.story-item, .message-box').forEach(el => observer.observe(el));
         }
 
-        // توقيت البداية (يونيو 2020)
+        // العداد
         const startDate = new Date("2020-06-01T00:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
