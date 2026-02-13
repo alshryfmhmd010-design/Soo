@@ -20,13 +20,9 @@
             overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        #petal-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9999; overflow: hidden;
-        }
+        #petal-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998; overflow: hidden; }
         .petal { position: absolute; background-size: contain; background-repeat: no-repeat; pointer-events: none; }
         
-        /* تعريف الصور التسعة */
         .petal-style-1 { background-image: url('A.png'); }
         .petal-style-2 { background-image: url('B.png'); }
         .petal-style-3 { background-image: url('C.png'); }
@@ -44,101 +40,93 @@
         }
         .lock-card { background: var(--glass-pink); padding: 50px; border-radius: 40px; border: 2px solid var(--soft-pink); text-align: center; backdrop-filter: blur(15px); }
 
-        .main-content { display: none; opacity: 0; transition: 2s; }
+        .main-content { display: none; opacity: 0; transition: 1.5s; }
 
         .big-beating-heart {
-            font-size: 80px; color: var(--bright-red);
-            text-shadow: 0 0 30px var(--bright-red);
-            animation: mainHeartBeat 1.2s infinite; margin-bottom: 20px;
+            font-size: 70px; color: var(--bright-red);
+            text-shadow: 0 0 25px var(--bright-red);
+            animation: mainHeartBeat 1.2s infinite; margin-bottom: 15px;
         }
+        @keyframes mainHeartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 
-        @keyframes mainHeartBeat {
-            0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.2); filter: brightness(1.3); }
-        }
+        .hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .dashboard-box { background: var(--glass-pink); border-radius: 25px; padding: 25px; border: 1px solid var(--bright-red); width: 85%; max-width: 450px; margin-bottom: 15px; backdrop-filter: blur(5px); }
 
-        .hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 0; }
-        
-        .dashboard-box { 
-            background: var(--glass-pink); border-radius: 30px; padding: 30px; 
-            border: 1px solid var(--bright-red); width: 90%; max-width: 500px; 
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2); margin-bottom: 20px;
-            backdrop-filter: blur(5px);
-        }
-
-        #heartbeats { font-size: 3.5rem; font-weight: bold; color: var(--soft-pink); text-shadow: 0 0 10px var(--bright-red); }
-
-        .star-observatory {
-            padding: 100px 20px; background: #050a14; position: relative; overflow: hidden;
-            text-align: center; border-top: 2px solid var(--deep-red); border-bottom: 2px solid var(--deep-red);
-        }
+        .star-observatory { padding: 80px 20px; background: #050a14; position: relative; overflow: hidden; text-align: center; border-top: 2px solid var(--deep-red); border-bottom: 2px solid var(--deep-red); }
         #constellation { position: absolute; top:0; left:0; width:100%; height:100%; }
-        .moon {
-            width: 100px; height: 100px; background: #fdfae5; border-radius: 50%;
-            margin: 0 auto 30px; box-shadow: 0 0 50px #fdfae5; position: relative; z-index: 2;
-        }
-        .moon::after { content: ''; position: absolute; width: 80px; height: 80px; background: #050a14; border-radius: 50%; left: 30px; top: -5px; }
+        .moon { width: 80px; height: 80px; background: #fdfae5; border-radius: 50%; margin: 0 auto 20px; box-shadow: 0 0 40px #fdfae5; position: relative; z-index: 2; }
+        .moon::after { content: ''; position: absolute; width: 65px; height: 65px; background: #050a14; border-radius: 50%; left: 25px; top: -5px; }
 
-        .story-container { padding: 50px 0; }
-        .story-item {
-            width: 85%; max-width: 450px; margin: 100px auto; opacity: 0; 
-            transform: translateY(40px); transition: 1.2s ease-out; position: relative;
-        }
+        .story-item { width: 85%; max-width: 420px; margin: 80px auto; position: relative; opacity: 0; transform: translateY(30px); transition: 1s; }
         .story-item.active { opacity: 1; transform: translateY(0); }
-        .story-item img { width: 100%; border-radius: 20px; border: 5px solid var(--bright-red); box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
+        .story-item img { width: 100%; border-radius: 15px; border: 4px solid var(--bright-red); box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); }
 
         .custom-kiss-img {
-            position: absolute; bottom: -40px; right: -30px; width: 80px; height: 80px; z-index: 10;
+            position: absolute; bottom: -35px; right: -25px; width: 70px; height: 70px; z-index: 10;
             background-image: url('X.png'); background-size: contain; background-repeat: no-repeat;
             animation: bearKiss 2s infinite ease-in-out;
         }
-        
-        @keyframes bearKiss {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(-10deg); }
-        }
+        @keyframes bearKiss { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1) rotate(-5deg); } }
+        .custom-kiss-img::after { content: '💋'; position: absolute; top: -10px; left: 0; font-size: 20px; animation: kissFloat 1.5s infinite; opacity: 0; }
+        @keyframes kissFloat { 0% { transform: translateY(0) scale(0.5); opacity: 1; } 100% { transform: translateY(-60px) scale(1.2); opacity: 0; } }
 
-        .custom-kiss-img::after {
-            content: '💋'; position: absolute; top: -10px; left: 0;
-            font-size: 25px; animation: kissFloat 1.5s infinite; opacity: 0;
+        /* --- أيقونة ظرف الرسائل العائمة --- */
+        #envelope-icon {
+            position: fixed; bottom: 30px; right: 30px; font-size: 50px; cursor: pointer;
+            z-index: 10000; filter: drop-shadow(0 0 10px var(--bright-red));
+            animation: floatIcon 3s infinite ease-in-out; display: none;
         }
-        @keyframes kissFloat { 
-            0% { transform: translateY(0) scale(0.5); opacity: 1; } 
-            100% { transform: translateY(-70px) scale(1.3); opacity: 0; } 
-        }
+        @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        .btn-msg-scroll {
-            background: linear-gradient(45deg, var(--deep-red), var(--bright-red));
-            color: white; border: none; padding: 15px 40px; border-radius: 50px;
-            font-size: 1.2rem; cursor: pointer; font-weight: bold;
-            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3); transition: 0.3s;
-            margin-top: 20px; display: inline-block; text-decoration: none;
+        /* --- نافذة الرسائل المنبثقة (Modal) --- */
+        #msg-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(26, 1, 5, 0.95); z-index: 20000;
+            display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(10px);
         }
+        .modal-content {
+            width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto;
+            background: var(--dark-wine); border: 2px solid var(--bright-red);
+            border-radius: 30px; padding: 30px; position: relative;
+            box-shadow: 0 0 40px var(--deep-red); text-align: right; line-height: 1.8;
+        }
+        .close-modal { position: absolute; top: 15px; left: 20px; font-size: 30px; cursor: pointer; color: var(--soft-pink); }
+        .modal-text-card { border-bottom: 1px solid rgba(255, 77, 109, 0.2); padding: 15px 0; font-size: 1.2rem; }
+        .modal-text-card strong { color: var(--soft-pink); display: block; margin-bottom: 5px; }
 
-        /* --- قسم الرسائل المعدل (الإخفاء الافتراضي) --- */
-        .final-messages { 
-            padding: 100px 20px; text-align: center; 
-            /* تخفيف الضباب الأحمر هنا */
-            background: linear-gradient(to top, rgba(128, 14, 38, 0.3), transparent); 
-        }
-        .msg-card { 
-            background: rgba(255, 255, 255, 0.03); max-width: 700px; margin: 40px auto; 
-            padding: 35px; border-radius: 25px; border-right: 5px solid var(--bright-red); 
-            font-family: 'Amiri', serif; font-size: 1.4rem; color: #fff; 
-            opacity: 0; transform: translateY(50px); /* البداية مخفية ونازلة لأسفل */
-            transition: all 1.5s ease-in-out; text-align: right; line-height: 1.8; 
-        }
-        /* كلاس التفعيل عند السكرول */
-        .msg-card.active { opacity: 1; transform: translateY(0); }
-        .msg-card strong { color: var(--soft-pink); display: block; margin-bottom: 10px; font-size: 1.6rem; }
-
-        .btn-unlock { background: var(--bright-red); color: white; padding: 15px 50px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 0 15px var(--bright-red); }
+        .btn-unlock { background: var(--bright-red); color: white; padding: 15px 50px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
         input { background: rgba(255,255,255,0.05); border: 1px solid var(--soft-pink); padding: 15px; border-radius: 30px; color: white; text-align: center; margin-bottom: 25px; outline: none; }
     </style>
 </head>
 <body>
 
     <div id="petal-container"></div>
+
+    <div id="envelope-icon" onclick="openMessages()">💌</div>
+
+    <div id="msg-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeMessages()">&times;</span>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div class="big-beating-heart">❤️</div>
+                <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink);">رسائل قلبي لسهى</h2>
+            </div>
+            
+            <div class="modal-text-card"><strong>سهى… يا أجمل شي صارلي في حياتي ❤️</strong> قعدت نفكر شني نكتبلك… وكل الكلام اللي في الدنيا حسّيته شويه عليك.</div>
+            <div class="modal-text-card">في عيد الحب هذا وهوا اول عيد لينا مع بعض نبي نقولك حاجة من قلبي، انتي مش بس بنت نحبها… انتي البنت اللي اخترتها من بين كل الناس، واللي قلبي ارتاحلها من أول لحظة.</div>
+            <div class="modal-text-card">ضحكتك عندي أغلى من كل شي، وصوتك يطمني أكثر من أي كلام. لما نزعل نلقاك حضن وأمان، ولما نفرح أول وحدة نبي نشاركها فرحتي هي انتي.</div>
+            <div class="modal-text-card">نحبك حب كبير هلبااات، حب صادق، حب مش بس كلام ينقال… حب يبان في غيرتي عليك، في خوفي عليك، في دعائي لك في كل صلاة.</div>
+            <div class="modal-text-card">نتمناك تكوني ديما معاي، في أيامي الحلوة قبل الصعبة، وفي كل خطوة نخطوها نبي إيدك تكون في إيدي. انتي مش بس حبيبتي، انتي نصّي الثاني، وقلبي اللي يدق باسمك من يوم عرفتك.</div>
+            <div class="modal-text-card">انتي أمنيتي اللي ندعي بيها، وحلمي اللي نبي نحققه، ونصيب قلبي اللي اختاره من غير تردد. لو خيروني بين الدنيا بكلها وبينك، نختارك انتي من غير ما نفكر حتى ثانية.</div>
+            <div class="modal-text-card">نحبك حب راجل يخاف على حبيبته، يغار عليها من الهوا، ويعتبرها خط أحمر قدام أي حد. غيرتي عليك مش ضعف… لأني نشوفك أغلى من روحي، ونبيك ديما ليا وبس.</div>
+            <div class="modal-text-card">نبي نكون حضنك وقت تعبك، وضهرك وقت ضعفك، وأول واحد تضحكيله، وآخر صوت تسمعيه قبل ما ترقدي. انتي مش مرحلة في حياتي… انتي حياتي نفسها.</div>
+            <div class="modal-text-card" style="text-align: center; border: none;">
+                كل عام وانتي حبي، وكل عام وأنا نحمد ربي إنه رزقني بيك.<br>
+                <strong>وصدقيني… ما فيش حد يقدر يحبك قدي ❤️‍🔥</strong>
+            </div>
+        </div>
+    </div>
 
     <div id="lock-screen">
         <div class="lock-card">
@@ -154,34 +142,25 @@
     <div class="main-content" id="main-content">
         <section class="hero-section">
             <div class="big-beating-heart">❤️</div>
-            <h1 style="font-family: 'Reem Kufi'; font-size: 3rem; color: var(--soft-pink);">محمد & سهى</h1>
-            
+            <h1 style="font-family: 'Reem Kufi'; font-size: 2.8rem; color: var(--soft-pink);">محمد & سهى</h1>
             <div class="dashboard-box">
-                <p style="color: var(--soft-pink); margin-bottom: 10px;">نبضات قلبي باسمكِ وصلت إلى:</p>
+                <p>نبضات قلبي باسمكِ:</p>
                 <span id="heartbeats">0</span>
-                <p style="margin-top: 10px; font-size: 1.2rem;">نبضة حب صادقة</p>
             </div>
-
             <div class="dashboard-box">
-                <p style="color: var(--soft-pink); margin-bottom: 15px;">عمر حكايتنا حتى الآن:</p>
+                <p>عمر حكايتنا:</p>
                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
-                    <div><span id="days" style="color: var(--bright-red); font-size: 1.8rem; font-weight: bold;">0</span><br><small>يوم</small></div>
-                    <div><span id="hours" style="color: var(--bright-red); font-size: 1.8rem; font-weight: bold;">0</span><br><small>ساعة</small></div>
-                    <div><span id="mins" style="color: var(--bright-red); font-size: 1.8rem; font-weight: bold;">0</span><br><small>دقيقة</small></div>
-                    <div><span id="secs" style="color: var(--bright-red); font-size: 1.8rem; font-weight: bold;">0</span><br><small>ثانية</small></div>
+                    <div><span id="days" style="color: var(--bright-red); font-weight: bold;">0</span><br><small>يوم</small></div>
+                    <div><span id="hours" style="color: var(--bright-red); font-weight: bold;">0</span><br><small>ساعة</small></div>
+                    <div><span id="mins" style="color: var(--bright-red); font-weight: bold;">0</span><br><small>دقيقة</small></div>
+                    <div><span id="secs" style="color: var(--bright-red); font-weight: bold;">0</span><br><small>ثانية</small></div>
                 </div>
             </div>
         </section>
 
-        <section class="star-observatory">
-            <div id="constellation"></div>
-            <div class="moon"></div>
-            <h2 style="font-family: 'Reem Kufi'; color: #fdfae5; position: relative; z-index: 2;">سماء ليلة اللقاء</h2>
-            <p style="font-family: 'Amiri'; color: #888; position: relative; z-index: 2;">يونيو 2020 - الشاهد الأول على نبضنا</p>
-        </section>
+        <section class="star-observatory"><div id="constellation"></div><div class="moon"></div><h2 style="color: #fdfae5;">سماء ليلة اللقاء</h2></section>
 
         <div id="photo-section" class="story-container">
-            <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); margin-top: 50px; text-align: center;">أجمل ذكرياتنا 📸</h2>
             <div class="story-item"><img src="1.png"><div class="custom-kiss-img"></div></div>
             <div class="story-item"><img src="2.png"><div class="custom-kiss-img"></div></div>
             <div class="story-item"><img src="3.png"><div class="custom-kiss-img"></div></div>
@@ -192,102 +171,20 @@
             <div class="story-item"><img src="8.png"><div class="custom-kiss-img"></div></div>
             <div class="story-item"><img src="9.png"><div class="custom-kiss-img"></div></div>
             <div class="story-item"><img src="10.png"><div class="custom-kiss-img"></div></div>
-            
-            <div style="text-align: center; margin-top: 50px;">
-                <a href="#messages-anchor" class="btn-msg-scroll">افتحي رسائل قلبي 💌</a>
-            </div>
         </div>
 
-        <section class="final-messages" id="messages-anchor">
-            <div class="msg-card">
-                <strong>سهى… يا أجمل شي صارلي في حياتي ❤️</strong>
-                قعدت نفكر شني نكتبلك… وكل الكلام اللي في الدنيا حسّيته شويه عليك.<br><br>
-                في عيد الحب هذا وهوا اول عيد لينا مع بعض نبي نقولك حاجة من قلبي،
-                انتي مش بس بنت نحبها… انتي البنت اللي اخترتها من بين كل الناس،
-                واللي قلبي ارتاحلها من أول لحظة.<br><br>
-                ضحكتك عندي أغلى من كل شي، وصوتك يطمني أكثر من أي كلام.
-                لما نزعل نلقاك حضن وأمان، ولما نفرح أول وحدة نبي نشاركها فرحتي هي انتي.
-            </div>
+        <div style="text-align: center; padding: 50px;">
+            <div class="big-beating-heart" style="font-size: 80px;">❤️</div>
+            <h3 style="color: var(--soft-pink);">دائماً وأبداً.. محمد وسهى</h3>
+        </div>
 
-            <div class="msg-card">
-                نحبك حب كبير هلبااات، حب صادق، حب مش بس كلام ينقال…
-                حب يبان في غيرتي عليك، في خوفي عليك، في دعائي لك في كل صلاة.
-                ربي عالم قداش نتمناك تكوني ديما معاي، في أيامي الحلوة قبل الصعبة،
-                وفي كل خطوة نخطوها نبي إيدك تكون في إيدي.<br><br>
-                انتي مش بس حبيبتي، انتي نصّي الثاني، وقلبي اللي يدق باسمك من يوم عرفتك.
-            </div>
-
-            <div class="msg-card">
-                انتي أمنيتي اللي ندعي بيها، وحلمي اللي نبي نحققه، ونصيب قلبي اللي اختاره من غير تردد.<br><br>
-                لو خيروني بين الدنيا بكلها وبينك، نختارك انتي من غير ما نفكر حتى ثانية.
-                لأنك انتي دنيتي، وراحتي، وسبب ابتسامتي كل يوم.
-            </div>
-
-            <div class="msg-card">
-                نحبك حب راجل يخاف على حبيبته، يغار عليها من الهوا، ويعتبرها خط أحمر قدام أي حد.<br>
-                غيرتي عليك مش ضعف… غيرتي عليك لأني نشوفك أغلى من روحي، ونبيك ديما ليا وبس، وما نرضى حتى حد يقربلك بنظرة ولا بكلمة.<br><br>
-                معاك حسّيت بمعنى الرجولة الحقيقي، إنك تكون مسؤول على قلب حد، وتخاف عليه، وتتمناه ديما مبسوط وآمن.
-            </div>
-
-            <div class="msg-card">
-                نبي نكون حضنك وقت تعبك، وضهرك وقت ضعفك، وأول واحد تضحكيله، وآخر صوت تسمعيه قبل ما ترقدي.<br><br>
-                انتي مش مرحلة في حياتي… انتي حياتي نفسها.<br><br>
-                في عيد الحب هذا نوعدك وعد راجل، نكون ليك أمان، وصدق، ووفا، ونخليك ديما تحسي إنك ملكة في قلبي.
-            </div>
-
-            <div class="msg-card" style="text-align: center; border-right: none; border-top: 2px solid var(--bright-red);">
-                كل عام وانتي حبي، وكل عام وانتي أقرب إنسانة لقلبي، وكل عام وأنا نحمد ربي إنه رزقني بيك.<br><br>
-                <strong>وصدقيني… ما فيش حد يقدر يحبك قدي ❤️‍🔥</strong>
-            </div>
-            
-            <div style="margin-top: 80px;">
-                <div class="big-beating-heart" style="font-size: 100px;">❤️</div>
-                <h3 style="font-family: 'Reem Kufi'; color: var(--soft-pink); font-size: 1.8rem;">دائماً وأبداً.. محمد وسهى</h3>
-            </div>
-        </section>
-
-        <div class="music-player" style="position:fixed; bottom:25px; left:25px; background:rgba(255, 0, 0, 0.2); padding:12px 25px; border-radius:35px; backdrop-filter:blur(10px); z-index: 10002; border: 1px solid var(--bright-red);">
-            <button onclick="toggleMusic()" id="mBtn" style="background:none; border:none; color:white; cursor:pointer; font-weight: bold;">⏸ إيقاف النبض</button>
+        <div class="music-player" style="position:fixed; bottom:25px; left:25px; background:rgba(255, 0, 0, 0.2); padding:10px 20px; border-radius:30px; backdrop-filter:blur(10px); z-index: 10002; border: 1px solid var(--bright-red);">
+            <button onclick="toggleMusic()" id="mBtn" style="background:none; border:none; color:white; cursor:pointer;">⏸ النبض</button>
             <audio id="bgMusic" loop><source src="heartbeat.mp3" type="audio/mpeg"></audio>
         </div>
     </div>
 
     <script>
-        const petalContainer = document.getElementById('petal-container');
-        function createPetal() {
-            const petal = document.createElement('div');
-            const styleNum = Math.floor(Math.random() * 9) + 1;
-            petal.className = `petal petal-style-${styleNum}`;
-            const size = Math.random() * 25 + 15 + 'px';
-            petal.style.width = size; petal.style.height = size; 
-            petal.style.left = Math.random() * 100 + '%'; petal.style.top = '-50px';
-            petal.style.opacity = Math.random() * 0.5 + 0.5;
-            petal.animate([
-                { transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 0 },
-                { opacity: 1, offset: 0.1 },
-                { transform: `translate3d(${Math.random() * 200 - 100}px, 105vh, 0) rotate(${Math.random() * 800}deg)`, opacity: 0 }
-            ], { duration: Math.random() * 5000 + 8000, iterations: Infinity, delay: Math.random() * 5000, easing: 'ease-in-out' });
-            petalContainer.appendChild(petal);
-        }
-        for(let i=0; i<45; i++) { createPetal(); }
-
-        function createStars() {
-            const container = document.getElementById('constellation');
-            if(!container) return;
-            for (let i = 0; i < 150; i++) {
-                const star = document.createElement('div');
-                star.style.position = 'absolute';
-                star.style.background = 'white';
-                star.style.width = Math.random() * 2 + 'px';
-                star.style.height = star.style.width;
-                star.style.top = Math.random() * 100 + '%';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.borderRadius = '50%';
-                star.style.opacity = Math.random();
-                container.appendChild(star);
-            }
-        }
-
         const music = document.getElementById('bgMusic');
         
         function unlock() {
@@ -295,35 +192,53 @@
             const photoSection = document.getElementById('photo-section');
             if (code === "1234" || code === "0000") {
                 if (code === "0000") photoSection.style.display = 'none';
-                else photoSection.style.display = 'block';
                 music.play();
                 document.getElementById('lock-screen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('lock-screen').style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
-                    createStars();
-                    initScroll();
-                    setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
+                    document.getElementById('envelope-icon').style.display = 'block'; // إظهار الظرف
+                    createStars(); initScroll();
+                    setTimeout(() => document.getElementById('main-content').style.opacity = '1', 50);
                 }, 1000);
-            } else { alert("الرمز خاطئ ❤️"); }
+            } else alert("الرمز خاطئ ❤️");
         }
 
+        function openMessages() { document.getElementById('msg-modal').style.display = 'flex'; }
+        function closeMessages() { document.getElementById('msg-modal').style.display = 'none'; }
+
         function toggleMusic() {
-            if(music.paused) { music.play(); document.getElementById('mBtn').innerText = '⏸ إيقاف النبض'; }
-            else { music.pause(); document.getElementById('mBtn').innerText = '▶️ تشغيل النبض'; }
+            if(music.paused) { music.play(); document.getElementById('mBtn').innerText = '⏸ النبض'; }
+            else { music.pause(); document.getElementById('mBtn').innerText = '▶️ النبض'; }
+        }
+
+        const petalContainer = document.getElementById('petal-container');
+        function createPetal() {
+            const petal = document.createElement('div');
+            const styleNum = Math.floor(Math.random() * 9) + 1;
+            petal.className = `petal petal-style-${styleNum}`;
+            const size = Math.random() * 25 + 15 + 'px';
+            petal.style.width = size; petal.style.height = size; petal.style.left = Math.random() * 100 + '%'; petal.style.top = '-50px';
+            petal.style.opacity = Math.random() * 0.5 + 0.5;
+            petal.animate([{ transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 0 }, { opacity: 1, offset: 0.1 }, { transform: `translate3d(${Math.random() * 200 - 100}px, 105vh, 0) rotate(${Math.random() * 800}deg)`, opacity: 0 }], { duration: Math.random() * 5000 + 8000, iterations: Infinity, delay: Math.random() * 5000, easing: 'ease-in-out' });
+            petalContainer.appendChild(petal);
+        }
+        for(let i=0; i<40; i++) createPetal();
+
+        function createStars() {
+            const container = document.getElementById('constellation');
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'absolute'; star.style.background = 'white'; star.style.width = Math.random() * 2 + 'px'; star.style.height = star.style.width; star.style.top = Math.random() * 100 + '%'; star.style.left = Math.random() * 100 + '%'; star.style.borderRadius = '50%'; star.style.opacity = Math.random();
+                container.appendChild(star);
+            }
         }
 
         function initScroll() {
             const obs = new IntersectionObserver((entries) => {
-                entries.forEach(e => { 
-                    if(e.isIntersecting) {
-                        e.target.classList.add('active');
-                    } 
-                });
+                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
             }, {threshold: 0.1});
-            
-            // مراقبة الصور والرسائل
-            document.querySelectorAll('.story-item, .msg-card').forEach(el => obs.observe(el));
+            document.querySelectorAll('.story-item').forEach(el => obs.observe(el));
         }
 
         const start = new Date("2020-06-01T00:00:00").getTime();
