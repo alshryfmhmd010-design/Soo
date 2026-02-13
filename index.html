@@ -99,7 +99,7 @@
         .btn-unlock { background: var(--deep-rose); color: white; padding: 15px 45px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
         input { background: rgba(255,255,255,0.1); border: 1px solid var(--soft-pink); padding: 15px; border-radius: 30px; color: white; text-align: center; margin-bottom: 20px; outline: none; }
         
-        .beating-heart { font-size: 60px; animation: heartBeat 1.4s infinite; color: var(--deep-rose); margin-bottom: 10px; }
+        .beating-heart { font-size: 60px; animation: heartBeat 0.8s infinite; color: var(--deep-rose); margin-bottom: 10px; }
         @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
     </style>
 </head>
@@ -109,7 +109,7 @@
         <div class="lock-card">
             <div class="beating-heart">🌸</div>
             <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink);">سهى & محمد</h2>
-            <p>أدخلي الرمز السري لعالمنا المظلم والجميل</p>
+            <p>أدخلي الرمز السري لسماع نبض قلبي</p>
             <input type="password" id="passCode" placeholder="رمز الحب">
             <br>
             <button class="btn-unlock" onclick="unlock()">دخول 🌹</button>
@@ -162,13 +162,13 @@
         <section class="final-messages">
             <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); margin-bottom: 50px;">رسائل من القلب إليكِ 💌</h2>
             <div class="msg-card">
-                "إلى الجميلة سهى.. شكراً لأنكِ كنتِ النور في أكثر أيامي ظلمة، والوردة التي نبتت في قلبي منذ يونيو 2020."
+                "إلى الجميلة سهى.. استمعي لنبضات قلبي، فهي لا تخبركِ إلا باسمكِ منذ تلك الليلة في يونيو 2020."
             </div>
             <div class="msg-card">
-                "أعدكِ أن أظل أحبكِ بعدد دقات قلبي التي لا تتوقف، وبعدد النجوم التي شهدت على حبنا."
+                "أنتِ القصيدة التي لا تنتهي، والنبضة التي أحيا بها."
             </div>
             <div class="msg-card">
-                "أنتِ لستِ مجرد شريكة، أنتِ كل كوني. أحبكِ جداً يا سوو."
+                "أحبكِ جداً يا سوو.. للأبد."
             </div>
             
             <div style="margin-top: 80px;">
@@ -177,9 +177,11 @@
             </div>
         </section>
 
-        <div class="music-player" style="position:fixed; bottom:20px; right:20px; background:rgba(255,255,255,0.1); padding:10px 20px; border-radius:30px; backdrop-filter:blur(10px); border:1px solid var(--deep-rose);">
-            <button onclick="toggleMusic()" id="mBtn" style="background:none; border:none; color:white; cursor:pointer; font-weight:bold;">▶️ تشغيل نبضنا</button>
-            <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+        <div class="music-player" style="position:fixed; bottom:20px; right:20px; background:rgba(0,0,0,0.5); padding:10px 20px; border-radius:30px; backdrop-filter:blur(10px); border:1px solid var(--deep-rose); z-index: 10002;">
+            <button onclick="toggleMusic()" id="mBtn" style="background:none; border:none; color:white; cursor:pointer; font-weight:bold;">⏸ استمعي لنبضي</button>
+            <audio id="bgMusic" loop>
+                <source src="https://www.soundjay.com/human/heartbeat-01.mp3" type="audio/mpeg">
+            </audio>
         </div>
     </div>
 
@@ -225,6 +227,9 @@
                     document.getElementById('main-content').style.display = 'block';
                     createStars();
                     initScroll();
+                    // تشغيل النبض تلقائياً عند الدخول
+                    const music = document.getElementById('bgMusic');
+                    music.play();
                     setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
                 }, 1000);
             } else { alert("الرمز خاطئ يا حبيبة محمد ❤️"); }
@@ -239,8 +244,8 @@
 
         const music = document.getElementById('bgMusic');
         function toggleMusic() {
-            if(music.paused) { music.play(); document.getElementById('mBtn').innerText = '⏸ إيقاف'; }
-            else { music.pause(); document.getElementById('mBtn').innerText = '▶️ تشغيل'; }
+            if(music.paused) { music.play(); document.getElementById('mBtn').innerText = '⏸ استمعي لنبضي'; }
+            else { music.pause(); document.getElementById('mBtn').innerText = '▶️ تشغيل النبض'; }
         }
 
         const start = new Date("2020-06-01T00:00:00").getTime();
