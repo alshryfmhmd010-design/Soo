@@ -18,9 +18,29 @@
             margin: 0; padding: 0; font-family: 'Cairo', sans-serif;
             background-color: var(--dark-wine); color: #fff;
             overflow-x: hidden; scroll-behavior: smooth;
+            user-select: none; /* لمنع تحديد النص أثناء الضغط المطول */
+            -webkit-touch-callout: none;
         }
 
-        /* تاريخ اللقاء خلفية خفيفة */
+        /* بصمة القلب ورذاذ القلوب */
+        .heart-sparkle {
+            position: absolute; pointer-events: none;
+            animation: sparkle-fly 1s out forwards;
+            z-index: 99999; font-size: 20px;
+        }
+        @keyframes sparkle-fly {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+        }
+
+        /* الشهب */
+        .shooting-star {
+            position: absolute; width: 2px; height: 2px;
+            background: linear-gradient(90deg, white, transparent);
+            box-shadow: 0 0 10px white; pointer-events: auto; cursor: pointer;
+            z-index: 5;
+        }
+
         .bg-date {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             font-size: 10vw; font-weight: bold; color: rgba(255, 77, 109, 0.03);
@@ -37,7 +57,6 @@
         .petal-style-7 { background-image: url('X.png'); } .petal-style-8 { background-image: url('Y.png'); }
         .petal-style-9 { background-image: url('Z.png'); }
 
-        /* شاشة القفل مع القلب النابض */
         #lock-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #590d22 0%, #1a0105 100%);
@@ -55,85 +74,55 @@
         .main-content { display: none; opacity: 0; transition: 2s; }
 
         .hero-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .dashboard-box { background: var(--glass-pink); border-radius: 30px; padding: 30px; border: 1px solid var(--bright-red); width: 85%; max-width: 500px; margin-bottom: 25px; backdrop-filter: blur(10px); }
+        .dashboard-box { background: var(--glass-pink); border-radius: 30px; padding: 20px; border: 1px solid var(--bright-red); width: 85%; max-width: 500px; margin-bottom: 20px; backdrop-filter: blur(10px); }
 
-        /* سماء ليلة اللقاء */
         .star-observatory { padding: 100px 20px; background: #050a14; position: relative; overflow: hidden; text-align: center; border-top: 3px solid var(--deep-red); }
         .moon { width: 100px; height: 100px; background: #fdfae5; border-radius: 50%; margin: 0 auto 20px; box-shadow: 0 0 60px #fdfae5; position: relative; z-index: 2; }
         .moon::after { content: ''; position: absolute; width: 85px; height: 85px; background: #050a14; border-radius: 50%; left: 30px; top: -5px; }
-        .sky-desc { font-family: 'Amiri', serif; color: #aaa; font-size: 1.2rem; margin-top: 15px; position: relative; z-index: 2; }
 
-        /* معرض الصور والكتابة تحتها */
-        .story-item { width: 90%; max-width: 450px; margin: 100px auto; position: relative; text-align: center; opacity: 0; transform: translateY(40px); transition: 1.5s; }
+        .story-item { width: 90%; max-width: 450px; margin: 100px auto; position: relative; text-align: center; opacity: 0; transform: translateY(40px); transition: 1.5s; cursor: pointer; }
         .story-item.active { opacity: 1; transform: translateY(0); }
-        .story-item img { width: 100%; border-radius: 25px; border: 5px solid var(--bright-red); box-shadow: 0 0 30px rgba(255, 0, 0, 0.4); }
-        .photo-caption { margin-top: 15px; font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--soft-pink); font-style: italic; }
-
-        /* التعديل: الدب المُّقبل مرتفع ليظهر داخل حدود الصورة */
+        .story-item img { width: 100%; border-radius: 25px; border: 5px solid var(--bright-red); }
+        
         .custom-kiss-img { 
-            position: absolute; 
-            bottom: 10px; /* تم التعديل من -30px لرفع الدب */
-            right: 10px; 
-            width: 85px; 
-            height: 85px; 
-            z-index: 10; 
-            background-image: url('X.png'); 
-            background-size: contain; 
-            background-repeat: no-repeat; 
+            position: absolute; bottom: 10px; right: 10px; width: 85px; height: 85px; z-index: 10; 
+            background-image: url('X.png'); background-size: contain; background-repeat: no-repeat; 
             animation: bearKiss 2s infinite ease-in-out; 
         }
         @keyframes bearKiss { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15) rotate(-5deg); } }
-        .custom-kiss-img::after { content: '💋'; position: absolute; top: -10px; left: 0; font-size: 25px; animation: kissFloat 1.5s infinite; opacity: 0; }
-        @keyframes kissFloat { 0% { transform: translateY(0) scale(0.5); opacity: 1; } 100% { transform: translateY(-80px) scale(1.5); opacity: 0; } }
-
-        /* الظرف والرسائل */
-        #envelope-icon { position: fixed; bottom: 30px; right: 30px; font-size: 60px; cursor: pointer; z-index: 10000; filter: drop-shadow(0 0 15px var(--bright-red)); display: none; animation: floatIcon 3s infinite; }
-        @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
         #msg-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 1, 5, 0.98); z-index: 20000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(15px); }
-        .modal-content { width: 90%; max-width: 650px; max-height: 85vh; overflow-y: auto; background: var(--dark-wine); border: 2px solid var(--bright-red); border-radius: 40px; padding: 40px; position: relative; text-align: right; }
-        .close-modal { position: absolute; top: 20px; left: 25px; font-size: 40px; cursor: pointer; color: var(--soft-pink); }
-        .msg-segment { margin-bottom: 25px; border-bottom: 1px solid rgba(255, 77, 109, 0.1); padding-bottom: 20px; font-size: 1.3rem; line-height: 1.8; color: #eee; font-family: 'Amiri', serif; animation: fadeInMsg 1s ease-in; }
-        @keyframes fadeInMsg { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        .modal-content { width: 90%; max-width: 650px; background: var(--dark-wine); border: 2px solid var(--bright-red); border-radius: 40px; padding: 40px; text-align: right; }
+        .btn-unlock { background: var(--bright-red); color: white; padding: 15px 60px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        input { background: rgba(255,255,255,0.1); border: 1px solid var(--soft-pink); padding: 15px; border-radius: 30px; color: white; text-align: center; margin-bottom: 30px; }
 
-        .btn-unlock { background: var(--bright-red); color: white; padding: 15px 60px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 1.2rem; box-shadow: 0 0 20px var(--bright-red); }
-        input { background: rgba(255,255,255,0.1); border: 1px solid var(--soft-pink); padding: 15px; border-radius: 30px; color: white; text-align: center; margin-bottom: 30px; outline: none; width: 220px; font-size: 1.1rem; }
-
-        /* نهاية الموقع */
-        .footer-section { padding: 100px 20px; text-align: center; background: linear-gradient(to top, #4d0a19, transparent); border-top: 1px solid var(--deep-red); }
+        /* الأنميشن لانفجار القلوب */
+        .emoji-rain {
+            position: fixed; pointer-events: none; z-index: 10000;
+            animation: fly-up 2s ease-out forwards;
+        }
+        @keyframes fly-up {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-500px) rotate(360deg) scale(2); opacity: 0; }
+        }
     </style>
 </head>
-<body>
-
-    <div class="bg-date">يونيو 2020</div>
+<body oncontextmenu="return false;"> <div class="bg-date">يونيو 2020</div>
     <div id="petal-container"></div>
-    <div id="envelope-icon" onclick="openMessages()">💌</div>
+    <div id="envelope-icon" style="position: fixed; bottom: 30px; right: 30px; font-size: 60px; cursor: pointer; z-index: 10000; display: none;" onclick="openMessages()">💌</div>
 
     <div id="msg-modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeMessages()">&times;</span>
-            <div style="text-align: center; margin-bottom: 40px;">
-                <div class="big-beating-heart" style="font-size: 60px;">❤️</div>
-                <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); font-size: 2.2rem;">إلى ملكة قلبي سُهى</h2>
-                <p style="color: var(--bright-red); font-size: 1.2rem;">منذ تلك الليلة في يونيو 2020</p>
-            </div>
-            
-            <div class="msg-segment"><strong>إلى أجمل شي في حياتي ❤️</strong><br>قعدت نفكر شني نكتبلك… وكل الكلام اللي في الدنيا حسّيته شويه عليك، انتي مش بس بنت نحبها… انتي البنت اللي اخترتها من بين كل الناس.</div>
-            <div class="msg-segment">ضحكتك عندي أغلى من كل شي، وصوتك يطمني أكثر من أي كلام. لما نزعل نلقاك حضن وأمان، ولما نفرح أول وحدة نبي نشاركها فرحتي هي انتي.</div>
-            <div class="msg-segment">نحبك حب كبير هلبااات، حب صادق يبان في غيرتي عليك، في خوفي عليك، في دعائي لك في كل صلاة. ربي عالم قداش نتمناك تكوني ديما معاي.</div>
-            <div class="msg-segment">نبي نكون حضنك وقت تعبك، وضهرك وقت ضعفك، وأول واحد تضحكيله وتبكيله، وآخر صوت تسمعيه قبل ما ترقدي. انتي مش مرحلة في حياتي… انتي حياتي نفسها.</div>
-            <div class="msg-segment" style="text-align: center; border: none;">
-                كل عام وانتي حبي، وكل عام وأنا نحمد ربي إنه رزقني بيك.<br>
-                <strong style="color: var(--bright-red); font-size: 1.8rem;">وصدقيني… ما فيش حد يحبك قدي ❤️‍🔥</strong>
-            </div>
+        <div class="modal-content" id="modal-body">
+            <span style="font-size: 40px; cursor: pointer; color: var(--soft-pink);" onclick="closeMessages()">&times;</span>
+            <div id="msg-text-content">
+                </div>
         </div>
     </div>
 
     <div id="lock-screen">
         <div class="lock-card">
             <div class="big-beating-heart">❤️</div>
-            <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); font-size: 2rem;">مرحباً بكِ في قلبي</h2>
-            <p style="font-size: 1.1rem; margin-bottom: 25px;">أدخلي رمز الحب السري للدخول</p>
+            <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink);">مرحباً بكِ في قلبي</h2>
             <input type="password" id="passCode" placeholder="رمز الدخول">
             <br>
             <button class="btn-unlock" onclick="unlock()">فتح قلبي 🫀</button>
@@ -142,80 +131,148 @@
 
     <div class="main-content" id="main-content">
         <section class="hero-section">
-            <div style="font-family: 'Amiri', serif; color: var(--soft-pink); font-size: 1.4rem; margin-bottom: 15px;">منذ البداية الأجمل: يونيو 2020</div>
             <div class="big-beating-heart">❤️</div>
-            <h1 style="font-family: 'Reem Kufi'; font-size: 3.5rem; color: var(--soft-pink); margin: 0;">محمد & سهى</h1>
+            <h1 style="font-family: 'Reem Kufi'; font-size: 3rem; color: var(--soft-pink);">محمد & سهى</h1>
             
             <div class="dashboard-box">
-                <p style="margin-bottom: 5px; color: var(--soft-pink);">عدد نبضات قلبي من يوم شفتك وهوا اول يوم دق فيه قلبي:</p>
-                <span id="heartbeats" style="font-size: 3.2rem; font-weight: bold;">0</span>
+                <p style="color: var(--soft-pink);">عدد نبضات قلبي منذ لقائنا:</p>
+                <span id="heartbeats" style="font-size: 2.5rem; font-weight: bold;">0</span>
+            </div>
+
+            <div class="dashboard-box" style="border-color: #ffb3c1;">
+                <p style="color: var(--soft-pink);">عدد الأنفاس التي تشاركناها (تخيلي):</p>
+                <span id="breaths" style="font-size: 2.2rem; font-weight: bold; color: #fff;">0</span>
             </div>
 
             <div class="dashboard-box">
-                <p style="margin-bottom: 15px; color: var(--soft-pink);">عمر حكايتنا بالأيام والساعات:</p>
                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
-                    <div><span id="days" style="color: var(--bright-red); font-weight: bold; font-size: 2rem;">0</span><br><small>يوم</small></div>
-                    <div><span id="hours" style="color: var(--bright-red); font-weight: bold; font-size: 2rem;">0</span><br><small>ساعة</small></div>
-                    <div><span id="mins" style="color: var(--bright-red); font-weight: bold; font-size: 2rem;">0</span><br><small>دقيقة</small></div>
-                    <div><span id="secs" style="color: var(--bright-red); font-weight: bold; font-size: 2rem;">0</span><br><small>ثانية</small></div>
+                    <div><span id="days" style="color: var(--bright-red); font-weight: bold; font-size: 1.5rem;">0</span><br><small>يوم</small></div>
+                    <div><span id="hours" style="color: var(--bright-red); font-weight: bold; font-size: 1.5rem;">0</span><br><small>ساعة</small></div>
+                    <div><span id="mins" style="color: var(--bright-red); font-weight: bold; font-size: 1.5rem;">0</span><br><small>دقيقة</small></div>
+                    <div><span id="secs" style="color: var(--bright-red); font-weight: bold; font-size: 1.5rem;">0</span><br><small>ثانية</small></div>
                 </div>
             </div>
         </section>
 
-        <section class="star-observatory">
+        <section class="star-observatory" id="star-observatory">
             <div id="constellation" style="position: absolute; top:0; left:0; width:100%; height:100%;"></div>
             <div class="moon"></div>
-            <h2 style="color: #fdfae5; font-family: 'Reem Kufi'; font-size: 2.2rem; position: relative; z-index: 2;">يونيو 2020</h2>
-            <p class="sky-desc">هذه النجوم والقمر كانوا الشاهد الأول على أول نبضة قلب حقيقية بيننا، ومنذ ذلك الحين والسماء تبتسم لنا.</p>
+            <h2 style="color: #fdfae5; font-family: 'Reem Kufi'; z-index: 2; position: relative;">يونيو 2020</h2>
+            <p style="color: #aaa; position: relative; z-index: 2;">اضغطي على الشهب الساقطة لتري دعواتي لكِ..</p>
         </section>
 
         <div id="photo-section" class="story-container">
-            <div class="story-item"><img src="1.png"><div class="photo-caption">"روحي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="2.png"><div class="photo-caption">"حياتي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="3.png"><div class="photo-caption">"قليبي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="4.png"><div class="photo-caption">"بنيتي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="5.png"><div class="photo-caption">"صغيرونتي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="6.png"><div class="photo-caption">"غلاي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="7.png"><div class="photo-caption">"سموحتي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="8.png"><div class="photo-caption">"حبيبي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="9.png"><div class="photo-caption">"البوسات وانتي ف حضني احلى شي"</div><div class="custom-kiss-img"></div></div>
-            <div class="story-item"><img src="10.png"><div class="photo-caption">"انتي لياا بروحي ومش حد يشاركني فيك"</div><div class="custom-kiss-img"></div></div>
-        </div>
+            <div class="story-item" onclick="explodeHearts(event)"><img src="1.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item" onclick="explodeHearts(event)"><img src="2.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item" onclick="explodeHearts(event)"><img src="3.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item" onclick="explodeHearts(event)"><img src="4.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item" onclick="explodeHearts(event)"><img src="5.png"><div class="custom-kiss-img"></div></div>
+            </div>
 
-        <section class="footer-section">
-            <div class="big-beating-heart" style="font-size: 100px;">❤️</div>
-            <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); font-size: 2.5rem;">محمد & سهى</h2>
-            <p style="font-family: 'Amiri', serif; font-size: 1.5rem; color: #888;">حكاية بدأت في يونيو 2020.. ولن تنتهي أبداً</p>
-            <p style="margin-top: 50px; font-size: 0.9rem; color: #550a19;">صُنع بكل حب من أجلكِ ❤️</p>
-        </section>
-
-        <div style="position:fixed; bottom:25px; left:25px; background:rgba(255, 0, 0, 0.2); padding:12px 25px; border-radius:35px; backdrop-filter:blur(10px); z-index: 10002; border: 1px solid var(--bright-red); color: white; cursor: pointer;" onclick="toggleMusic()">
+        <div style="position:fixed; bottom:25px; left:25px; background:rgba(255, 0, 0, 0.2); padding:10px 20px; border-radius:35px; z-index: 10002;" onclick="toggleMusic()">
             <span id="mText">🫀 نبض قلبي</span><audio id="bgMusic" loop><source src="Oo.mp3" type="audio/mpeg"></audio>
         </div>
     </div>
 
     <script>
         const music = document.getElementById('bgMusic');
+        const prayers = [
+            "ربي يحفظك ليا وتكوني من نصيبي ❤️",
+            "يا رب ما نشوف فيك مكروه يا ضي عيوني 🌟",
+            "ربي يجمعنا في الحلال ويجعل أيامنا كلها حب 🤲",
+            "يا رب ضحكتك ما تغيب عن وجهك أبداً 😍"
+        ];
+
         function unlock() {
             const code = document.getElementById('passCode').value;
             if (code === "الصغيرون" || code === "0000") {
-                if (code === "0000") document.getElementById('photo-section').style.display = 'none';
                 music.play().catch(() => {});
-                document.getElementById('lock-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('lock-screen').style.display = 'none';
-                    document.getElementById('main-content').style.display = 'block';
-                    document.getElementById('envelope-icon').style.display = 'block';
-                    createStars(); initScroll();
-                    setTimeout(() => document.getElementById('main-content').style.opacity = '1', 50);
-                }, 1000);
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                document.getElementById('envelope-icon').style.display = 'block';
+                createStars(); initScroll(); startShootingStars();
+                setTimeout(() => document.getElementById('main-content').style.opacity = '1', 50);
             } else alert("الرمز خطا عيوني ❤️");
         }
 
-        function openMessages() { document.getElementById('msg-modal').style.display = 'flex'; }
-        function closeMessages() { document.getElementById('msg-modal').style.display = 'none'; }
-        function toggleMusic() { if(music.paused) { music.play(); document.getElementById('mText').innerText = '⏸ نبض القلب'; } else { music.pause(); document.getElementById('mText').innerText = '▶️ نبض القلب'; } }
+        /* 1. بصمة القلب ورذاذ القلوب عند الضغط المطول */
+        let pressTimer;
+        document.addEventListener('mousedown', startPress);
+        document.addEventListener('mouseup', endPress);
+        document.addEventListener('touchstart', startPress);
+        document.addEventListener('touchend', endPress);
 
+        function startPress(e) {
+            const x = e.clientX || e.touches[0].clientX;
+            const y = e.clientY || e.touches[0].clientY;
+            pressTimer = setInterval(() => {
+                createSparkle(x, y);
+                if (navigator.vibrate) navigator.vibrate(20); // اهتزاز الهاتف
+            }, 100);
+        }
+        function endPress() { clearInterval(pressTimer); }
+
+        function createSparkle(x, y) {
+            const h = document.createElement('div');
+            h.className = 'heart-sparkle';
+            h.innerHTML = '❤️';
+            h.style.left = x + 'px'; h.style.top = y + 'px';
+            h.style.setProperty('--x', (Math.random() - 0.5) * 200 + 'px');
+            h.style.setProperty('--y', (Math.random() - 0.5) * 200 + 'px');
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 1000);
+        }
+
+        /* 2. انفجار القلوب عند الضغط على الصور */
+        function explodeHearts(e) {
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'emoji-rain';
+                heart.innerHTML = ['❤️', '💖', '💘', '✨'][Math.floor(Math.random()*4)];
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+                heart.style.left = (e.clientX + (Math.random() - 0.5) * 200) + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }
+        }
+
+        /* 3. الشهب والدعاء */
+        function startShootingStars() {
+            setInterval(() => {
+                const star = document.createElement('div');
+                star.className = 'shooting-star';
+                star.style.top = Math.random() * 300 + 'px';
+                star.style.left = '-100px';
+                document.getElementById('star-observatory').appendChild(star);
+                
+                star.animate([
+                    { left: '-100px', top: Math.random() * 300 + 'px', opacity: 1 },
+                    { left: '100%', top: Math.random() * 600 + 'px', opacity: 0 }
+                ], { duration: 2000 });
+
+                star.onclick = () => {
+                    const pray = prayers[Math.floor(Math.random() * prayers.length)];
+                    alert("دعاء الشهاب: " + pray); // يمكن تغييرها بـ Modal أجمل
+                };
+                setTimeout(() => star.remove(), 2000);
+            }, 4000);
+        }
+
+        /* العدادات (النبض + الأنفاس + الوقت) */
+        const start = new Date("2020-06-01T00:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime(); const diff = now - start;
+            document.getElementById("days").innerText = Math.floor(diff / 86400000);
+            document.getElementById("hours").innerText = Math.floor((diff % 86400000) / 3600000);
+            document.getElementById("mins").innerText = Math.floor((diff % 3600000) / 60000);
+            document.getElementById("secs").innerText = Math.floor((diff % 60000) / 1000);
+            document.getElementById("heartbeats").innerText = Math.floor((diff / 60000) * 75).toLocaleString();
+            document.getElementById("breaths").innerText = Math.floor((diff / 60000) * 16).toLocaleString(); // 16 نفس في الدقيقة
+        }, 1000);
+
+        // الدوال الأصلية (Stars, Petals, etc.) تبقى كما هي...
         function createPetal() {
             const petal = document.createElement('div');
             const styleNum = Math.floor(Math.random() * 9) + 1;
@@ -232,26 +289,16 @@
             for (let i = 0; i < 150; i++) {
                 const star = document.createElement('div');
                 star.style.position = 'absolute'; star.style.background = 'white'; star.style.width = '2px'; star.style.height = '2px';
-                star.style.top = Math.random() * 100 + '%'; star.style.left = Math.random() * 100 + '%'; star.style.borderRadius = '50%'; star.style.opacity = Math.random();
+                star.style.top = Math.random() * 100 + '%'; star.style.left = Math.random() * 100 + '%'; star.style.borderRadius = '50%';
                 container.appendChild(star);
             }
         }
-
+        function openMessages() { document.getElementById('msg-modal').style.display = 'flex'; }
+        function closeMessages() { document.getElementById('msg-modal').style.display = 'none'; }
         function initScroll() {
             const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); }); }, {threshold: 0.1});
             document.querySelectorAll('.story-item').forEach(el => obs.observe(el));
         }
-
-        const start = new Date("2020-06-01T00:00:00").getTime();
-        setInterval(() => {
-            const now = new Date().getTime(); const diff = now - start;
-            document.getElementById("days").innerText = Math.floor(diff / 86400000);
-            document.getElementById("hours").innerText = Math.floor((diff % 86400000) / 3600000);
-            document.getElementById("mins").innerText = Math.floor((diff % 3600000) / 60000);
-            document.getElementById("secs").innerText = Math.floor((diff % 60000) / 1000);
-            document.getElementById("heartbeats").innerText = Math.floor((diff / 60000) * 75).toLocaleString();
-        }, 1000);
     </script>
 </body>
 </html>
-
