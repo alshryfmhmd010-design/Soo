@@ -86,7 +86,6 @@
         .story-item.active { opacity: 1; transform: translateY(0); }
         .story-item img { width: 100%; border-radius: 20px; border: 5px solid var(--bright-red); box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
 
-        /* الدب المُّقبل (الصورة X.png) */
         .custom-kiss-img {
             position: absolute; bottom: -40px; right: -30px;
             width: 80px; height: 80px; z-index: 10;
@@ -110,8 +109,9 @@
         }
 
         .final-messages { padding: 100px 20px; text-align: center; background: linear-gradient(to top, #4d0a19, transparent); }
-        .msg-card { background: rgba(255, 255, 255, 0.03); max-width: 650px; margin: 25px auto; padding: 35px; border-radius: 25px; border-right: 5px solid var(--bright-red); font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--soft-pink); opacity: 0; transform: scale(0.95); transition: 1.2s; text-align: right; }
+        .msg-card { background: rgba(255, 255, 255, 0.03); max-width: 700px; margin: 25px auto; padding: 35px; border-radius: 25px; border-right: 5px solid var(--bright-red); font-family: 'Amiri', serif; font-size: 1.4rem; color: #fff; opacity: 0; transform: scale(0.95); transition: 1.2s; text-align: right; line-height: 1.8; }
         .msg-card.active { opacity: 1; transform: scale(1); }
+        .msg-card strong { color: var(--soft-pink); display: block; margin-bottom: 10px; font-size: 1.6rem; }
 
         .btn-unlock { background: var(--bright-red); color: white; padding: 15px 50px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 0 15px var(--bright-red); }
         input { background: rgba(255,255,255,0.05); border: 1px solid var(--soft-pink); padding: 15px; border-radius: 30px; color: white; text-align: center; margin-bottom: 25px; outline: none; }
@@ -170,8 +170,47 @@
         </div>
 
         <section class="final-messages">
-            <div class="msg-card">"أنتِ النبضة التي أحيا بها، والقصيدة التي لا تنتهي."</div>
-            <div class="msg-card">"أحبكِ جداً يا سوو.. للأبد."</div>
+            <div class="msg-card">
+                <strong>سهى… يا أجمل شي صارلي في حياتي ❤️</strong>
+                قعدت نفكر شني نكتبلك… وكل الكلام اللي في الدنيا حسّيته شويه عليك.<br><br>
+                في عيد الحب هذا وهوا اول عيد لينا مع بعض نبي نقولك حاجة من قلبي،
+                انتي مش بس بنت نحبها… انتي البنت اللي اخترتها من بين كل الناس،
+                واللي قلبي ارتاحلها من أول لحظة.<br><br>
+                ضحكتك عندي أغلى من كل شي، وصوتك يطمني أكثر من أي كلام.
+                لما نزعل نلقاك حضن وأمان، ولما نفرح أول وحدة نبي نشاركها فرحتي هي انتي.
+            </div>
+
+            <div class="msg-card">
+                نحبك حب كبير هلبااات، حب صادق، حب مش بس كلام ينقال…
+                حب يبان في غيرتي عليك، في خوفي عليك، في دعائي لك في كل صلاة.
+                ربي عالم قداش نتمناك تكوني ديما معاي، في أيامي الحلوة قبل الصعبة،
+                وفي كل خطوة نخطوها نبي إيدك تكون في إيدي.<br><br>
+                انتي مش بس حبيبتي، انتي نصّي الثاني، وقلبي اللي يدق باسمك من يوم عرفتك.
+            </div>
+
+            <div class="msg-card">
+                انتي أمنيتي اللي ندعي بيها، وحلمي اللي نبي نحققه، ونصيب قلبي اللي اختاره من غير تردد.<br><br>
+                لو خيروني بين الدنيا بكلها وبينك، نختارك انتي من غير ما نفكر حتى ثانية.
+                لأنك انتي دنيتي، وراحتي، وسبب ابتسامتي كل يوم.
+            </div>
+
+            <div class="msg-card">
+                نحبك حب راجل يخاف على حبيبته، يغار عليها من الهوا، ويعتبرها خط أحمر قدام أي حد.<br>
+                غيرتي عليك مش ضعف… غيرتي عليك لأني نشوفك أغلى من روحي، ونبيك ديما ليا وبس، وما نرضى حتى حد يقربلك بنظرة ولا بكلمة.<br><br>
+                معاك حسّيت بمعنى الرجولة الحقيقي، إنك تكون مسؤول على قلب حد، وتخاف عليه، وتتمناه ديما مبسوط وآمن.
+            </div>
+
+            <div class="msg-card">
+                نبي نكون حضنك وقت تعبك، وضهرك وقت ضعفك، وأول واحد تضحكيله، وآخر صوت تسمعيه قبل ما ترقدي.<br><br>
+                انتي مش مرحلة في حياتي… انتي حياتي نفسها.<br><br>
+                في عيد الحب هذا نوعدك وعد راجل، نكون ليك أمان، وصدق، ووفا، ونخليك ديما تحسي إنك ملكة في قلبي.
+            </div>
+
+            <div class="msg-card" style="text-align: center; border-right: none; border-top: 2px solid var(--bright-red);">
+                كل عام وانتي حبي، وكل عام وانتي أقرب إنسانة لقلبي، وكل عام وأنا نحمد ربي إنه رزقني بيك.<br><br>
+                <strong>وصدقيني… ما فيش حد يقدر يحبك قدي ❤️‍🔥</strong>
+            </div>
+            
             <div style="margin-top: 80px;">
                 <div class="big-beating-heart" style="font-size: 100px;">❤️</div>
                 <h3 style="font-family: 'Reem Kufi'; color: var(--soft-pink); font-size: 1.8rem;">دائماً وأبداً.. محمد وسهى</h3>
@@ -188,22 +227,17 @@
         const petalContainer = document.getElementById('petal-container');
         function createPetal() {
             const petal = document.createElement('div');
-            
-            // تم التعديل ليختار عشوائياً بين 9 أنواع (A, B, C, D, E, F, X, Y, Z)
             const styleNum = Math.floor(Math.random() * 9) + 1;
             petal.className = `petal petal-style-${styleNum}`;
-            
             const size = Math.random() * 25 + 15 + 'px';
             petal.style.width = size; petal.style.height = size; 
             petal.style.left = Math.random() * 100 + '%'; petal.style.top = '-50px';
             petal.style.opacity = Math.random() * 0.5 + 0.5;
-            
             petal.animate([
                 { transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 0 },
                 { opacity: 1, offset: 0.1 },
                 { transform: `translate3d(${Math.random() * 200 - 100}px, 105vh, 0) rotate(${Math.random() * 800}deg)`, opacity: 0 }
             ], { duration: Math.random() * 5000 + 8000, iterations: Infinity, delay: Math.random() * 5000, easing: 'ease-in-out' });
-            
             petalContainer.appendChild(petal);
         }
         for(let i=0; i<45; i++) { createPetal(); }
