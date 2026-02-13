@@ -68,11 +68,11 @@
         .story-item.active { opacity: 1; transform: translateY(0); }
         .story-item img { width: 100%; border-radius: 20px; border: 5px solid var(--bright-red); box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
 
-        /* الصورة الشخصية (مكان الدب) */
+        /* الصورة الشخصية */
         .custom-kiss-img {
             position: absolute; bottom: -40px; right: -30px;
             width: 80px; height: 80px; z-index: 10;
-            background-image: url('X.png'); /* ضع اسم صورتك هنا */
+            background-image: url('bear.png');
             background-size: contain; background-repeat: no-repeat;
             animation: bearKiss 2s infinite ease-in-out;
         }
@@ -82,7 +82,6 @@
             50% { transform: scale(1.1) rotate(-10deg); }
         }
 
-        /* القبلات الطائرة من الصورة */
         .custom-kiss-img::after {
             content: '💋'; position: absolute; top: -10px; left: 0;
             font-size: 25px; animation: kissFloat 1.5s infinite; opacity: 0;
@@ -140,8 +139,8 @@
             <p style="font-family: 'Amiri'; color: #888; position: relative; z-index: 2;">يونيو 2020 - الشاهد الأول على نبضنا</p>
         </section>
 
-        <div class="story-container">
-            <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); margin-top: 50px;">أجمل ذكرياتنا 📸</h2>
+        <div id="photo-section" class="story-container">
+            <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); margin-top: 50px; text-align: center;">أجمل ذكرياتنا 📸</h2>
             <div class="story-item"><img src="1.png"><div class="custom-kiss-img"></div></div>
             <div class="story-item"><img src="2.png"><div class="custom-kiss-img"></div></div>
             <div class="story-item"><img src="3.png"><div class="custom-kiss-img"></div></div>
@@ -200,8 +199,19 @@
         }
 
         const music = document.getElementById('bgMusic');
+        
         function unlock() {
-            if(document.getElementById('passCode').value === "1234") {
+            const code = document.getElementById('passCode').value;
+            const photoSection = document.getElementById('photo-section');
+            
+            if (code === "1234" || code === "0000") {
+                // إذا كان الرمز 0000 نخفي قسم الصور
+                if (code === "0000") {
+                    photoSection.style.display = 'none';
+                } else {
+                    photoSection.style.display = 'block';
+                }
+
                 music.play();
                 document.getElementById('lock-screen').style.opacity = '0';
                 setTimeout(() => {
@@ -211,7 +221,9 @@
                     initScroll();
                     setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
                 }, 1000);
-            } else { alert("الرمز خاطئ ❤️"); }
+            } else { 
+                alert("الرمز خاطئ ❤️"); 
+            }
         }
 
         function toggleMusic() {
