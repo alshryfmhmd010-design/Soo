@@ -27,7 +27,7 @@
         }
         .petal { position: absolute; background-size: contain; background-repeat: no-repeat; pointer-events: none; }
         
-        /* صور البتلات */
+        /* صور البتلات الستة */
         .petal-style-1 { background-image: url('A.png'); }
         .petal-style-2 { background-image: url('B.png'); }
         .petal-style-3 { background-image: url('C.png'); }
@@ -48,7 +48,7 @@
         .hero-section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .dashboard { background: var(--glass-pink); border-radius: 30px; padding: 40px; border: 1px solid var(--bright-red); width: 90%; max-width: 550px; box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
 
-        /* قسم خريطة النجوم والقمر */
+        /* قسم النجوم والقمر */
         .star-observatory {
             padding: 100px 20px; background: #050a14; position: relative; overflow: hidden;
             text-align: center; border-top: 2px solid var(--deep-red); border-bottom: 2px solid var(--deep-red);
@@ -60,23 +60,37 @@
         }
         .moon::after { content: ''; position: absolute; width: 80px; height: 80px; background: #050a14; border-radius: 50%; left: 30px; top: -5px; }
 
-        /* معرض الصور مع الدب والقُبلات */
+        /* معرض الصور */
         .story-item {
-            width: 85%; max-width: 450px; margin: 80px auto; opacity: 0; 
+            width: 85%; max-width: 450px; margin: 100px auto; opacity: 0; 
             transform: translateY(30px); transition: 1.2s; position: relative;
         }
         .story-item.active { opacity: 1; transform: translateY(0); }
         .story-item img { width: 100%; border-radius: 20px; border: 5px solid var(--bright-red); box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
 
-        .kissing-bear { position: absolute; bottom: -30px; right: -20px; font-size: 50px; z-index: 10; animation: bearKiss 2s infinite ease-in-out; }
-        @keyframes bearKiss { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.2) rotate(-10deg); } }
+        /* الصورة الشخصية (مكان الدب) */
+        .custom-kiss-img {
+            position: absolute; bottom: -40px; right: -30px;
+            width: 80px; height: 80px; z-index: 10;
+            background-image: url('bear.png'); /* ضع اسم صورتك هنا */
+            background-size: contain; background-repeat: no-repeat;
+            animation: bearKiss 2s infinite ease-in-out;
+        }
+        
+        @keyframes bearKiss {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(-10deg); }
+        }
 
-        /* القُبلات الطائرة */
-        .kissing-bear::after {
-            content: '💋'; position: absolute; top: -20px; left: 10px;
+        /* القبلات الطائرة من الصورة */
+        .custom-kiss-img::after {
+            content: '💋'; position: absolute; top: -10px; left: 0;
             font-size: 25px; animation: kissFloat 1.5s infinite; opacity: 0;
         }
-        @keyframes kissFloat { 0% { transform: translateY(0) scale(0.5); opacity: 1; } 100% { transform: translateY(-60px) scale(1.2); opacity: 0; } }
+        @keyframes kissFloat { 
+            0% { transform: translateY(0) scale(0.5); opacity: 1; } 
+            100% { transform: translateY(-70px) scale(1.3); opacity: 0; } 
+        }
 
         .final-messages { padding: 100px 20px; text-align: center; background: linear-gradient(to top, #4d0a19, transparent); }
         .msg-card { background: rgba(255, 255, 255, 0.03); max-width: 650px; margin: 25px auto; padding: 35px; border-radius: 25px; border-right: 5px solid var(--bright-red); font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--soft-pink); opacity: 0; transform: scale(0.95); transition: 1.2s; text-align: right; }
@@ -94,9 +108,9 @@
 
     <div id="lock-screen">
         <div class="lock-card">
-            <div class="beating-heart">🐻</div>
+            <div class="beating-heart">❤️</div>
             <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink);">سهى & محمد</h2>
-            <p>أدخلي الرمز السري يا ملكتي</p>
+            <p>أدخلي الرمز السري</p>
             <input type="password" id="passCode" placeholder="رمز الحب">
             <br>
             <button class="btn-unlock" onclick="unlock()">دخول 🌹</button>
@@ -105,16 +119,16 @@
 
     <div class="main-content" id="main-content">
         <section class="hero-section">
-            <div class="beating-heart">❤️</div>
+            <div class="beating-heart">💖</div>
             <h1 style="font-family: 'Reem Kufi'; font-size: 3rem; color: var(--soft-pink);">محمد & سهى</h1>
             <div class="dashboard">
                 <span id="heartbeats" style="font-size: 3rem; font-weight: bold; color: var(--soft-pink);">0</span>
                 <p>نبضة حب باسمكِ</p>
                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px;">
-                    <div><span id="days" style="color: var(--bright-red); font-weight: bold; font-size: 1.5rem;">0</span><br><small>يوم</small></div>
-                    <div><span id="hours" style="color: var(--bright-red); font-weight: bold; font-size: 1.5rem;">0</span><br><small>ساعة</small></div>
-                    <div><span id="mins" style="color: var(--bright-red); font-weight: bold; font-size: 1.5rem;">0</span><br><small>دقيقة</small></div>
-                    <div><span id="secs" style="color: var(--bright-red); font-weight: bold; font-size: 1.5rem;">0</span><br><small>ثانية</small></div>
+                    <div><span id="days" style="color: var(--bright-red); font-weight: bold;">0</span><br><small>يوم</small></div>
+                    <div><span id="hours" style="color: var(--bright-red); font-weight: bold;">0</span><br><small>ساعة</small></div>
+                    <div><span id="mins" style="color: var(--bright-red); font-weight: bold;">0</span><br><small>دقيقة</small></div>
+                    <div><span id="secs" style="color: var(--bright-red); font-weight: bold;">0</span><br><small>ثانية</small></div>
                 </div>
             </div>
         </section>
@@ -123,30 +137,26 @@
             <div id="constellation"></div>
             <div class="moon"></div>
             <h2 style="font-family: 'Reem Kufi'; color: #fdfae5; position: relative; z-index: 2;">سماء ليلة اللقاء</h2>
-            <p style="font-family: 'Amiri'; font-style: italic; color: #888; position: relative; z-index: 2;">يونيو 2020 - الشاهد الأول على نبضنا</p>
+            <p style="font-family: 'Amiri'; color: #888; position: relative; z-index: 2;">يونيو 2020 - الشاهد الأول على نبضنا</p>
         </section>
 
         <div class="story-container">
             <h2 style="font-family: 'Reem Kufi'; color: var(--soft-pink); margin-top: 50px;">أجمل ذكرياتنا 📸</h2>
-            <div class="story-item"><img src="1.png"><div class="kissing-bear">🐻</div></div>
-            <div class="story-item"><img src="2.png"><div class="kissing-bear">🐻</div></div>
-            <div class="story-item"><img src="3.png"><div class="kissing-bear">🐻</div></div>
-            <div class="story-item"><img src="4.png"><div class="kissing-bear">🐻</div></div>
-            <div class="story-item"><img src="5.png"><div class="kissing-bear">🐻</div></div>
-            <div class="story-item"><img src="6.png"><div class="kissing-bear">🐻</div></div>
-            <div class="story-item"><img src="7.png"><div class="kissing-bear">🐻</div></div>
-            <div class="story-item"><img src="8.png"><div class="kissing-bear">🐻</div></div>
-            <div class="story-item"><img src="9.png"><div class="kissing-bear">🐻</div></div>
-            <div class="story-item"><img src="10.png"><div class="kissing-bear">🐻</div></div>
+            <div class="story-item"><img src="1.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="2.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="3.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="4.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="5.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="6.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="7.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="8.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="9.png"><div class="custom-kiss-img"></div></div>
+            <div class="story-item"><img src="10.png"><div class="custom-kiss-img"></div></div>
         </div>
 
         <section class="final-messages">
             <div class="msg-card">"أنتِ النبضة التي أحيا بها، والقصيدة التي لا تنتهي."</div>
             <div class="msg-card">"أحبكِ جداً يا سوو.. للأبد."</div>
-            <div style="margin-top: 50px;">
-                <div class="beating-heart" style="font-size: 80px;">💖</div>
-                <h3 style="font-family: 'Reem Kufi'; color: var(--soft-pink);">دائماً وأبداً.. محمد وسهى</h3>
-            </div>
         </section>
 
         <div class="music-player" style="position:fixed; bottom:25px; left:25px; background:rgba(255, 0, 0, 0.2); padding:12px 25px; border-radius:35px; backdrop-filter:blur(10px); z-index: 10002; border: 1px solid var(--bright-red);">
@@ -162,17 +172,16 @@
             const styleNum = Math.floor(Math.random() * 6) + 1;
             petal.className = `petal petal-style-${styleNum}`;
             const size = Math.random() * 25 + 15 + 'px';
-            const left = Math.random() * 100 + '%';
-            petal.style.width = size; petal.style.height = size; petal.style.left = left; petal.style.top = '-50px';
+            petal.style.width = size; petal.style.height = size; petal.style.left = Math.random() * 100 + '%'; petal.style.top = '-50px';
             petal.style.opacity = Math.random() * 0.5 + 0.5;
             petal.animate([
                 { transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 0 },
                 { opacity: 1, offset: 0.1 },
-                { transform: `translate3d(${Math.random() * 250 - 125}px, 105vh, 0) rotate(${Math.random() * 1000}deg)`, opacity: 0 }
+                { transform: `translate3d(${Math.random() * 200 - 100}px, 105vh, 0) rotate(${Math.random() * 800}deg)`, opacity: 0 }
             ], { duration: Math.random() * 5000 + 8000, iterations: Infinity, delay: Math.random() * 5000, easing: 'ease-in-out' });
             petalContainer.appendChild(petal);
         }
-        for(let i=0; i<45; i++) { createPetal(); }
+        for(let i=0; i<40; i++) { createPetal(); }
 
         function createStars() {
             const container = document.getElementById('constellation');
