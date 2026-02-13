@@ -170,7 +170,7 @@
         <div class="music-player" style="position:fixed; bottom:20px; right:20px; background:rgba(0,0,0,0.6); padding:10px 20px; border-radius:30px; backdrop-filter:blur(10px); border:1px solid var(--deep-rose); z-index: 10002;">
             <button onclick="toggleMusic()" id="mBtn" style="background:none; border:none; color:white; cursor:pointer; font-weight:bold;">⏸ استمعي لنبضي</button>
             <audio id="bgMusic" loop preload="auto">
-                <source src="https://assets.mixkit.co/active_storage/sfx/2324/2324-preview.mp3" type="audio/mpeg">
+                <source src="https://www.soundjay.com/human/heartbeat-01.mp3" type="audio/mpeg">
             </audio>
         </div>
     </div>
@@ -213,8 +213,12 @@
 
         function unlock() {
             if(document.getElementById('passCode').value === "1234") {
-                // محاولة تشغيل الصوت فور الضغط لتجاوز حظر المتصفح
-                music.play().catch(e => console.log("Audio play pending user interaction"));
+                // تفعيل الصوت فور النقر
+                music.play().then(() => {
+                    console.log("Heartbeat started");
+                }).catch(err => {
+                    console.log("Audio block: " + err);
+                });
                 
                 document.getElementById('lock-screen').style.opacity = '0';
                 setTimeout(() => {
