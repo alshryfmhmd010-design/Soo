@@ -30,13 +30,13 @@
             position: absolute; background-size: contain; background-repeat: no-repeat; pointer-events: none;
         }
 
-        /* أماكن صور البتلات (تأكد من وجود الملفات في مجلدك) */
+        /* تصحيح تعريف صور البتلات الستة لكي تظهر جميعها */
         .petal-style-1 { background-image: url('A.png'); }
         .petal-style-2 { background-image: url('B.png'); }
         .petal-style-3 { background-image: url('C.png'); }
-        .petal-style-1 { background-image: url('D.png'); }
-        .petal-style-1 { background-image: url('E.png'); }
-        .petal-style-1 { background-image: url('F.png'); }
+        .petal-style-4 { background-image: url('D.png'); }
+        .petal-style-5 { background-image: url('E.png'); }
+        .petal-style-6 { background-image: url('F.png'); }
 
         /* خلفية متوهجة للموقع */
         body::before {
@@ -98,7 +98,7 @@
             background: rgba(255, 255, 255, 0.03); max-width: 650px; margin: 25px auto;
             padding: 35px; border-radius: 25px; border-left: 5px solid var(--bright-pink);
             font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--soft-pink);
-            opacity: 0; transform: scale(0.95); transition: 1.2s;
+            opacity: 0; transform: scale(0.95); transition: 1.2s; text-align: right;
         }
         .msg-card.active { opacity: 1; transform: scale(1); }
 
@@ -107,8 +107,6 @@
             border: none; border-radius: 50px; cursor: pointer; font-weight: bold;
             box-shadow: 0 5px 20px rgba(255, 77, 109, 0.4); transition: 0.3s;
         }
-        .btn-unlock:hover { transform: scale(1.05); background: var(--deep-rose); }
-
         input { 
             background: rgba(255,255,255,0.05); border: 1px solid var(--soft-pink); 
             padding: 15px; border-radius: 30px; color: white; text-align: center; 
@@ -116,7 +114,7 @@
         }
         
         .beating-heart { font-size: 65px; animation: heartBeat 0.8s infinite; color: var(--bright-pink); }
-        @keyframes heartBeat { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--bright-pink)); } 50% { transform: scale(1.15); filter: drop-shadow(0 0 20px var(--bright-pink)); } }
+        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
     </style>
 </head>
 <body>
@@ -185,26 +183,42 @@
     </div>
 
     <script>
-        // محرك البتلات المطور
         const petalContainer = document.getElementById('petal-container');
+        
         function createPetal() {
             const petal = document.createElement('div');
-            const styleNum = Math.floor(Math.random() * 3) + 1;
+            
+            // تم التعديل ليختار عشوائياً بين 6 أشكال (A لـ F)
+            const styleNum = Math.floor(Math.random() * 6) + 1;
             petal.className = `petal petal-style-${styleNum}`;
+            
             const size = Math.random() * 25 + 15 + 'px';
             const left = Math.random() * 100 + '%';
             const duration = Math.random() * 5 + 10 + 's';
             const delay = Math.random() * 10 + 's';
-            petal.style.width = size; petal.style.height = size; petal.style.left = left; petal.style.top = '-50px';
+            
+            petal.style.width = size; 
+            petal.style.height = size; 
+            petal.style.left = left; 
+            petal.style.top = '-50px';
             petal.style.opacity = Math.random() * 0.5 + 0.5;
+            
             petal.animate([
                 { transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 0 },
                 { opacity: 1, offset: 0.1 },
                 { transform: `translate3d(${Math.random() * 250 - 125}px, 105vh, 0) rotate(${Math.random() * 1000}deg)`, opacity: 0 }
-            ], { duration: parseFloat(duration) * 1000, iterations: Infinity, delay: parseFloat(delay) * 1000, easing: 'ease-in-out' });
+            ], { 
+                duration: parseFloat(duration) * 1000, 
+                iterations: Infinity, 
+                delay: parseFloat(delay) * 1000, 
+                easing: 'ease-in-out' 
+            });
+            
             petalContainer.appendChild(petal);
         }
-        for(let i=0; i<40; i++) { createPetal(); }
+
+        // إنشاء 45 بتلة لتغطية الشاشة بشكل جميل
+        for(let i=0; i<45; i++) { createPetal(); }
 
         const music = document.getElementById('bgMusic');
         function unlock() {
@@ -234,7 +248,8 @@
 
         const start = new Date("2020-06-01T00:00:00").getTime();
         setInterval(() => {
-            const now = new Date().getTime(); const diff = now - start;
+            const now = new Date().getTime(); 
+            const diff = now - start;
             document.getElementById("days").innerText = Math.floor(diff / 86400000);
             document.getElementById("hours").innerText = Math.floor((diff % 86400000) / 3600000);
             document.getElementById("mins").innerText = Math.floor((diff % 3600000) / 60000);
