@@ -3,146 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohamed & Soha | Infinite Love ❤️</title>
+    <title>Soha & Mohamed | Flower Garden ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;700&family=Amiri:ital,wght@0,700;1,400&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --hot-pink: #ff4d6d;
             --soft-pink: #ffb3c1;
-            --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.8);
+            --pure-white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
         body, html {
             margin: 0; padding: 0; font-family: 'Cairo', sans-serif;
-            background-color: #fff5f6;
-            color: #444; overflow-x: hidden; scroll-behavior: smooth;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="%23ff4d6d" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'), auto;
+            background-color: #fffafa; color: #444;
+            overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        /* تأثير الضوء المتفاعل مع الحركة */
-        #cursor-glow {
-            position: fixed; width: 300px; height: 300px;
-            background: radial-gradient(circle, rgba(255,77,109,0.15) 0%, transparent 70%);
-            border-radius: 50%; pointer-events: none; z-index: 9999;
-            transform: translate(-50%, -50%); transition: 0.1s;
+        /* خلفية العناصر المتساقطة (ورود وقلوب) */
+        #floating-elements {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1000;
+        }
+        .element { position: absolute; top: -50px; animation: fall linear forwards; }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
         /* شاشة القفل */
         #lock-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--white); display: flex; justify-content: center; align-items: center; z-index: 10000; transition: 1s ease-in-out;
+            background: var(--pure-white); display: flex; justify-content: center; align-items: center; z-index: 10001; transition: 1.5s;
+        }
+        .lock-card {
+            background: var(--glass); padding: 40px; border-radius: 50px;
+            border: 2px solid var(--soft-pink); text-align: center; box-shadow: 0 15px 40px rgba(255,77,109,0.15);
         }
 
         /* الواجهة الرئيسية */
         .main-content { display: none; opacity: 0; transition: 2s; }
 
-        /* العدادات */
+        /* العداد والقلب النابض */
+        .hero-section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .beating-heart { font-size: 60px; color: var(--hot-pink); animation: heartBeat 1.4s infinite; filter: drop-shadow(0 0 10px var(--soft-pink)); }
+        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
         .dashboard {
-            background: var(--glass); backdrop-filter: blur(10px);
-            border-radius: 40px; padding: 30px; border: 2px solid var(--soft-pink);
-            display: flex; flex-direction: column; align-items: center; gap: 20px;
-            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.1); width: 90%; max-width: 500px;
-            margin: 20px auto;
+            background: white; border-radius: 40px; padding: 30px; border: 2px solid var(--soft-pink);
+            width: 90%; max-width: 500px; margin: 20px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .heart-stats { text-align: center; }
-        .heart-stats span { font-size: 2.2rem; font-weight: bold; color: var(--hot-pink); display: block; }
-
-        .time-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%;
-        }
-        .time-box { text-align: center; background: #fff; padding: 10px; border-radius: 20px; border: 1px solid var(--soft-pink); }
-        .time-box span { display: block; font-size: 1.2rem; font-weight: bold; color: var(--hot-pink); }
-
-        /* الرسائل التفاعلية */
-        .message-card {
-            background: #fff; margin: 30px auto; padding: 25px;
-            width: 85%; max-width: 450px; border-radius: 30px;
-            border-right: 6px solid var(--hot-pink);
-            box-shadow: 5px 5px 20px rgba(0,0,0,0.05);
-            opacity: 0; transform: translateX(50px); transition: 1s;
-        }
-        .message-card.active { opacity: 1; transform: translateX(0); }
-
-        /* صور وقصص */
+        /* تنسيق الصور بتأثير ناعم */
         .story-item {
             width: 85%; max-width: 400px; margin: 50px auto;
-            opacity: 0; transform: scale(0.9); transition: 1.2s;
+            opacity: 0; transform: translateY(50px); transition: 1.2s;
+            position: relative;
         }
-        .story-item.active { opacity: 1; transform: scale(1); }
+        .story-item.active { opacity: 1; transform: translateY(0); }
         .story-item img {
-            width: 100%; border-radius: 40px; border: 4px solid #fff;
-            box-shadow: 0 10px 30px rgba(255, 179, 193, 0.4);
+            width: 100%; border-radius: 40px; border: 6px solid #fff;
+            box-shadow: 0 15px 35px rgba(255, 179, 193, 0.4);
         }
 
-        /* القلب النابض */
-        .beating-heart {
-            font-size: 60px; color: var(--hot-pink);
-            animation: pulse 1.5s infinite; filter: drop-shadow(0 0 10px var(--soft-pink));
+        /* قسم الرسائل في النهاية */
+        .messages-section {
+            padding: 80px 20px; background: linear-gradient(to bottom, transparent, #ffeef1);
+            text-align: center;
         }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
-
-        .btn-unlock {
-            background: var(--hot-pink); color: #fff; border: none; padding: 15px 50px;
-            border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 5px 15px rgba(255,77,109,0.3);
+        .message-card {
+            background: white; margin: 20px auto; padding: 30px;
+            max-width: 500px; border-radius: 30px; border-left: 8px solid var(--hot-pink);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); font-family: 'Amiri', serif;
+            font-size: 1.4rem; line-height: 1.8; opacity: 0; transform: scale(0.9); transition: 1s;
         }
+        .message-card.active { opacity: 1; transform: scale(1); }
 
         /* مشغل الموسيقى */
-        .music-bar {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+        .music-player {
+            position: fixed; bottom: 20px; left: 20px; z-index: 1001;
             background: var(--glass); backdrop-filter: blur(10px);
             padding: 10px 20px; border-radius: 40px; border: 1px solid var(--soft-pink);
-            display: flex; align-items: center; gap: 15px; z-index: 1001;
+            display: flex; align-items: center; gap: 10px;
         }
+
+        .btn-unlock { background: var(--hot-pink); color: white; padding: 15px 45px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        input { border: 2px solid var(--soft-pink); padding: 15px; border-radius: 30px; width: 80%; text-align: center; margin-bottom: 20px; outline: none; }
     </style>
 </head>
 <body>
 
-    <div id="cursor-glow"></div>
+    <div id="floating-elements"></div>
 
     <div id="lock-screen">
-        <div style="text-align: center;">
-            <div class="beating-heart">❤️</div>
-            <h2 style="font-family: 'Reem Kufi'; color: var(--hot-pink);">SOHA & MOHAMED</h2>
-            <input type="password" id="passCode" placeholder="رمز الدخول" style="padding:15px; border-radius:30px; border:2px solid var(--soft-pink); text-align:center; margin-bottom:20px; outline:none;">
+        <div class="lock-card">
+            <div class="beating-heart">🌸</div>
+            <h2 style="font-family: 'Reem Kufi'; color: var(--hot-pink);">سهى & محمد</h2>
+            <p style="color: #888;">أدخلي رمز الحب لعالمنا المليء بالورد</p>
+            <input type="password" id="passCode" placeholder="رمز الدخول">
             <br>
-            <button class="btn-unlock" onclick="unlock()">دخول لعالمنا 🌹</button>
+            <button class="btn-unlock" onclick="unlock()">دخول 🌹</button>
         </div>
     </div>
 
     <div class="main-content" id="main-content">
         
-        <section style="text-align: center; padding-top: 50px;">
+        <section class="hero-section">
             <h1 style="font-family: 'Reem Kufi'; color: var(--hot-pink); font-size: 3rem;">محمد ❤️ سهى</h1>
-            
+            <div class="beating-heart">❤️</div>
             <div class="dashboard">
-                <div class="heart-stats">
-                    <small>نبض قلبي بحبكِ حوالي:</small>
-                    <span id="heartbeats">0</span>
-                    <small>نبضة منذ يونيو 2020</small>
-                </div>
-                <hr style="width: 100%; border: 0.5px solid var(--soft-pink); opacity: 0.3;">
-                <div class="time-grid">
-                    <div class="time-box"><span id="days">0</span><small>يوم</small></div>
-                    <div class="time-box"><span id="hours">0</span><small>ساعة</small></div>
-                    <div class="time-box"><span id="mins">0</span><small>دقيقة</small></div>
-                    <div class="time-box"><span id="secs">0</span><small>ثانية</small></div>
+                <p style="margin: 0; color: #888;">نبض قلبي بحبكِ:</p>
+                <span id="heartbeats" style="font-size: 2.2rem; font-weight: bold; color: var(--hot-pink);">0</span>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 20px; gap: 10px;">
+                    <div style="text-align: center;"><span id="days" style="font-weight: bold; color: var(--hot-pink);">0</span><br><small>يوم</small></div>
+                    <div style="text-align: center;"><span id="hours" style="font-weight: bold; color: var(--hot-pink);">0</span><br><small>ساعة</small></div>
+                    <div style="text-align: center;"><span id="mins" style="font-weight: bold; color: var(--hot-pink);">0</span><br><small>دقيقة</small></div>
+                    <div style="text-align: center;"><span id="secs" style="font-weight: bold; color: var(--hot-pink);">0</span><br><small>ثانية</small></div>
                 </div>
             </div>
         </section>
 
-        <div class="messages-container">
-            <div class="message-card">
-                <p style="font-family: 'Amiri'; font-size: 1.3rem;">"سهى.. أنتِ بياض الثلج في حياتي، واللون الوردي الذي يزين أيامي. أحبكِ اليوم أكثر من أي وقت مضى."</p>
-            </div>
-            <div class="message-card">
-                <p style="font-family: 'Amiri'; font-size: 1.3rem;">"يا سوو، كلما نظرت إلى الـ 2077 يوماً التي قضيتها معكِ، أدركت أنني ملكت العالم بكِ."</p>
-            </div>
-        </div>
-
         <div class="story-container">
-            <div class="story-item"><img src="1.png"><p style="text-align:center;">بداية حكايتنا ❤️</p></div>
+            <div class="story-item"><img src="1.png"><p style="text-align:center; font-family:'Amiri'; color: var(--hot-pink);">بداية حكايتنا يا سوو ❤️</p></div>
             <div class="story-item"><img src="2.png"></div>
             <div class="story-item"><img src="3.png"></div>
             <div class="story-item"><img src="4.png"></div>
@@ -151,24 +132,51 @@
             <div class="story-item"><img src="7.png"></div>
             <div class="story-item"><img src="8.png"></div>
             <div class="story-item"><img src="9.png"></div>
-            <div class="story-item"><img src="10.png"><p style="text-align:center;">إلى الأبد معاً.. محمد وسهى</p></div>
+            <div class="story-item"><img src="10.png"><p style="text-align:center; font-family:'Amiri'; color: var(--hot-pink);">أنتِ ملكي للأبد 💍</p></div>
         </div>
 
-        <div class="music-bar">
+        <section class="messages-section">
+            <h2 style="font-family: 'Reem Kufi'; color: var(--hot-pink); margin-bottom: 40px;">رسائل من قلب محمد لـ "سوو" 💌</h2>
+            <div class="message-card">
+                "سهى.. أنتِ أجمل من كل الورود التي في هذا الموقع. بياض قلبك هو ما يجعلني أعشقك كل يوم أكثر."
+            </div>
+            <div class="message-card">
+                "يا نبض قلبي، شكراً لأنكِ اخترتيني لأكون شريك عمرك منذ يونيو 2020. ڤلنتاين سعيد يا حبيبتي."
+            </div>
+            <div class="message-card">
+                "أعدكِ أن تبقى دقات قلبي تحسب حبكِ حتى لآخر العمر. أحبكِ جداً."
+            </div>
+            
+            <div style="margin-top: 100px;">
+                <div class="beating-heart" style="font-size: 80px;">❤️</div>
+                <h3 style="font-family: 'Reem Kufi'; color: var(--hot-pink);">إلى الأبد.. محمد و سهى</h3>
+            </div>
+        </section>
+
+        <div class="music-player">
             <button onclick="toggleMusic()" id="mBtn" style="background:none; border:none; font-size:20px; cursor:pointer;">▶️</button>
-            <div id="mTime" style="font-size: 0.8rem; color: var(--hot-pink);">00:00</div>
+            <span id="mTime" style="font-size: 0.8rem; color: var(--hot-pink); font-weight: bold;">00:00</span>
             <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
         </div>
 
     </div>
 
     <script>
-        // تفاعل الضوء مع الفأرة
-        const glow = document.getElementById('cursor-glow');
-        document.addEventListener('mousemove', (e) => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-        });
+        // إنشاء الورود والقلوب المتساقطة بكثرة
+        function createElements() {
+            const container = document.getElementById('floating-elements');
+            const el = document.createElement('div');
+            el.className = 'element';
+            const types = ['🌸', '❤️', '🌹', '💖', '🤍', '🌷'];
+            el.innerText = types[Math.floor(Math.random() * types.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            const duration = Math.random() * 4 + 4;
+            el.style.animationDuration = duration + 's';
+            container.appendChild(el);
+            setTimeout(() => el.remove(), duration * 1000);
+        }
+        setInterval(createElements, 300);
 
         function unlock() {
             if(document.getElementById('passCode').value === "1234") {
@@ -180,7 +188,7 @@
                     setTimeout(() => { main.style.opacity = '1'; initScroll(); }, 50);
                     toggleMusic();
                 }, 1000);
-            } else { alert("الرمز خاطئ يا ملكة محمد ❤️"); }
+            } else { alert("الرمز خاطئ يا حبيبة محمد ❤️"); }
         }
 
         const music = document.getElementById('bgMusic');
@@ -188,7 +196,6 @@
             if(music.paused) { music.play(); document.getElementById('mBtn').innerText = '⏸'; }
             else { music.pause(); document.getElementById('mBtn').innerText = '▶️'; }
         }
-
         music.ontimeupdate = () => {
             let m = Math.floor(music.currentTime/60);
             let s = Math.floor(music.currentTime%60);
@@ -210,7 +217,6 @@
             document.getElementById("hours").innerText = Math.floor((diff % 86400000) / 3600000);
             document.getElementById("mins").innerText = Math.floor((diff % 3600000) / 60000);
             document.getElementById("secs").innerText = Math.floor((diff % 60000) / 1000);
-            // عداد النبضات (تقريباً 75 نبضة في الدقيقة)
             const beats = Math.floor(((now - start) / 60000) * 75);
             document.getElementById("heartbeats").innerText = beats.toLocaleString();
         }, 1000);
